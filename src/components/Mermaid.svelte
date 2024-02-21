@@ -8,10 +8,10 @@
 		mermaid.initialize({ startOnLoad: true });
 	});
 
-	async function graphDefinitionToSVG(mermaidCode: string) {
+	async function graphDefinitionToSVG(graphDefinition: any) {
 		// This is to display the "Loading..." message before Mermaid hogs the main thread
 		await new Promise((resolve) => setTimeout(resolve, 0));
-		return (await mermaid.render("container", mermaidCode)).svg;
+		return (await mermaid.render("container", graphDefinition)).svg;
 	}
 </script>
 
