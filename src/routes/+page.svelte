@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Mermaid from "../components/Mermaid.svelte";
 
-	let mermaidCode = `flowchart LR
+	let graphDefinition = `flowchart LR
 		Router_1 --- Router_3
 		Router_1 --- Router_5
 		Router_2 --- Router_4 
@@ -28,5 +28,5 @@
 
 <h1>MPLS Simulation but without any Simulation and any MPLS so far</h1>
 
-<textarea bind:value={mermaidCode} />
-<Mermaid input={mermaidCode}></Mermaid>
+<textarea bind:value={graphDefinition} />
+<Mermaid input={graphDefinition}></Mermaid>
