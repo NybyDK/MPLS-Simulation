@@ -1,12 +1,11 @@
-name: Playwright Tests
+name: test:integration
 on:
   push:
     branches: [main, master]
   pull_request:
     branches: [main, master]
 jobs:
-  playwright:
-    name: "Playwright Tests"
+  test-integration:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.41.1-jammy
