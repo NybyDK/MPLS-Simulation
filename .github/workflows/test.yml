@@ -1,4 +1,4 @@
-name: test:unit
+name: test
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  test-unit:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,5 +24,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Run unit test
-        run: yarn run test:unit
+      - name: Install playwright
+        run: yarn playwright install --with-deps
+
+      - name: Run test
+        run: yarn run test
