@@ -36,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/adapter-static": "^3.0.1",
 		"mermaid": "^10.8.0",
 		"svelte-purify": "^1.1.11"
 	}
