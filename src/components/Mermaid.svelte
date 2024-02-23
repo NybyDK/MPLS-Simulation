@@ -13,12 +13,12 @@
 
 	let input: string;
 	$: {
-		input = `flowchart LR\n`;
+		input = `flowchart LR;\n`;
 		input += $network.nodes.map((n) => `  style ${n.id} fill:${nodeColors[n.type]};`).join("\n");
 		input += "\n";
-		input += $network.nodes.map((n) => `  ${n.id}[(${n.label})]`).join("\n");
+		input += $network.nodes.map((n) => `  ${n.id}[(${n.label})];`).join("\n");
 		input += "\n";
-		input += $network.connections.map((c) => `  ${c.source} --- ${c.target}`).join("\n");
+		input += $network.connections.map((c) => `  ${c.source} --- ${c.target};`).join("\n");
 	}
 
 	onMount(() => {
