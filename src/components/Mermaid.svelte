@@ -3,10 +3,19 @@
 	import { onMount } from "svelte";
 	import { Render } from "svelte-purify/browser-only";
 	import { network } from "$lib/stores/network";
+	import { NodeType } from "$lib/interfaces/network";
+
+	const nodeColors = {
+		[NodeType.Customer]: "lightgreen",
+		[NodeType.Edge]: "cyan",
+		[NodeType.Core]: "hotpink",
+	};
 
 	let input: string;
 	$: {
 		input = `flowchart LR\n`;
+		input += $network.nodes.map((n) => `  style ${n.id} fill:${nodeColors[n.type]};`).join("\n");
+		input += "\n";
 		input += $network.nodes.map((n) => `  ${n.id}[(${n.label})]`).join("\n");
 		input += "\n";
 		input += $network.connections.map((c) => `  ${c.source} --- ${c.target}`).join("\n");
