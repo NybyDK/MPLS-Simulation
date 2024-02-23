@@ -10,6 +10,7 @@
 
 	let openNodeIndex = -1;
 
+	// Add a uniquely named node to the network by prompting for its name
 	function addNode(type: NodeType) {
 		const name = prompt("Name");
 
@@ -26,6 +27,7 @@
 		$network.nodes = [...$network.nodes, newNode];
 	}
 
+	// Add a connection between two nodes by prompting for their IDs
 	function addConnection() {
 		const id1 = prompt("Source");
 
@@ -53,6 +55,7 @@
 		$network.connections = [...$network.connections, newConnection];
 	}
 
+	// Delete a node from the network and all connections to it
 	function deleteNode(id: string) {
 		const index = $network.nodes.findIndex((node) => node.id === id);
 		const nodeId = $network.nodes[index].id;
@@ -63,10 +66,12 @@
 		);
 	}
 
+	// Delete a connection from the network
 	function deleteConnection(index: number) {
 		$network.connections = $network.connections.toSpliced(index, 1);
 	}
 
+	// Toggle the display of additional information about a node
 	function toggleNode(id: string) {
 		const index = $network.nodes.findIndex((node) => node.id === id);
 		openNodeIndex = index === openNodeIndex ? -1 : index;
