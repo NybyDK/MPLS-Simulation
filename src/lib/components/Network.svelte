@@ -163,8 +163,8 @@
 		const newNode: Node = {
 			id: Math.random().toString(36).substring(7),
 			label: "L",
-			x: (event.clientX - SVGContainer.getBoundingClientRect()?.left) * viewBox.scale + viewBox.x,
-			y: (event.clientY - SVGContainer.getBoundingClientRect()?.top) * viewBox.scale + viewBox.y,
+			x: (event.clientX - SVGContainer.getBoundingClientRect().left) * viewBox.scale + viewBox.x,
+			y: (event.clientY - SVGContainer.getBoundingClientRect().top) * viewBox.scale + viewBox.y,
 			type: data,
 		};
 		$network.nodes = [...$network.nodes, newNode];
