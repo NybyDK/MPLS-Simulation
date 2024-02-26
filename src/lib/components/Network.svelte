@@ -47,7 +47,7 @@
 	});
 
 	function handlePointerDown(event: PointerEvent) {
-		if (!(event.target instanceof HTMLElement)) return;
+		if (!(event.target instanceof Element)) return;
 
 		event.preventDefault();
 
