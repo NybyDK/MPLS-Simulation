@@ -14,13 +14,9 @@
 		y: 0,
 		width: 0,
 		height: 0,
-		get scaleX() {
+		get scale() {
 			if (!SVGContainer) return 1;
 			return this.width / SVGContainer.getBoundingClientRect().width;
-		},
-		get scaleY() {
-			if (!SVGContainer) return 1;
-			return this.height / SVGContainer.getBoundingClientRect().height;
 		},
 	};
 
@@ -41,9 +37,8 @@
 	};
 
 	let SVGContainer: SVGElement | null = null;
-
-	let interactionState = InteractionState.NONE;
 	let selectedNode: Node | null = null;
+	let interactionState = InteractionState.NONE;
 
 	onMount(() => {
 		if (!SVGContainer) return;
@@ -91,20 +86,19 @@
 	function handlePointerMove(event: MouseEvent) {
 		event.preventDefault();
 
-		const scaleX = viewBox.scaleX;
-		const scaleY = viewBox.scaleY;
-
-		const deltaX = (event.clientX - mouse.x) * scaleX;
-		const deltaY = (event.clientY - mouse.y) * scaleY;
+		const delta = {
+			x: (event.clientX - mouse.x) * viewBox.scale,
+			y: (event.clientY - mouse.y) * viewBox.scale,
+		};
 
 		if (interactionState === InteractionState.DRAGGING && selectedNode) {
-			selectedNode.x = initialMouse.x + deltaX;
-			selectedNode.y = initialMouse.y + deltaY;
+			selectedNode.x = initialMouse.x + delta.x;
+			selectedNode.y = initialMouse.y + delta.y;
 
 			$network.nodes = $network.nodes;
 		} else if (interactionState === InteractionState.PANNING) {
-			viewBox.x -= deltaX;
-			viewBox.y -= deltaY;
+			viewBox.x -= delta.x;
+			viewBox.y -= delta.y;
 
 			mouse.x = event.clientX;
 			mouse.y = event.clientY;
@@ -115,6 +109,8 @@
 		event.preventDefault();
 
 		if (!SVGContainer) return;
+		if (viewBox.scale < 0.1 && event.deltaY <= 0) return;
+		if (viewBox.scale > 5 && event.deltaY >= 0) return;
 
 		mouse.x = event.clientX;
 		mouse.y = event.clientY;
@@ -153,6 +149,8 @@
 
 <style>
 	svg {
+		width: 200px;
+		height: 400px;
 		max-width: 100%;
 		max-height: 100%;
 		aspect-ratio: 1;
