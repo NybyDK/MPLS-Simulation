@@ -155,7 +155,6 @@
 		const data = parseInt(event.dataTransfer?.getData("text/plain") ?? "0");
 
 		if (!isNodeType(data)) return;
-
 		if (!SVGContainer) return;
 
 		const newNode: Node = {
