@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { network } from "$lib/stores/network";
-	import { NodeType, type Node, type Connection } from "$lib/interfaces/network";
+	import { NodeType, type Node, type Connection, isNodeType } from "$lib/interfaces/network";
+	import ToolboxItem from "$lib/components/ToolboxItem.svelte";
 
 	enum InteractionState {
 		NONE,
@@ -35,6 +36,12 @@
 		[NodeType.Edge]: "cyan",
 		[NodeType.Core]: "hotpink",
 	};
+
+	const ToolboxItems = [
+		{ text: "+ Customer", type: NodeType.Customer },
+		{ text: "+ Edge", type: NodeType.Edge },
+		{ text: "+ Core", type: NodeType.Core },
+	];
 
 	let SVGContainer: SVGElement | null = null;
 	let selectedNode: Node | null = null;
@@ -141,27 +148,61 @@
 			y2: target.y,
 		};
 	}
+
+	function drop(event: DragEvent) {
+		event.preventDefault();
+
+		const data = parseInt(event.dataTransfer?.getData("text/plain") ?? "0");
+
+		if (!isNodeType(data)) return;
+
+		if (!SVGContainer) return;
+
+		const newNode: Node = {
+			id: Math.random().toString(36).substring(7),
+			label: "L",
+			x: (event.clientX - SVGContainer.getBoundingClientRect()?.left) * viewBox.scale + viewBox.x,
+			y: (event.clientY - SVGContainer.getBoundingClientRect()?.top) * viewBox.scale + viewBox.y,
+			type: data,
+		};
+		$network.nodes = [...$network.nodes, newNode];
+	}
 </script>
 
-<svg
-	bind:this={SVGContainer}
-	viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
-	on:wheel={handleWheel}
-	on:pointerdown={handlePointerDown}
-	on:pointerup={handlePointerUp}
-	role="button"
-	tabindex="-1"
->
-	{#each $network.connections as connection}
-		<line {...getConnectionCoordinates(connection)} stroke="black" />
-	{/each}
-	{#each $network.nodes as node}
-		<circle id={node.id} cx={node.x} cy={node.y} r="20" fill={nodeColors[node.type]} />
-		<text x={node.x} y={node.y} text-anchor="middle" alignment-baseline="middle">{node.label}</text>
-	{/each}
-</svg>
+<div id="svg-container">
+	<svg
+		bind:this={SVGContainer}
+		viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
+		on:wheel={handleWheel}
+		on:pointerdown={handlePointerDown}
+		on:pointerup={handlePointerUp}
+		on:dragover|preventDefault
+		on:drop={drop}
+		role="button"
+		tabindex="-1"
+	>
+		{#each $network.connections as connection}
+			<line {...getCoordinates(connection)} stroke="black" />
+		{/each}
+		{#each $network.nodes as node}
+			<circle id={node.id} cx={node.x} cy={node.y} r="20" fill={nodeColors[node.type]} />
+			<text x={node.x} y={node.y} text-anchor="middle" alignment-baseline="middle"
+				>{node.label}</text
+			>
+		{/each}
+	</svg>
+	<div id="drag-and-drop-container">
+		{#each ToolboxItems as item}
+			<ToolboxItem {...item} />
+		{/each}
+	</div>
+</div>
 
 <style>
+	#svg-container {
+		position: relative;
+	}
+
 	svg {
 		max-width: 100%;
 		max-height: 100%;
@@ -170,5 +211,13 @@
 
 	text {
 		pointer-events: none;
+	}
+
+	#drag-and-drop-container {
+		position: absolute;
+		display: flex;
+		margin: 10px;
+		top: 0;
+		left: 0;
 	}
 </style>

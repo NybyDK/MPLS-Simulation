@@ -4,6 +4,10 @@ export enum NodeType {
 	Core,
 }
 
+export function isNodeType(type: number): type is NodeType {
+	return Object.values(NodeType).includes(type as NodeType);
+}
+
 export interface Node {
 	id: number;
 	label: string;
