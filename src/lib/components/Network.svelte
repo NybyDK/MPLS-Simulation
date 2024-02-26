@@ -149,8 +149,6 @@
 
 <style>
 	svg {
-		width: 200px;
-		height: 400px;
 		max-width: 100%;
 		max-height: 100%;
 		aspect-ratio: 1;
