@@ -49,13 +49,12 @@
 	function handlePointerDown(event: PointerEvent) {
 		event.preventDefault();
 
-		// TODO: Right-click drag to connect nodes, make an SVG line from the source to the target, while no target, make a line from the source to the mouse position
-		console.log(event.button);
-
 		SVGContainer?.addEventListener("pointermove", handlePointerMove);
 		SVGContainer?.setPointerCapture(event.pointerId);
 
-		const targetId = (event.target as HTMLElement)?.id;
+		if (!(event.target instanceof Element)) return;
+
+		const targetId = event.target.id;
 
 		if (targetId) {
 			selectedNode = $network.nodes.find((node) => node.id === targetId) || null;
