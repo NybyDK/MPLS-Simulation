@@ -47,12 +47,12 @@
 	});
 
 	function handlePointerDown(event: PointerEvent) {
+		if (!(event.target instanceof HTMLElement)) return;
+
 		event.preventDefault();
 
 		SVGContainer?.addEventListener("pointermove", handlePointerMove);
 		SVGContainer?.setPointerCapture(event.pointerId);
-
-		if (!(event.target instanceof Element)) return;
 
 		const targetId = event.target.id;
 
