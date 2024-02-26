@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { network } from "$lib/stores/network";
-	import { type Node, NodeType } from "$lib/interfaces/network";
+	import { NodeType, type Node, type Connection } from "$lib/interfaces/network";
 
 	enum InteractionState {
 		NONE,
@@ -130,6 +130,20 @@
 		viewBox.width *= zoomFactor;
 		viewBox.height *= zoomFactor;
 	}
+
+	function getCoordinates(connection: Connection) {
+		const source = $network.nodes.find((node) => node.id === connection.source);
+		const target = $network.nodes.find((node) => node.id === connection.target);
+
+		if (!source || !target) return;
+
+		return {
+			x1: source.x,
+			y1: source.y,
+			x2: target.x,
+			y2: target.y,
+		};
+	}
 </script>
 
 <svg
@@ -141,6 +155,9 @@
 	role="button"
 	tabindex="-1"
 >
+	{#each $network.connections as connection}
+		<line {...getCoordinates(connection)} stroke="black" />
+	{/each}
 	{#each $network.nodes as node}
 		<circle id={node.id} cx={node.x} cy={node.y} r="20" fill={nodeColors[node.type]} />
 		<text x={node.x} y={node.y} text-anchor="middle" alignment-baseline="middle">{node.label}</text>
