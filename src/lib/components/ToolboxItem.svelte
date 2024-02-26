@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { NodeType } from "$lib/interfaces/network";
+
 	export let text: string;
 	export let type: NodeType;
 
