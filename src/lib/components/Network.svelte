@@ -1,0 +1,164 @@
+<script lang="ts">
+	import { onMount } from "svelte";
+	import { network } from "$lib/stores/network";
+	import { type Node, NodeType } from "$lib/interfaces/network";
+
+	enum InteractionState {
+		NONE,
+		DRAGGING,
+		PANNING,
+	}
+
+	const viewBox = {
+		x: 0,
+		y: 0,
+		width: 0,
+		height: 0,
+		get scaleX() {
+			if (!SVGContainer) return 1;
+			return this.width / SVGContainer.getBoundingClientRect().width;
+		},
+		get scaleY() {
+			if (!SVGContainer) return 1;
+			return this.height / SVGContainer.getBoundingClientRect().height;
+		},
+	};
+
+	const mouse = {
+		x: 0,
+		y: 0,
+	};
+
+	const initialMouse = {
+		x: 0,
+		y: 0,
+	};
+
+	const nodeColors = {
+		[NodeType.Customer]: "lightgreen",
+		[NodeType.Edge]: "cyan",
+		[NodeType.Core]: "hotpink",
+	};
+
+	let SVGContainer: SVGElement | null = null;
+
+	let interactionState = InteractionState.NONE;
+	let selectedNode: Node | null = null;
+
+	onMount(() => {
+		if (!SVGContainer) return;
+		viewBox.width = SVGContainer.getBoundingClientRect().width;
+		viewBox.height = SVGContainer.getBoundingClientRect().height;
+	});
+
+	function handlePointerDown(event: PointerEvent) {
+		event.preventDefault();
+
+		// TODO: Right-click drag to connect nodes, make an SVG line from the source to the target, while no target, make a line from the source to the mouse position
+		console.log(event.button);
+
+		SVGContainer?.addEventListener("pointermove", handlePointerMove);
+		SVGContainer?.setPointerCapture(event.pointerId);
+
+		const targetId = (event.target as HTMLElement)?.id;
+
+		if (targetId) {
+			selectedNode = $network.nodes.find((node) => node.id === targetId) || null;
+
+			if (selectedNode) {
+				initialMouse.x = selectedNode.x;
+				initialMouse.y = selectedNode.y;
+				interactionState = InteractionState.DRAGGING;
+			}
+		} else {
+			interactionState = InteractionState.PANNING;
+		}
+
+		mouse.x = event.clientX;
+		mouse.y = event.clientY;
+	}
+
+	function handlePointerUp(event: PointerEvent) {
+		event.preventDefault();
+
+		interactionState = InteractionState.NONE;
+		selectedNode = null;
+
+		SVGContainer?.releasePointerCapture(event.pointerId);
+		SVGContainer?.removeEventListener("pointermove", handlePointerMove);
+	}
+
+	function handlePointerMove(event: MouseEvent) {
+		event.preventDefault();
+
+		const scaleX = viewBox.scaleX;
+		const scaleY = viewBox.scaleY;
+
+		const deltaX = (event.clientX - mouse.x) * scaleX;
+		const deltaY = (event.clientY - mouse.y) * scaleY;
+
+		if (interactionState === InteractionState.DRAGGING && selectedNode) {
+			selectedNode.x = initialMouse.x + deltaX;
+			selectedNode.y = initialMouse.y + deltaY;
+
+			$network.nodes = $network.nodes;
+		} else if (interactionState === InteractionState.PANNING) {
+			viewBox.x -= deltaX;
+			viewBox.y -= deltaY;
+
+			mouse.x = event.clientX;
+			mouse.y = event.clientY;
+		}
+	}
+
+	function handleWheel(event: WheelEvent) {
+		event.preventDefault();
+
+		if (!SVGContainer) return;
+
+		mouse.x = event.clientX;
+		mouse.y = event.clientY;
+
+		const boundingRect = SVGContainer.getBoundingClientRect();
+
+		const zoomFactor = event.deltaY > 0 ? 1 + 0.025 : 1 - 0.025;
+
+		const offset = {
+			x: (mouse.x - boundingRect.left) / boundingRect.width,
+			y: (mouse.y - boundingRect.top) / boundingRect.height,
+		};
+
+		viewBox.x -= viewBox.width * (zoomFactor - 1) * offset.x;
+		viewBox.y -= viewBox.height * (zoomFactor - 1) * offset.y;
+
+		viewBox.width *= zoomFactor;
+		viewBox.height *= zoomFactor;
+	}
+</script>
+
+<svg
+	bind:this={SVGContainer}
+	viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
+	on:wheel={handleWheel}
+	on:pointerdown={handlePointerDown}
+	on:pointerup={handlePointerUp}
+	role="button"
+	tabindex="-1"
+>
+	{#each $network.nodes as node}
+		<circle id={node.id} cx={node.x} cy={node.y} r="20" fill={nodeColors[node.type]} />
+		<text x={node.x} y={node.y} text-anchor="middle" alignment-baseline="middle">{node.label}</text>
+	{/each}
+</svg>
+
+<style>
+	svg {
+		max-width: 100%;
+		max-height: 100%;
+		aspect-ratio: 1;
+	}
+
+	text {
+		pointer-events: none;
+	}
+</style>
