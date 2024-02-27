@@ -50,6 +50,7 @@
 
 	onMount(() => {
 		if (!SVGContainer) return;
+
 		viewBox.width = SVGContainer.getBoundingClientRect().width;
 		viewBox.height = SVGContainer.getBoundingClientRect().height;
 	});
@@ -131,11 +132,11 @@
 
 			$network.nodes = $network.nodes;
 		} else if (interactionState === InteractionState.PANNING) {
-			viewBox.x -= delta.x;
-			viewBox.y -= delta.y;
-
 			mouse.x = event.clientX;
 			mouse.y = event.clientY;
+
+			viewBox.x -= delta.x;
+			viewBox.y -= delta.y;
 		} else if (interactionState === InteractionState.CONNECTING) {
 			mouse.x = event.clientX;
 			mouse.y = event.clientY;
