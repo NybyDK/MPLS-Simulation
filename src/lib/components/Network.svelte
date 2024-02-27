@@ -94,7 +94,7 @@
 			selectedNode.x = initialMouse.x + delta.x;
 			selectedNode.y = initialMouse.y + delta.y;
 
-			$network.nodes = $network.nodes;
+			network.fastUpdate();
 		} else if (interactionState === InteractionState.PANNING) {
 			viewBox.x -= delta.x;
 			viewBox.y -= delta.y;
@@ -130,11 +130,9 @@
 		viewBox.height *= zoomFactor;
 	}
 
-	function getCoordinates(connection: Connection) {
-		const source = $network.nodes.find((node) => node.id === connection.source);
-		const target = $network.nodes.find((node) => node.id === connection.target);
-
-		if (!source || !target) return;
+	function getConnectionCoordinates(connection: Connection) {
+		const source = network.getSureNode(connection.source.id);
+		const target = network.getSureNode(connection.target.id);
 
 		return {
 			x1: source.x,
@@ -155,7 +153,7 @@
 	tabindex="-1"
 >
 	{#each $network.connections as connection}
-		<line {...getCoordinates(connection)} stroke="black" />
+		<line {...getConnectionCoordinates(connection)} stroke="black" />
 	{/each}
 	{#each $network.nodes as node}
 		<circle id={node.id} cx={node.x} cy={node.y} r="20" fill={nodeColors[node.type]} />

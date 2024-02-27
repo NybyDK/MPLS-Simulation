@@ -5,7 +5,7 @@ export enum NodeType {
 }
 
 export interface Node {
-	id: string;
+	id: number;
 	label: string;
 	x: number;
 	y: number;
@@ -13,8 +13,8 @@ export interface Node {
 }
 
 export interface Connection {
-	source: string;
-	target: string;
+	source: Node;
+	target: Node;
 }
 
 export interface NetworkState {
