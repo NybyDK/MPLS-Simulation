@@ -4,12 +4,12 @@
 	export let text: string;
 	export let type: NodeType;
 
-	function dragStart(event: DragEvent) {
+	function handleDragStart(event: DragEvent) {
 		event.dataTransfer?.setData("text/plain", type.toString());
 	}
 </script>
 
-<div draggable="true" on:dragstart={dragStart} role="button" tabindex="-1">
+<div draggable="true" on:dragstart={handleDragStart} role="button" tabindex="-1">
 	{text}
 </div>
 

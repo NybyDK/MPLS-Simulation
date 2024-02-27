@@ -149,7 +149,7 @@
 		};
 	}
 
-	function drop(event: DragEvent) {
+	function handleDrop(event: DragEvent) {
 		event.preventDefault();
 
 		const data = parseInt(event.dataTransfer?.getData("text/plain") ?? "0");
@@ -176,7 +176,7 @@
 		on:pointerdown={handlePointerDown}
 		on:pointerup={handlePointerUp}
 		on:dragover|preventDefault
-		on:drop={drop}
+		on:drop={handleDrop}
 		role="button"
 		tabindex="-1"
 	>
