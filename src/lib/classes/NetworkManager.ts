@@ -32,34 +32,56 @@ export class NetworkStore implements Writable<NetworkState> {
 		this._connections = this._connections.filter(
 			(c) => c.source.id !== connection.source.id || c.target.id !== connection.target.id,
 		);
+
+		this.fastUpdate();
 	}
 
 	deleteNode(nodeId: number) {
 		const node = this.getNode(nodeId);
+
 		if (node) {
 			this._nodes = this._nodes.filter((n) => n.id !== nodeId);
 			this.nodeMap.delete(nodeId);
 		}
+
+		this.fastUpdate();
 	}
 
 	addConnection(input: { source: Node; target: Node }) {
+		// Ensure that the two nodes are not the same
+		if (input.source === input.target) {
+			return;
+		}
+
+		// Ensure that the connection does not already exist
+		if (
+			this.doesConnectionExist(input.source, input.target) ||
+			this.doesConnectionExist(input.target, input.source)
+		) {
+			return;
+		}
+
 		this._connections.push(input);
+		this.fastUpdate();
 	}
 
-	createNode(label: string, x: number, y: number, type: NodeType) {
+	private doesConnectionExist(source: Node, target: Node) {
+		return this._connections.some((c) => c.source === source && c.target === target);
+	}
+
+	createNode(input: { label: string; x: number; y: number; type: NodeType }) {
 		const node: Node = {
 			id: this.counter++,
-			label,
-			x,
-			y,
-			type,
+			...input,
 		};
+
 		this.addNode(node);
 	}
 
 	addNode(node: Node) {
 		this._nodes.push(node);
 		this.nodeMap.set(node.id, node);
+		this.fastUpdate();
 	}
 
 	getNode(id: number) {
@@ -68,9 +90,11 @@ export class NetworkStore implements Writable<NetworkState> {
 
 	getSureNode(id: number) {
 		const node = this.getNode(id);
+
 		if (!node) {
 			throw new Error(`Node with id ${id} not found`);
 		}
+
 		return node;
 	}
 

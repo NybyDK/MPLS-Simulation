@@ -39,9 +39,9 @@
 	};
 
 	const ToolboxItems = [
-		{ text: "+ Customer", type: NodeType.Customer },
-		{ text: "+ Edge", type: NodeType.Edge },
-		{ text: "+ Core", type: NodeType.Core },
+		{ text: "+ Customer", type: NodeType.Customer, color: nodeColors[NodeType.Customer] },
+		{ text: "+ Edge", type: NodeType.Edge, color: nodeColors[NodeType.Edge] },
+		{ text: "+ Core", type: NodeType.Core, color: nodeColors[NodeType.Core] },
 	];
 
 	let SVGContainer: SVGElement | null = null;
@@ -49,11 +49,17 @@
 	let interactionState = InteractionState.NONE;
 
 	onMount(() => {
-		if (!SVGContainer) return;
+		const resizeObserver = new ResizeObserver(updateViewBox);
 
+		if (!SVGContainer) return;
+		resizeObserver.observe(SVGContainer);
+	});
+
+	function updateViewBox() {
+		if (!SVGContainer) return;
 		viewBox.width = SVGContainer.getBoundingClientRect().width;
 		viewBox.height = SVGContainer.getBoundingClientRect().height;
-	});
+	}
 
 	function handlePointerDown(event: PointerEvent) {
 		if (!(event.target instanceof Element)) return;
@@ -66,7 +72,7 @@
 		const targetId = event.target.id;
 
 		if (targetId) {
-			selectedNode = $network.nodes.find((node) => node.id === targetId) || null;
+			selectedNode = network.getNode(parseInt(targetId)) || null;
 
 			if (!selectedNode) return;
 
@@ -94,20 +100,10 @@
 			const element = document.elementFromPoint(event.clientX, event.clientY);
 
 			const targetId = element?.tagName === "circle" ? element.id : null;
+			const target = network.getNode(parseInt(targetId ?? ""));
 
-			if (
-				targetId &&
-				targetId !== selectedNode.id &&
-				!$network.connections.some(
-					(connection) =>
-						(connection.source === selectedNode?.id && connection.target === targetId) ||
-						(connection.source === targetId && connection.target === selectedNode?.id),
-				)
-			) {
-				$network.connections = [
-					...$network.connections,
-					{ source: selectedNode.id, target: targetId },
-				];
+			if (target !== undefined) {
+				network.addConnection({ source: selectedNode, target: target });
 			}
 		}
 
@@ -177,26 +173,17 @@
 		if (!isNodeType(data)) return;
 		if (!SVGContainer) return;
 
-		const newNode: Node = {
-			id: Math.random().toString(36).substring(7),
-			label: "L",
+		network.createNode({
+			label: "Node",
 			...scaledMousePosition(event.clientX, event.clientY),
 			type: data,
-		};
-		$network.nodes = [...$network.nodes, newNode];
+		});
 	}
 
 	function getCoordinates(connection: Connection) {
-		const source = $network.nodes.find((node) => node.id === connection.source);
-		const target = $network.nodes.find((node) => node.id === connection.target);
-
-		if (!source || !target) return;
-
 		return {
-			x1: source.x,
-			y1: source.y,
-			x2: target.x,
-			y2: target.y,
+			...transformToLineSource(connection.source),
+			...transformToLineDestination(connection.target),
 		};
 	}
 
@@ -206,6 +193,13 @@
 		return {
 			x: (x - SVGContainer.getBoundingClientRect().left) * viewBox.scale + viewBox.x,
 			y: (y - SVGContainer.getBoundingClientRect().top) * viewBox.scale + viewBox.y,
+		};
+	}
+
+	function transformToLineSource(origin: { x: number; y: number }) {
+		return {
+			x1: origin.x,
+			y1: origin.y,
 		};
 	}
 
@@ -234,17 +228,16 @@
 		{/each}
 		{#if interactionState === InteractionState.CONNECTING && selectedNode}
 			<line
-				x1={selectedNode.x}
-				y1={selectedNode.y}
+				{...transformToLineSource(selectedNode)}
 				{...transformToLineDestination(scaledMousePosition(mouse.x, mouse.y))}
 				stroke="black"
 			/>
 		{/if}
 		{#each $network.nodes as node}
-			<circle id={node.id} cx={node.x} cy={node.y} r="20" fill={nodeColors[node.type]} />
-			<text x={node.x} y={node.y} text-anchor="middle" alignment-baseline="middle"
-				>{node.label}</text
-			>
+			<circle id={node.id.toString()} cx={node.x} cy={node.y} r="20" fill={nodeColors[node.type]} />
+			<text x={node.x} y={node.y} text-anchor="middle" alignment-baseline="middle">
+				{node.label}
+			</text>
 		{/each}
 	</svg>
 	<div id="drag-and-drop-container">
@@ -257,15 +250,17 @@
 <style>
 	#svg-container {
 		position: relative;
+		display: flex;
+		flex: 1;
 	}
 
 	svg {
-		max-width: 100%;
-		max-height: 100%;
-		aspect-ratio: 1;
+		width: 100%;
+		height: 100%;
 	}
 
 	text {
+		user-select: none;
 		pointer-events: none;
 	}
 
@@ -273,7 +268,5 @@
 		position: absolute;
 		display: flex;
 		margin: 10px;
-		top: 0;
-		left: 0;
 	}
 </style>
