@@ -47,19 +47,24 @@
 	let SVGContainer: SVGElement | null = null;
 	let selectedNode: Node | null = null;
 	let interactionState = InteractionState.NONE;
+	let loaded = false;
 
 	onMount(() => {
 		const resizeObserver = new ResizeObserver(updateViewBox);
 
 		if (!SVGContainer) return;
+
 		resizeObserver.observe(SVGContainer);
+		loaded = true;
 	});
 
 	function updateViewBox() {
 		if (!SVGContainer) return;
 
-		viewBox.width = SVGContainer.getBoundingClientRect().width;
-		viewBox.height = SVGContainer.getBoundingClientRect().height;
+		const zoomFactor = viewBox.scale || 1;
+
+		viewBox.width = SVGContainer.getBoundingClientRect().width * zoomFactor;
+		viewBox.height = SVGContainer.getBoundingClientRect().height * zoomFactor;
 	}
 
 	function handlePointerDown(event: PointerEvent) {
@@ -213,6 +218,9 @@
 </script>
 
 <div id="svg-container">
+	{#if !loaded}
+		<h1 style="font-size: 200px">Loading...</h1>
+	{/if}
 	<svg
 		bind:this={SVGContainer}
 		viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
@@ -252,6 +260,7 @@
 	#svg-container {
 		position: relative;
 		display: flex;
+		overflow: hidden;
 		flex: 1;
 	}
 
