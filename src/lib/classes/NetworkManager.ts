@@ -48,7 +48,6 @@ export class NetworkStore implements Writable<NetworkState> {
 	}
 
 	addConnection(input: { source: Node; target: Node }) {
-		// Ensure that the two nodes are not the same
 		if (input.source === input.target) {
 			return;
 		}
