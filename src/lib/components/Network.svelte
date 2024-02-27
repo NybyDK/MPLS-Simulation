@@ -8,6 +8,7 @@
 		NONE,
 		DRAGGING,
 		PANNING,
+		CONNECTING,
 	}
 
 	const viewBox = {
@@ -49,6 +50,7 @@
 
 	onMount(() => {
 		if (!SVGContainer) return;
+
 		viewBox.width = SVGContainer.getBoundingClientRect().width;
 		viewBox.height = SVGContainer.getBoundingClientRect().height;
 	});
@@ -66,7 +68,11 @@
 		if (targetId) {
 			selectedNode = $network.nodes.find((node) => node.id === targetId) || null;
 
-			if (selectedNode) {
+			if (!selectedNode) return;
+
+			if (event.shiftKey) {
+				interactionState = InteractionState.CONNECTING;
+			} else {
 				initialMouse.x = selectedNode.x;
 				initialMouse.y = selectedNode.y;
 				interactionState = InteractionState.DRAGGING;
@@ -80,7 +86,30 @@
 	}
 
 	function handlePointerUp(event: PointerEvent) {
+		if (!(event.target instanceof Element)) return;
+
 		event.preventDefault();
+
+		if (interactionState === InteractionState.CONNECTING && selectedNode) {
+			const element = document.elementFromPoint(event.clientX, event.clientY);
+
+			const targetId = element?.tagName === "circle" ? element.id : null;
+
+			if (
+				targetId &&
+				targetId !== selectedNode.id &&
+				!$network.connections.some(
+					(connection) =>
+						(connection.source === selectedNode?.id && connection.target === targetId) ||
+						(connection.source === targetId && connection.target === selectedNode?.id),
+				)
+			) {
+				$network.connections = [
+					...$network.connections,
+					{ source: selectedNode.id, target: targetId },
+				];
+			}
+		}
 
 		interactionState = InteractionState.NONE;
 		selectedNode = null;
@@ -101,11 +130,14 @@
 			selectedNode.x = initialMouse.x + delta.x;
 			selectedNode.y = initialMouse.y + delta.y;
 
-			network.fastUpdate();
+			$network.nodes = $network.nodes;
 		} else if (interactionState === InteractionState.PANNING) {
+			mouse.x = event.clientX;
+			mouse.y = event.clientY;
+
 			viewBox.x -= delta.x;
 			viewBox.y -= delta.y;
-
+		} else if (interactionState === InteractionState.CONNECTING) {
 			mouse.x = event.clientX;
 			mouse.y = event.clientY;
 		}
@@ -137,18 +169,6 @@
 		viewBox.height *= zoomFactor;
 	}
 
-	function getConnectionCoordinates(connection: Connection) {
-		const source = network.getSureNode(connection.source.id);
-		const target = network.getSureNode(connection.target.id);
-
-		return {
-			x1: source.x,
-			y1: source.y,
-			x2: target.x,
-			y2: target.y,
-		};
-	}
-
 	function handleDrop(event: DragEvent) {
 		event.preventDefault();
 
@@ -160,11 +180,40 @@
 		const newNode: Node = {
 			id: Math.random().toString(36).substring(7),
 			label: "L",
-			x: (event.clientX - SVGContainer.getBoundingClientRect().left) * viewBox.scale + viewBox.x,
-			y: (event.clientY - SVGContainer.getBoundingClientRect().top) * viewBox.scale + viewBox.y,
+			...scaledMousePosition(event.clientX, event.clientY),
 			type: data,
 		};
 		$network.nodes = [...$network.nodes, newNode];
+	}
+
+	function getCoordinates(connection: Connection) {
+		const source = $network.nodes.find((node) => node.id === connection.source);
+		const target = $network.nodes.find((node) => node.id === connection.target);
+
+		if (!source || !target) return;
+
+		return {
+			x1: source.x,
+			y1: source.y,
+			x2: target.x,
+			y2: target.y,
+		};
+	}
+
+	function scaledMousePosition(x: number, y: number) {
+		if (!SVGContainer) return { x, y };
+
+		return {
+			x: (x - SVGContainer.getBoundingClientRect().left) * viewBox.scale + viewBox.x,
+			y: (y - SVGContainer.getBoundingClientRect().top) * viewBox.scale + viewBox.y,
+		};
+	}
+
+	function transformToLineDestination(origin: { x: number; y: number }) {
+		return {
+			x2: origin.x,
+			y2: origin.y,
+		};
 	}
 </script>
 
@@ -183,6 +232,14 @@
 		{#each $network.connections as connection}
 			<line {...getCoordinates(connection)} stroke="black" />
 		{/each}
+		{#if interactionState === InteractionState.CONNECTING && selectedNode}
+			<line
+				x1={selectedNode.x}
+				y1={selectedNode.y}
+				{...transformToLineDestination(scaledMousePosition(mouse.x, mouse.y))}
+				stroke="black"
+			/>
+		{/if}
 		{#each $network.nodes as node}
 			<circle id={node.id} cx={node.x} cy={node.y} r="20" fill={nodeColors[node.type]} />
 			<text x={node.x} y={node.y} text-anchor="middle" alignment-baseline="middle"
