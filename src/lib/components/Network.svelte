@@ -57,6 +57,7 @@
 
 	function updateViewBox() {
 		if (!SVGContainer) return;
+
 		viewBox.width = SVGContainer.getBoundingClientRect().width;
 		viewBox.height = SVGContainer.getBoundingClientRect().height;
 	}
@@ -172,7 +173,7 @@
 
 		if (!isNodeType(data)) return;
 		if (!SVGContainer) return;
-
+    
 		network.createNode({
 			label: "Node",
 			...scaledMousePosition(event.clientX, event.clientY),
@@ -200,6 +201,22 @@
 		return {
 			x1: origin.x,
 			y1: origin.y,
+		};
+	}
+
+	function transformToLineDestination(origin: { x: number; y: number }) {
+		return {
+			x2: origin.x,
+			y2: origin.y,
+		};
+	}
+
+	function scaledMousePosition(x: number, y: number) {
+		if (!SVGContainer) return { x, y };
+
+		return {
+			x: (x - SVGContainer.getBoundingClientRect().left) * viewBox.scale + viewBox.x,
+			y: (y - SVGContainer.getBoundingClientRect().top) * viewBox.scale + viewBox.y,
 		};
 	}
 
