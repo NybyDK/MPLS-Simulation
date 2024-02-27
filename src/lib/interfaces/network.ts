@@ -9,7 +9,7 @@ export function isNodeType(type: number): type is NodeType {
 }
 
 export interface Node {
-	id: string;
+	id: number;
 	label: string;
 	x: number;
 	y: number;
@@ -17,8 +17,8 @@ export interface Node {
 }
 
 export interface Connection {
-	source: string;
-	target: string;
+	source: Node;
+	target: Node;
 }
 
 export interface NetworkState {

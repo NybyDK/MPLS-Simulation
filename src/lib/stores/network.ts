@@ -1,10 +1,5 @@
-import { writable } from "svelte/store";
+import { NetworkStore } from "../classes/NetworkManager";
 
-import type { NetworkState } from "$lib/interfaces/network";
+const initialState = new NetworkStore();
 
-const initialState: NetworkState = {
-	nodes: [],
-	connections: [],
-};
-
-export const network = writable(initialState);
+export const network = initialState;

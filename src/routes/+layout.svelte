@@ -19,6 +19,10 @@
 
 	:global(body) {
 		font-family: Roboto, sans-serif;
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+		width: 100vw;
 	}
 
 	:global(button:not(:disabled)) {
