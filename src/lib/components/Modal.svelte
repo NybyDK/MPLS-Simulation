@@ -8,6 +8,11 @@
 
 <style>
 	dialog {
+		padding: 10px;
 		margin: auto;
+	}
+
+	dialog::backdrop {
+		background-color: rgba(0, 0, 139, 0.25);
 	}
 </style>
