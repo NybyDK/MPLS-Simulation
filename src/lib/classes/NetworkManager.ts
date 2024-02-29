@@ -4,9 +4,9 @@ import type { Connection, NetworkState, Node, NodeType } from "$lib/interfaces/n
 export class NetworkStore implements Writable<NetworkState> {
 	private store = writable<NetworkState>({ nodes: [], connections: [] });
 
-	set: Writable<NetworkState>["set"] = this.store.set;
-	update: Writable<NetworkState>["update"] = this.store.update;
-	subscribe: Writable<NetworkState>["subscribe"] = this.store.subscribe;
+	set = this.store.set;
+	update = this.store.update;
+	subscribe = this.store.subscribe;
 
 	private _nodes: Node[] = [];
 	private _connections: Connection[] = [];
@@ -48,11 +48,8 @@ export class NetworkStore implements Writable<NetworkState> {
 	}
 
 	addConnection(input: { source: Node; target: Node }) {
-		if (input.source === input.target) {
-			return;
-		}
+		if (input.source === input.target) return;
 
-		// Ensure that the connection does not already exist
 		if (
 			this.doesConnectionExist(input.source, input.target) ||
 			this.doesConnectionExist(input.target, input.source)
