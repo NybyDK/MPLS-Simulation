@@ -13,7 +13,6 @@
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest"
-
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
