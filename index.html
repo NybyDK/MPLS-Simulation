@@ -6,22 +6,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
 		<link href="./_app/immutable/assets/0.DhKH9FDt.css" rel="stylesheet">
-		<link href="./_app/immutable/assets/2.CeuzHkT2.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.BfMap0Ok.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/entry.ClvrXbjg.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.DvP55YXn.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.CmtDd-Ac.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.D3ttGxnj.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.DHB2mq1_.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.BNXJ960k.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/2.BFZFoPFw.js"><title>MPLS Simulation</title><!-- HEAD_svelte-bolwut_START --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"><!-- HEAD_svelte-bolwut_END -->
+		<link href="./_app/immutable/assets/2.Dp2C2vp8.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.Dpz55tUC.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.BbytnS4m.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.DYwTIzg0.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.4t73ojvV.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.DtDQC7mm.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.DDwbF6wT.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.DBaD-wsw.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/2.DzC0dl13.js"><title>MPLS Simulation</title><!-- HEAD_svelte-bolwut_START --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"><!-- HEAD_svelte-bolwut_END -->
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">   <h1 data-svelte-h="svelte-gjfrzx">MPLS Simulation but without any Simulation and any MPLS so far</h1> <div id="svg-container" class="svelte-1o33erd"><h1 style="font-size: 200px" data-svelte-h="svelte-ncjhv1">Loading...</h1> <svg viewBox="0 0 0 0" role="button" tabindex="-1" class="svelte-1o33erd"></svg> <div id="drag-and-drop-container" class="svelte-1o33erd"><div draggable="true" role="button" tabindex="-1" style="background-color: lightgreen;" class="svelte-hr3g0j">+ Customer </div><div draggable="true" role="button" tabindex="-1" style="background-color: cyan;" class="svelte-hr3g0j">+ Edge </div><div draggable="true" role="button" tabindex="-1" style="background-color: hotpink;" class="svelte-hr3g0j">+ Core </div></div> </div> 
+		<div style="display: contents">   <h1 data-svelte-h="svelte-gjfrzx">MPLS Simulation but without any Simulation and any MPLS so far</h1> <div id="svg-container" class="svelte-13c8du2"><h1 style="font-size: 200px" data-svelte-h="svelte-ncjhv1">Loading...</h1> <svg viewBox="0 0 0 0" role="button" tabindex="-1" class="svelte-13c8du2"></svg> <div id="drag-and-drop-container" class="absolute-flex svelte-13c8du2"><div draggable="true" role="button" tabindex="-1" style="background-color: lightgreen;" class="svelte-hr3g0j">+ Customer </div><div draggable="true" role="button" tabindex="-1" style="background-color: cyan;" class="svelte-hr3g0j">+ Edge </div><div draggable="true" role="button" tabindex="-1" style="background-color: hotpink;" class="svelte-hr3g0j">+ Core </div></div> <div id="bottom-bar" class="absolute-flex svelte-13c8du2"><div><button class="svelte-oqq8i4" data-svelte-h="svelte-ayihft">Help</button></div> <dialog class="svelte-1a54f3s">Drag and drop nodes that you want to add. <br><br>
+	Hold shiftKey and drag nodes to make connections between the nodes. <br><br>
+	Press Esc to close this popup. </dialog></div> </div> 
 			
 			<script>
 				{
-					__sveltekit_19b8su3 = {
+					__sveltekit_1k6h6np = {
 						base: new URL(".", location).pathname.slice(0, -1)
 					};
 
@@ -30,8 +32,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.BfMap0Ok.js"),
-						import("./_app/immutable/entry/app.D3ttGxnj.js")
+						import("./_app/immutable/entry/start.Dpz55tUC.js"),
+						import("./_app/immutable/entry/app.DtDQC7mm.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2],
