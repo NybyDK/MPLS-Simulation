@@ -3,6 +3,7 @@
 	import { network } from "$lib/stores/network";
 	import { NodeType, type Node, type Connection, isNodeType } from "$lib/interfaces/network";
 	import ToolboxItem from "$lib/components/ToolboxItem.svelte";
+	import HelpButton from "$lib/components/HelpButton.svelte";
 
 	enum InteractionState {
 		NONE,
@@ -249,10 +250,13 @@
 			</text>
 		{/each}
 	</svg>
-	<div id="drag-and-drop-container">
+	<div id="drag-and-drop-container" class="absolute-flex">
 		{#each ToolboxItems as item}
 			<ToolboxItem {...item} />
 		{/each}
+	</div>
+	<div id="bottom-bar" class="absolute-flex">
+		<HelpButton />
 	</div>
 </div>
 
@@ -274,9 +278,17 @@
 		pointer-events: none;
 	}
 
-	#drag-and-drop-container {
+	.absolute-flex {
 		position: absolute;
 		display: flex;
+	}
+
+	#drag-and-drop-container {
 		margin: 10px;
+	}
+
+	#bottom-bar {
+		margin: 10px;
+		bottom: 0;
 	}
 </style>
