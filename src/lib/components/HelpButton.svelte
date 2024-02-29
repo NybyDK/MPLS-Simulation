@@ -5,7 +5,11 @@
 </script>
 
 <div>
-	<button on:click={() => dialog.showModal()}>Help</button>
+	<button
+		on:click={() => {
+			dialog.showModal();
+		}}>Help</button
+	>
 </div>
 
 <Dialog bind:dialog>
