@@ -1,7 +1,7 @@
 {
 	"name": "mpls-simulation",
 	"version": "0.0.1",
-	"private": true,
+	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -13,6 +13,7 @@
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest"
+
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
