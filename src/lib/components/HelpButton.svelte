@@ -15,6 +15,7 @@
 <Dialog bind:dialog>
 	<p>Drag and drop nodes that you want to add.</p>
 	<p>Hold the shift key and drag nodes to make connections between the nodes.</p>
+	<p>Double press a node to configure/delete it.</p>
 	<p>Press Esc to close this popup.</p>
 </Dialog>
 
