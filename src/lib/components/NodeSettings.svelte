@@ -6,7 +6,7 @@
 	export let node: Node | null;
 	export let dialog: HTMLDialogElement;
 
-	function handleClick(event: MouseEvent) {
+	function handleClick() {
 		if (node && confirm("Are you sure you want to delete this node?")) {
 			network.deleteNode(node.id);
 			dialog.close();
