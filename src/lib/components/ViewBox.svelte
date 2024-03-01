@@ -32,6 +32,13 @@
 		y: 0,
 	};
 
+	const cursorStyles = {
+		[InteractionState.NONE]: "move",
+		[InteractionState.DRAGGING]: "grabbing",
+		[InteractionState.PANNING]: "grabbing",
+		[InteractionState.CONNECTING]: "crosshair",
+	};
+
 	let SVG: SVGElement | null = null;
 	let selectedNode: Node | null = null;
 	let interactionState: InteractionState = InteractionState.NONE;
@@ -224,7 +231,7 @@
 	on:drop={handleDrop}
 	role="button"
 	tabindex="-1"
-	style="cursor: {interactionState === InteractionState.CONNECTING ? 'crosshair' : 'move'};"
+	style="cursor: {cursorStyles[interactionState]};"
 >
 	{#if interactionState === InteractionState.CONNECTING && selectedNode}
 		<line
