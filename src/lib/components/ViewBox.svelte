@@ -39,11 +39,17 @@
 	let loaded = false;
 
 	onMount(() => {
-		const resizeObserver = new ResizeObserver(updateViewBox);
-
 		if (!SVG) return;
 
+		const resizeObserver = new ResizeObserver(updateViewBox);
 		resizeObserver.observe(SVG);
+
+		requestAnimationFrame(() => {
+			if (!SVG) return;
+			viewBox.x = SVG.getBoundingClientRect().width / -2;
+			viewBox.y = SVG.getBoundingClientRect().height / -2;
+		});
+
 		loaded = true;
 	});
 
@@ -218,6 +224,7 @@
 	on:drop={handleDrop}
 	role="button"
 	tabindex="-1"
+	style="cursor: {interactionState === InteractionState.CONNECTING ? 'crosshair' : 'move'};"
 >
 	{#if interactionState === InteractionState.CONNECTING && selectedNode}
 		<line

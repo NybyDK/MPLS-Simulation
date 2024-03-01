@@ -26,5 +26,6 @@
 		padding: 5px;
 		margin: 2.5px;
 		user-select: none;
+		cursor: grab;
 	}
 </style>

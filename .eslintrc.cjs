@@ -31,5 +31,6 @@ module.exports = {
 	],
 	rules: {
 		"@typescript-eslint/no-explicit-any": "error",
+		"no-console": "error",
 	},
 };
