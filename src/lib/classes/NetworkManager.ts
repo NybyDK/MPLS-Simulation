@@ -40,7 +40,10 @@ export class NetworkStore implements Writable<NetworkState> {
 		const node = this.getNode(nodeId);
 
 		if (node) {
-			this._nodes = this._nodes.filter((n) => n.id !== nodeId);
+			this._nodes.splice(nodeId, 1);
+			this._connections = this._connections.filter(
+				(c) => c.source.id !== nodeId && c.target.id !== nodeId,
+			);
 			this.nodeMap.delete(nodeId);
 		}
 
