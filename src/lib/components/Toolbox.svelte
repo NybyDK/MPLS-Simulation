@@ -78,9 +78,7 @@
 			},
 		});
 
-		const layout = cy.layout(layoutOptions);
-
-		layout.run();
+		cy.layout(layoutOptions).run();
 
 		cy.nodes().forEach((n) => {
 			const node = network.getNode(parseInt(n.id()));
