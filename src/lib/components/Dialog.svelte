@@ -2,7 +2,7 @@
 	export let dialog: HTMLDialogElement;
 </script>
 
-<dialog bind:this={dialog}>
+<dialog bind:this={dialog} on:close>
 	<slot />
 </dialog>
 

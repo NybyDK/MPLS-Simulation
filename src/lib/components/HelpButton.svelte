@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Dialog from "$lib/components/Modal.svelte";
+	import Dialog from "$lib/components/Dialog.svelte";
 
 	let dialog: HTMLDialogElement;
 </script>

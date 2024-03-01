@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import { network } from "$lib/stores/network";
 	import { type Node, isNodeType } from "$lib/interfaces/network";
+	import NodeSettings from "$lib/components/NodeSettings.svelte";
 
 	enum InteractionState {
 		NONE,
@@ -34,6 +35,7 @@
 	let SVG: SVGElement | null = null;
 	let selectedNode: Node | null = null;
 	let interactionState: InteractionState = InteractionState.NONE;
+	let nodeSettingsDialog: HTMLDialogElement;
 	let loaded = false;
 
 	onMount(() => {
@@ -95,7 +97,7 @@
 			const targetId = element?.tagName === "circle" ? element.id : null;
 			const target = network.getNode(parseInt(targetId ?? ""));
 
-			if (target !== undefined) {
+			if (target) {
 				network.addConnection({ source: selectedNode, target: target });
 			}
 		}
@@ -158,6 +160,25 @@
 		viewBox.height *= zoomFactor;
 	}
 
+	function handleDoubleClick(event: MouseEvent) {
+		if (!(event.target instanceof Element)) return;
+
+		event.preventDefault();
+
+		const element = document.elementFromPoint(event.clientX, event.clientY);
+
+		// Will be handled differently when we start using icons
+		if (!element || element.tagName !== "circle") return;
+
+		const target = network.getNode(parseInt(element.id));
+
+		if (!target) return;
+
+		selectedNode = target;
+
+		nodeSettingsDialog.showModal();
+	}
+
 	function handleDrop(event: DragEvent) {
 		event.preventDefault();
 
@@ -189,9 +210,10 @@
 <svg
 	bind:this={SVG}
 	viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
-	on:wheel={handleWheel}
 	on:pointerdown={handlePointerDown}
 	on:pointerup={handlePointerUp}
+	on:wheel={handleWheel}
+	on:dblclick={handleDoubleClick}
 	on:dragover|preventDefault
 	on:drop={handleDrop}
 	role="button"
@@ -208,6 +230,8 @@
 	{/if}
 	<slot />
 </svg>
+
+<NodeSettings bind:node={selectedNode} bind:dialog={nodeSettingsDialog} />
 
 <style>
 	svg {
