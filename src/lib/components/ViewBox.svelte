@@ -32,6 +32,13 @@
 		y: 0,
 	};
 
+	const cursorStyles = {
+		[InteractionState.NONE]: "move",
+		[InteractionState.DRAGGING]: "grabbing",
+		[InteractionState.PANNING]: "grabbing",
+		[InteractionState.CONNECTING]: "crosshair",
+	};
+
 	let SVG: SVGElement | null = null;
 	let selectedNode: Node | null = null;
 	let interactionState: InteractionState = InteractionState.NONE;
@@ -39,11 +46,17 @@
 	let loaded = false;
 
 	onMount(() => {
-		const resizeObserver = new ResizeObserver(updateViewBox);
-
 		if (!SVG) return;
 
+		const resizeObserver = new ResizeObserver(updateViewBox);
 		resizeObserver.observe(SVG);
+
+		requestAnimationFrame(() => {
+			if (!SVG) return;
+			viewBox.x = SVG.getBoundingClientRect().width / -2;
+			viewBox.y = SVG.getBoundingClientRect().height / -2;
+		});
+
 		loaded = true;
 	});
 
@@ -218,6 +231,7 @@
 	on:drop={handleDrop}
 	role="button"
 	tabindex="-1"
+	style="cursor: {cursorStyles[interactionState]};"
 >
 	{#if interactionState === InteractionState.CONNECTING && selectedNode}
 		<line

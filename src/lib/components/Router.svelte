@@ -18,4 +18,8 @@
 		user-select: none;
 		pointer-events: none;
 	}
+
+	circle {
+		cursor: pointer;
+	}
 </style>
