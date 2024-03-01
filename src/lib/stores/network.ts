@@ -1,4 +1,4 @@
-import { NetworkStore } from "../classes/NetworkManager";
+import { NetworkStore } from "$lib/classes/NetworkManager";
 
 const initialState = new NetworkStore();
 

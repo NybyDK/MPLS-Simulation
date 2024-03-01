@@ -13,13 +13,17 @@
 </div>
 
 <Dialog bind:dialog>
-	Drag and drop nodes that you want to add. <br /><br />
-	Hold shiftKey and drag nodes to make connections between the nodes. <br /><br />
-	Press Esc to close this popup.
+	<p>Drag and drop nodes that you want to add.</p>
+	<p>Hold the shift key and drag nodes to make connections between the nodes.</p>
+	<p>Press Esc to close this popup.</p>
 </Dialog>
 
 <style>
 	button {
+		border: 2px solid black;
 		padding: 5px;
+		margin: 2.5px;
+		user-select: none;
+		font-size: 16px;
 	}
 </style>
