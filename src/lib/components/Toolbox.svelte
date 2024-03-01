@@ -83,10 +83,13 @@
 		layout.run();
 
 		cy.nodes().forEach((n) => {
-			const layout = n.position();
-			const node = network.getSureNode(parseInt(n.id()));
-			node.x = layout.x;
-			node.y = layout.y;
+			const node = network.getNode(parseInt(n.id()));
+
+			if (node) {
+				const layout = n.position();
+				node.x = layout.x;
+				node.y = layout.y;
+			}
 		});
 
 		network.fastUpdate();
