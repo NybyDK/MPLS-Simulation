@@ -14,6 +14,12 @@
 	];
 
 	const ToolboxButtons = [
+		{
+			text: "Clear",
+			callback: () => {
+				if (confirm("Are you sure you want to clear the network?")) network.clear();
+			},
+		},
 		{ text: "Dagre", callback: dagreify },
 		{
 			text: "Grid",
@@ -25,6 +31,30 @@
 			text: "Breadthfirst",
 			callback: () => {
 				cytoscapeify({ name: "breadthfirst", spacingFactor: 100, animate: false });
+			},
+		},
+		{
+			text: "Cose",
+			callback: () => {
+				cytoscapeify({
+					name: "cose",
+					nodeRepulsion: function () {
+						return 524288;
+					},
+					animate: false,
+				});
+			},
+		},
+		{
+			text: "Concentric",
+			callback: () => {
+				cytoscapeify({ name: "concentric", spacingFactor: 10, animate: false });
+			},
+		},
+		{
+			text: "Circle",
+			callback: () => {
+				cytoscapeify({ name: "circle", spacingFactor: 50, animate: false });
 			},
 		},
 	];
