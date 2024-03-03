@@ -7,6 +7,7 @@ export default class LSR extends Router {
 		if (forwardingInfo) {
 			packet.destination = forwardingInfo.nextHop;
 			packet.label = forwardingInfo.outgoingLabel;
+
 			this.sendPacket(packet, packet.destination);
 		}
 	}
