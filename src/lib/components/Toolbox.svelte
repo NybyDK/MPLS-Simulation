@@ -1,5 +1,4 @@
 <script lang="ts">
-	import dagre from "@dagrejs/dagre";
 	import cytoscape from "cytoscape";
 	import type { LayoutOptions } from "cytoscape";
 	import { network } from "$lib/stores/network";
@@ -20,7 +19,6 @@
 				if (confirm("Are you sure you want to clear the network?")) network.clear();
 			},
 		},
-		{ text: "Dagre", callback: dagreify },
 		{
 			text: "Grid",
 			callback: () => {
@@ -58,37 +56,6 @@
 			},
 		},
 	];
-
-	function dagreify() {
-		if ($network.nodes.length === 0) return;
-
-		const graph = new dagre.graphlib.Graph();
-
-		graph.setGraph({ rankdir: "LR" });
-		graph.setDefaultEdgeLabel(() => ({}));
-
-		$network.nodes.forEach((node) => {
-			graph.setNode(node.id.toString(), { label: node.label, width: 20, height: 20 });
-		});
-
-		$network.connections.forEach((connection) => {
-			graph.setEdge(connection.source.id.toString(), connection.target.id.toString());
-		});
-
-		dagre.layout(graph);
-
-		graph.nodes().forEach((id) => {
-			const node = network.getNode(parseInt(id));
-
-			if (node) {
-				const layout = graph.node(id);
-				node.x = layout.x;
-				node.y = layout.y;
-			}
-		});
-
-		network.fastUpdate();
-	}
 
 	function cytoscapeify(layoutOptions: LayoutOptions) {
 		if ($network.nodes.length === 0) return;

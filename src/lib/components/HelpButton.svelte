@@ -16,10 +16,12 @@
 	<p>Drag and drop nodes that you want to add.</p>
 	<p>Hold the shift key and drag nodes to make connections between the nodes.</p>
 	<p>Double press a node to configure/delete it.</p>
+	<p>The clear button will delete everything.</p>
 	<p>
 		The Dagre, Grid, and Breadthfirst buttons will attempt to calculate appropriate x and y
 		coordinates for routers.
 	</p>
+	<br />
 	<p>Press Esc to close this popup.</p>
 </Dialog>
 
