@@ -97,6 +97,14 @@ export class NetworkStore implements Writable<NetworkState> {
 		return node;
 	}
 
+	clear() {
+		this._nodes = [];
+		this._connections = [];
+		this.nodeMap.clear();
+		this.counter = 0;
+		this.fastUpdate();
+	}
+
 	fastUpdate() {
 		this.store.set(this.networkState);
 	}

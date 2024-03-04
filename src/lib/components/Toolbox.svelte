@@ -1,5 +1,4 @@
 <script lang="ts">
-	import dagre from "@dagrejs/dagre";
 	import cytoscape from "cytoscape";
 	import type { LayoutOptions } from "cytoscape";
 	import { network } from "$lib/stores/network";
@@ -14,7 +13,12 @@
 	];
 
 	const ToolboxButtons = [
-		{ text: "Dagre", callback: dagreify },
+		{
+			text: "Clear",
+			callback: () => {
+				if (confirm("Are you sure you want to clear the network?")) network.clear();
+			},
+		},
 		{
 			text: "Grid",
 			callback: () => {
@@ -27,38 +31,31 @@
 				cytoscapeify({ name: "breadthfirst", spacingFactor: 100, animate: false });
 			},
 		},
+		{
+			text: "Cose",
+			callback: () => {
+				cytoscapeify({
+					name: "cose",
+					nodeRepulsion: function () {
+						return 524288;
+					},
+					animate: false,
+				});
+			},
+		},
+		{
+			text: "Concentric",
+			callback: () => {
+				cytoscapeify({ name: "concentric", spacingFactor: 10, animate: false });
+			},
+		},
+		{
+			text: "Circle",
+			callback: () => {
+				cytoscapeify({ name: "circle", spacingFactor: 50, animate: false });
+			},
+		},
 	];
-
-	function dagreify() {
-		if ($network.nodes.length === 0) return;
-
-		const graph = new dagre.graphlib.Graph();
-
-		graph.setGraph({ rankdir: "LR" });
-		graph.setDefaultEdgeLabel(() => ({}));
-
-		$network.nodes.forEach((node) => {
-			graph.setNode(node.id.toString(), { label: node.label, width: 20, height: 20 });
-		});
-
-		$network.connections.forEach((connection) => {
-			graph.setEdge(connection.source.id.toString(), connection.target.id.toString());
-		});
-
-		dagre.layout(graph);
-
-		graph.nodes().forEach((id) => {
-			const node = network.getNode(parseInt(id));
-
-			if (node) {
-				const layout = graph.node(id);
-				node.x = layout.x;
-				node.y = layout.y;
-			}
-		});
-
-		network.fastUpdate();
-	}
 
 	function cytoscapeify(layoutOptions: LayoutOptions) {
 		if ($network.nodes.length === 0) return;
