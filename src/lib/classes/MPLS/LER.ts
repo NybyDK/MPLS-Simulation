@@ -2,11 +2,27 @@ import Router from "$lib/classes/MPLS/Router";
 import Packet from "$lib/classes/MPLS/Packet";
 
 export default class LER extends Router {
-	private labelSpace: Map<string, number>;
+	private routingTable: Map<string, string>;
 
 	constructor(name: string) {
 		super(name);
-		this.labelSpace = new Map();
+		this.routingTable = new Map();
+	}
+
+	assignLabel(destinationIP: string, label: number) {
+		this.labelSpace.set(destinationIP, label);
+	}
+
+	advertiseRoutingInformation(destinationIP: string, nextHop: string) {
+		for (const neighborRouter of this.neighborRouters) {
+			if (neighborRouter instanceof LER) {
+				neighborRouter.receiveRoutingInformation(destinationIP, nextHop);
+			}
+		}
+	}
+
+	receiveRoutingInformation(destinationIP: string, nextHop: string) {
+		this.routingTable.set(destinationIP, nextHop);
 	}
 
 	processPacket(packet: Packet) {
@@ -17,9 +33,5 @@ export default class LER extends Router {
 
 			this.sendPacket(packet, nextHop);
 		}
-	}
-
-	assignLabel(destinationIP: string, label: number) {
-		this.labelSpace.set(destinationIP, label);
 	}
 }
