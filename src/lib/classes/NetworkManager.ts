@@ -1,20 +1,24 @@
 import { writable, type Writable } from "svelte/store";
-import type { Connection, NetworkState, Node, NodeType } from "$lib/interfaces/network";
+import type { Connection, NetworkState } from "$lib/interfaces/network";
+import type Router from "$lib/classes/MPLS/Router";
+import LER from "$lib/classes/MPLS/LER";
+import LSR from "$lib/classes/MPLS/LSR";
+import CE from "$lib/classes/MPLS/CE";
 
 export class NetworkStore implements Writable<NetworkState> {
-	private store = writable<NetworkState>({ nodes: [], connections: [] });
+	private store = writable<NetworkState>({ routers: [], connections: [] });
 
 	set = this.store.set;
 	update = this.store.update;
 	subscribe = this.store.subscribe;
 
-	private _nodes: Node[] = [];
+	private _routers: Router[] = [];
 	private _connections: Connection[] = [];
-	private nodeMap = new Map<number, Node>();
+	private routerMap = new Map<number, Router>();
 	private counter = 0;
 
-	get nodes() {
-		return this._nodes;
+	get routers() {
+		return this._routers;
 	}
 
 	get connections() {
@@ -23,7 +27,7 @@ export class NetworkStore implements Writable<NetworkState> {
 
 	get networkState(): NetworkState {
 		return {
-			nodes: this.nodes,
+			routers: this.routers,
 			connections: this.connections,
 		};
 	}
@@ -36,26 +40,28 @@ export class NetworkStore implements Writable<NetworkState> {
 		this.fastUpdate();
 	}
 
-	deleteNode(nodeId: number) {
-		const node = this.getNode(nodeId);
+	deleteRouter(id: number) {
+		const router = this.getRouter(id);
 
-		if (node) {
-			this._nodes = this._nodes.filter((n) => n.id !== nodeId);
-			this._connections = this._connections.filter(
-				(c) => c.source.id !== nodeId && c.target.id !== nodeId,
-			);
-			this.nodeMap.delete(nodeId);
-		}
+		if (!router) return;
+
+		this._routers = this._routers.filter((router) => router.id !== id);
+		this._connections = this._connections.filter(
+			(connection) => connection.source.id !== id && connection.target.id !== id,
+		);
+		this.routerMap.delete(id);
 
 		this.fastUpdate();
 	}
 
-	addConnection(input: { source: Node; target: Node }) {
+	addConnection(input: { source: Router; target: Router }) {
 		if (input.source === input.target) return;
 
+		if (!input.source.allowedConnections.includes(input.target.type)) return;
+
 		if (
-			this.doesConnectionExist(input.source, input.target) ||
-			this.doesConnectionExist(input.target, input.source)
+			this.doesConnectionExist(input) ||
+			this.doesConnectionExist({ source: input.target, target: input.source })
 		) {
 			return;
 		}
@@ -64,43 +70,54 @@ export class NetworkStore implements Writable<NetworkState> {
 		this.fastUpdate();
 	}
 
-	private doesConnectionExist(source: Node, target: Node) {
-		return this._connections.some((c) => c.source === source && c.target === target);
+	private doesConnectionExist(input: { source: Router; target: Router }) {
+		return this._connections.some(
+			(connection) => connection.source === input.source && connection.target === input.target,
+		);
 	}
 
-	createNode(input: { label: string; x: number; y: number; type: NodeType }) {
-		const node: Node = {
-			id: this.counter++,
-			...input,
-		};
+	createCE(node: { label: string; x: number; y: number }) {
+		const router = new CE(this.counter++, node);
 
-		this.addNode(node);
+		this.addRouter(router);
 	}
 
-	addNode(node: Node) {
-		this._nodes.push(node);
-		this.nodeMap.set(node.id, node);
+	createLER(node: { label: string; x: number; y: number }) {
+		const router = new LER(this.counter++, node);
+
+		this.addRouter(router);
+	}
+
+	createLSR(node: { label: string; x: number; y: number }) {
+		const router = new LSR(this.counter++, node);
+
+		this.addRouter(router);
+	}
+
+	addRouter(router: Router) {
+		this._routers.push(router);
+		this.routerMap.set(router.id, router);
 		this.fastUpdate();
 	}
 
-	getNode(id: number) {
-		return this.nodeMap.get(id);
+	getRouter(id: number) {
+		return this.routerMap.get(id);
 	}
 
-	getSureNode(id: number) {
-		const node = this.getNode(id);
+	getSureRouter(id: number) {
+		const router = this.getRouter(id);
 
-		if (!node) {
-			throw new Error(`Node with id ${id} not found`);
+		if (!router) {
+			throw new Error(`Router with id ${id} not found`);
 		}
 
-		return node;
+		return router;
 	}
 
 	clear() {
-		this._nodes = [];
+		this._routers = [];
 		this._connections = [];
-		this.nodeMap.clear();
+		this.routerMap.clear();
 		this.counter = 0;
 		this.fastUpdate();
 	}

@@ -2,12 +2,9 @@ import Router from "$lib/classes/MPLS/Router";
 import Packet from "$lib/classes/MPLS/Packet";
 
 export default class LSR extends Router {
-	private labelTable: Map<number, { outgoingLabel: number; nextHop: string }>;
+	private labelTable: Map<number, { outgoingLabel: number; nextHop: string }> = new Map();
 
-	constructor(name: string) {
-		super(name);
-		this.labelTable = new Map();
-	}
+	allowedConnections: string[] = ["LSR", "LER"];
 
 	receiveLabelMapping(incomingLabel: number, outgoingLabel: number, nextHop: string) {
 		this.labelTable.set(incomingLabel, { outgoingLabel, nextHop });
@@ -29,5 +26,9 @@ export default class LSR extends Router {
 
 			this.sendPacket(packet, packet.destination);
 		}
+	}
+
+	get type(): "LSR" {
+		return "LSR";
 	}
 }

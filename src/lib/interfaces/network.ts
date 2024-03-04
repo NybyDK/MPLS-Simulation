@@ -1,27 +1,11 @@
-export enum NodeType {
-	Customer,
-	Edge,
-	Core,
-}
-
-export function isNodeType(type: number): type is NodeType {
-	return Object.values(NodeType).includes(type as NodeType);
-}
-
-export interface Node {
-	id: number;
-	label: string;
-	x: number;
-	y: number;
-	type: NodeType;
-}
+import Router from "$lib/classes/MPLS/Router";
 
 export interface Connection {
-	source: Node;
-	target: Node;
+	source: Router;
+	target: Router;
 }
 
 export interface NetworkState {
-	nodes: Node[];
+	routers: Router[];
 	connections: Connection[];
 }

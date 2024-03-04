@@ -1,12 +1,15 @@
 import Packet from "$lib/classes/MPLS/Packet";
 
 export default abstract class Router {
-	protected name: string;
 	protected labelSpace: Map<string, number>;
 	protected neighborRouters: Set<Router>;
 
-	constructor(name: string) {
-		this.name = name;
+	abstract allowedConnections: string[];
+
+	constructor(
+		public readonly id: number,
+		public node: { label: string; x: number; y: number },
+	) {
 		this.labelSpace = new Map();
 		this.neighborRouters = new Set();
 	}
@@ -17,7 +20,7 @@ export default abstract class Router {
 
 	protected sendPacket(packet: Packet, nextHop: string) {
 		for (const neighborRouter of this.neighborRouters) {
-			if (neighborRouter.name === nextHop) {
+			if (neighborRouter.node.label === nextHop) {
 				neighborRouter.processPacket(packet);
 				return;
 			}
@@ -25,4 +28,6 @@ export default abstract class Router {
 	}
 
 	abstract processPacket(packet: Packet): void;
+
+	abstract get type(): "LER" | "LSR" | "CE";
 }
