@@ -5,9 +5,9 @@
 </script>
 
 <line
-	x1={connection.source.x}
-	y1={connection.source.y}
-	x2={connection.target.x}
-	y2={connection.target.y}
+	x1={connection.source.node.x}
+	y1={connection.source.node.y}
+	x2={connection.target.node.x}
+	y2={connection.target.node.y}
 	stroke="black"
 />

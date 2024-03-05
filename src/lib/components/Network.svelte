@@ -12,8 +12,8 @@
 		{#each $network.connections as connection}
 			<Connection {connection} />
 		{/each}
-		{#each $network.nodes as node}
-			<Router {node} />
+		{#each $network.routers as router}
+			<Router {router} />
 		{/each}
 	</ViewBox>
 	<div id="top-left-bar" class="absolute-flex">

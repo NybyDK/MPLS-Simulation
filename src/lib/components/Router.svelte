@@ -1,17 +1,25 @@
 <script lang="ts">
-	import type { Node } from "$lib/interfaces/network";
+	import type Router from "$lib/classes/MPLS/Router";
 
-	export let node: Node;
+	export let router: Router;
+
+	const colorMap = {
+		CE: "lightgreen",
+		LER: "cyan",
+		LSR: "hotpink",
+	};
 </script>
 
 <circle
-	id={node.id.toString()}
-	cx={node.x}
-	cy={node.y}
+	id={router.id.toString()}
+	cx={router.node.x}
+	cy={router.node.y}
 	r="20"
-	fill={["lightgreen", "cyan", "hotpink"][node.type]}
+	fill={colorMap[router.type]}
 />
-<text x={node.x} y={node.y} text-anchor="middle" alignment-baseline="middle">{node.label}</text>
+<text x={router.node.x} y={router.node.y} text-anchor="middle" alignment-baseline="middle"
+	>{router.node.label}</text
+>
 
 <style>
 	text {

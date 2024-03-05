@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { network } from "$lib/stores/network";
-	import { type Node, isNodeType } from "$lib/interfaces/network";
-	import NodeSettings from "$lib/components/NodeSettings.svelte";
+	import type Router from "$lib/classes/MPLS/Router";
+	import RouterSettings from "$lib/components/RouterSettings.svelte";
 
 	enum InteractionState {
 		NONE,
@@ -40,9 +40,9 @@
 	};
 
 	let SVG: SVGElement | null = null;
-	let selectedNode: Node | null = null;
+	let selectedRouter: Router | null = null;
 	let interactionState: InteractionState = InteractionState.NONE;
-	let nodeSettingsDialog: HTMLDialogElement;
+	let routerSettingsDialog: HTMLDialogElement;
 	let loaded = false;
 
 	onMount(() => {
@@ -80,15 +80,15 @@
 		const targetId = event.target.id;
 
 		if (targetId) {
-			selectedNode = network.getNode(parseInt(targetId)) || null;
+			selectedRouter = network.getRouter(parseInt(targetId)) || null;
 
-			if (!selectedNode) return;
+			if (!selectedRouter) return;
 
 			if (event.shiftKey) {
 				interactionState = InteractionState.CONNECTING;
 			} else {
-				initialMouse.x = selectedNode.x;
-				initialMouse.y = selectedNode.y;
+				initialMouse.x = selectedRouter.node.x;
+				initialMouse.y = selectedRouter.node.y;
 				interactionState = InteractionState.DRAGGING;
 			}
 		} else {
@@ -104,19 +104,19 @@
 
 		event.preventDefault();
 
-		if (interactionState === InteractionState.CONNECTING && selectedNode) {
+		if (interactionState === InteractionState.CONNECTING && selectedRouter) {
 			const element = document.elementFromPoint(event.clientX, event.clientY);
 
 			const targetId = element?.tagName === "circle" ? element.id : null;
-			const target = network.getNode(parseInt(targetId ?? ""));
+			const target = network.getRouter(parseInt(targetId ?? ""));
 
 			if (target) {
-				network.addConnection({ source: selectedNode, target: target });
+				network.addConnection({ source: selectedRouter, target });
 			}
 		}
 
 		interactionState = InteractionState.NONE;
-		selectedNode = null;
+		selectedRouter = null;
 
 		SVG?.releasePointerCapture(event.pointerId);
 		SVG?.removeEventListener("pointermove", handlePointerMove);
@@ -130,9 +130,9 @@
 			y: (event.clientY - mouse.y) * viewBox.scale,
 		};
 
-		if (interactionState === InteractionState.DRAGGING && selectedNode) {
-			selectedNode.x = initialMouse.x + delta.x;
-			selectedNode.y = initialMouse.y + delta.y;
+		if (interactionState === InteractionState.DRAGGING && selectedRouter) {
+			selectedRouter.node.x = initialMouse.x + delta.x;
+			selectedRouter.node.y = initialMouse.y + delta.y;
 
 			network.fastUpdate();
 		} else if (interactionState === InteractionState.PANNING) {
@@ -183,29 +183,43 @@
 		// Will be handled differently when we start using icons
 		if (!element || element.tagName !== "circle") return;
 
-		const target = network.getNode(parseInt(element.id));
+		const target = network.getRouter(parseInt(element.id));
 
 		if (!target) return;
 
-		selectedNode = target;
+		selectedRouter = target;
 
-		nodeSettingsDialog.showModal();
+		routerSettingsDialog.showModal();
 	}
 
 	function handleDrop(event: DragEvent) {
 		event.preventDefault();
 
-		const data = parseInt(event.dataTransfer?.getData("text/plain") ?? "0");
+		const data = event.dataTransfer?.getData("text/plain");
 
-		if (!isNodeType(data)) return;
-		if (!SVG) return;
-
-		network.createNode({
-			label: "Node",
-			x: scaledX(event.clientX),
-			y: scaledY(event.clientY),
-			type: data,
-		});
+		switch (data) {
+			case "CE":
+				network.createCE({
+					label: "CE",
+					x: scaledX(event.clientX),
+					y: scaledY(event.clientY),
+				});
+				break;
+			case "LER":
+				network.createLER({
+					label: "LER",
+					x: scaledX(event.clientX),
+					y: scaledY(event.clientY),
+				});
+				break;
+			case "LSR":
+				network.createLSR({
+					label: "LSR",
+					x: scaledX(event.clientX),
+					y: scaledY(event.clientY),
+				});
+				break;
+		}
 	}
 
 	function scaledX(x: number) {
@@ -233,10 +247,10 @@
 	tabindex="-1"
 	style="cursor: {cursorStyles[interactionState]};"
 >
-	{#if interactionState === InteractionState.CONNECTING && selectedNode}
+	{#if interactionState === InteractionState.CONNECTING && selectedRouter}
 		<line
-			x1={selectedNode.x}
-			y1={selectedNode.y}
+			x1={selectedRouter.node.x}
+			y1={selectedRouter.node.y}
 			x2={scaledX(mouse.x)}
 			y2={scaledY(mouse.y)}
 			stroke="black"
@@ -245,7 +259,7 @@
 	<slot />
 </svg>
 
-<NodeSettings bind:node={selectedNode} bind:dialog={nodeSettingsDialog} />
+<RouterSettings bind:router={selectedRouter} bind:dialog={routerSettingsDialog} />
 
 <style>
 	svg {

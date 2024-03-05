@@ -2,14 +2,13 @@
 	import cytoscape from "cytoscape";
 	import type { LayoutOptions } from "cytoscape";
 	import { network } from "$lib/stores/network";
-	import { NodeType } from "$lib/interfaces/network";
 	import ToolboxRouter from "$lib/components/ToolboxRouter.svelte";
 	import ToolboxButton from "$lib/components/ToolboxButton.svelte";
 
 	const ToolboxRouters = [
-		{ text: "+ Customer", type: NodeType.Customer, color: "lightgreen" },
-		{ text: "+ Edge", type: NodeType.Edge, color: "cyan" },
-		{ text: "+ Core", type: NodeType.Core, color: "hotpink" },
+		{ text: "+ Customer", type: "CE", color: "lightgreen" },
+		{ text: "+ Edge", type: "LER", color: "cyan" },
+		{ text: "+ Switch", type: "LSR", color: "hotpink" },
 	];
 
 	const ToolboxButtons = [
@@ -58,13 +57,13 @@
 	];
 
 	function cytoscapeify(layoutOptions: LayoutOptions) {
-		if ($network.nodes.length === 0) return;
+		if ($network.routers.length === 0) return;
 
 		const cy = cytoscape({
 			headless: true,
 			elements: {
-				nodes: $network.nodes.map((node) => ({
-					data: { id: node.id.toString() },
+				nodes: $network.routers.map((router) => ({
+					data: { id: router.id.toString() },
 				})),
 				edges: $network.connections.map((connection) => ({
 					data: {
@@ -77,13 +76,13 @@
 
 		cy.layout(layoutOptions).run();
 
-		cy.nodes().forEach((n) => {
-			const node = network.getNode(parseInt(n.id()));
+		cy.nodes().forEach((node) => {
+			const router = network.getRouter(parseInt(node.id()));
 
-			if (node) {
-				const layout = n.position();
-				node.x = layout.x;
-				node.y = layout.y;
+			if (router) {
+				const layout = node.position();
+				router.node.x = layout.x;
+				router.node.y = layout.y;
 			}
 		});
 

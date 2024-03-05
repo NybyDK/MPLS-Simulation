@@ -2,12 +2,9 @@ import Router from "$lib/classes/MPLS/Router";
 import Packet from "$lib/classes/MPLS/Packet";
 
 export default class LER extends Router {
-	private routingTable: Map<string, string>;
+	private routingTable: Map<string, string> = new Map();
 
-	constructor(name: string) {
-		super(name);
-		this.routingTable = new Map();
-	}
+	allowedConnections: string[] = ["CE", "LSR"];
 
 	assignLabel(destinationIP: string, label: number) {
 		this.labelSpace.set(destinationIP, label);
@@ -33,5 +30,9 @@ export default class LER extends Router {
 
 			this.sendPacket(packet, nextHop);
 		}
+	}
+
+	get type(): "LER" {
+		return "LER";
 	}
 }

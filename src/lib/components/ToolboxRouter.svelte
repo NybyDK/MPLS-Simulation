@@ -1,12 +1,10 @@
 <script lang="ts">
-	import type { NodeType } from "$lib/interfaces/network";
-
 	export let text: string;
-	export let type: NodeType;
+	export let type: string;
 	export let color: string;
 
 	function handleDragStart(event: DragEvent) {
-		event.dataTransfer?.setData("text/plain", type.toString());
+		event.dataTransfer?.setData("text/plain", type);
 	}
 </script>
 
