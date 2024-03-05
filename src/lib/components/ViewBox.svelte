@@ -1,269 +1,269 @@
 <script lang="ts">
-	import { onMount } from "svelte";
-	import { network } from "$lib/stores/network";
-	import type Router from "$lib/classes/MPLS/Router";
-	import RouterSettings from "$lib/components/RouterSettings.svelte";
+  import { onMount } from "svelte";
+  import { network } from "$lib/stores/network";
+  import type Router from "$lib/classes/MPLS/Router";
+  import RouterSettings from "$lib/components/RouterSettings.svelte";
 
-	enum InteractionState {
-		NONE,
-		DRAGGING,
-		PANNING,
-		CONNECTING,
-	}
+  enum InteractionState {
+    NONE,
+    DRAGGING,
+    PANNING,
+    CONNECTING,
+  }
 
-	const viewBox = {
-		x: 0,
-		y: 0,
-		width: 0,
-		height: 0,
-		get scale() {
-			if (!SVG) return 1;
-			return this.width / SVG.getBoundingClientRect().width;
-		},
-	};
+  const viewBox = {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+    get scale() {
+      if (!SVG) return 1;
+      return this.width / SVG.getBoundingClientRect().width;
+    },
+  };
 
-	const mouse = {
-		x: 0,
-		y: 0,
-	};
+  const mouse = {
+    x: 0,
+    y: 0,
+  };
 
-	const initialMouse = {
-		x: 0,
-		y: 0,
-	};
+  const initialMouse = {
+    x: 0,
+    y: 0,
+  };
 
-	const cursorStyles = {
-		[InteractionState.NONE]: "move",
-		[InteractionState.DRAGGING]: "grabbing",
-		[InteractionState.PANNING]: "grabbing",
-		[InteractionState.CONNECTING]: "crosshair",
-	};
+  const cursorStyles = {
+    [InteractionState.NONE]: "move",
+    [InteractionState.DRAGGING]: "grabbing",
+    [InteractionState.PANNING]: "grabbing",
+    [InteractionState.CONNECTING]: "crosshair",
+  };
 
-	let SVG: SVGElement | null = null;
-	let selectedRouter: Router | null = null;
-	let interactionState: InteractionState = InteractionState.NONE;
-	let routerSettingsDialog: HTMLDialogElement;
-	let loaded = false;
+  let SVG: SVGElement | null = null;
+  let selectedRouter: Router | null = null;
+  let interactionState: InteractionState = InteractionState.NONE;
+  let routerSettingsDialog: HTMLDialogElement;
+  let loaded = false;
 
-	onMount(() => {
-		if (!SVG) return;
+  onMount(() => {
+    if (!SVG) return;
 
-		const resizeObserver = new ResizeObserver(updateViewBox);
-		resizeObserver.observe(SVG);
+    const resizeObserver = new ResizeObserver(updateViewBox);
+    resizeObserver.observe(SVG);
 
-		requestAnimationFrame(() => {
-			if (!SVG) return;
-			viewBox.x = SVG.getBoundingClientRect().width / -2;
-			viewBox.y = SVG.getBoundingClientRect().height / -2;
-		});
+    requestAnimationFrame(() => {
+      if (!SVG) return;
+      viewBox.x = SVG.getBoundingClientRect().width / -2;
+      viewBox.y = SVG.getBoundingClientRect().height / -2;
+    });
 
-		loaded = true;
-	});
+    loaded = true;
+  });
 
-	function updateViewBox() {
-		if (!SVG) return;
+  function updateViewBox() {
+    if (!SVG) return;
 
-		const zoomFactor = viewBox.scale || 1;
+    const zoomFactor = viewBox.scale || 1;
 
-		viewBox.width = SVG.getBoundingClientRect().width * zoomFactor;
-		viewBox.height = SVG.getBoundingClientRect().height * zoomFactor;
-	}
+    viewBox.width = SVG.getBoundingClientRect().width * zoomFactor;
+    viewBox.height = SVG.getBoundingClientRect().height * zoomFactor;
+  }
 
-	function handlePointerDown(event: PointerEvent) {
-		if (!(event.target instanceof Element)) return;
+  function handlePointerDown(event: PointerEvent) {
+    if (!(event.target instanceof Element)) return;
 
-		event.preventDefault();
+    event.preventDefault();
 
-		SVG?.addEventListener("pointermove", handlePointerMove);
-		SVG?.setPointerCapture(event.pointerId);
+    SVG?.addEventListener("pointermove", handlePointerMove);
+    SVG?.setPointerCapture(event.pointerId);
 
-		const targetId = event.target.id;
+    const targetId = event.target.id;
 
-		if (targetId) {
-			selectedRouter = network.getRouter(parseInt(targetId)) || null;
+    if (targetId) {
+      selectedRouter = network.getRouter(parseInt(targetId)) || null;
 
-			if (!selectedRouter) return;
+      if (!selectedRouter) return;
 
-			if (event.shiftKey) {
-				interactionState = InteractionState.CONNECTING;
-			} else {
-				initialMouse.x = selectedRouter.node.x;
-				initialMouse.y = selectedRouter.node.y;
-				interactionState = InteractionState.DRAGGING;
-			}
-		} else {
-			interactionState = InteractionState.PANNING;
-		}
+      if (event.shiftKey) {
+        interactionState = InteractionState.CONNECTING;
+      } else {
+        initialMouse.x = selectedRouter.node.x;
+        initialMouse.y = selectedRouter.node.y;
+        interactionState = InteractionState.DRAGGING;
+      }
+    } else {
+      interactionState = InteractionState.PANNING;
+    }
 
-		mouse.x = event.clientX;
-		mouse.y = event.clientY;
-	}
+    mouse.x = event.clientX;
+    mouse.y = event.clientY;
+  }
 
-	function handlePointerUp(event: PointerEvent) {
-		if (!(event.target instanceof Element)) return;
+  function handlePointerUp(event: PointerEvent) {
+    if (!(event.target instanceof Element)) return;
 
-		event.preventDefault();
+    event.preventDefault();
 
-		if (interactionState === InteractionState.CONNECTING && selectedRouter) {
-			const element = document.elementFromPoint(event.clientX, event.clientY);
+    if (interactionState === InteractionState.CONNECTING && selectedRouter) {
+      const element = document.elementFromPoint(event.clientX, event.clientY);
 
-			const targetId = element?.tagName === "circle" ? element.id : null;
-			const target = network.getRouter(parseInt(targetId ?? ""));
+      const targetId = element?.tagName === "circle" ? element.id : null;
+      const target = network.getRouter(parseInt(targetId ?? ""));
 
-			if (target) {
-				network.addConnection({ source: selectedRouter, target });
-			}
-		}
+      if (target) {
+        network.addConnection({ source: selectedRouter, target });
+      }
+    }
 
-		interactionState = InteractionState.NONE;
-		selectedRouter = null;
+    interactionState = InteractionState.NONE;
+    selectedRouter = null;
 
-		SVG?.releasePointerCapture(event.pointerId);
-		SVG?.removeEventListener("pointermove", handlePointerMove);
-	}
+    SVG?.releasePointerCapture(event.pointerId);
+    SVG?.removeEventListener("pointermove", handlePointerMove);
+  }
 
-	function handlePointerMove(event: MouseEvent) {
-		event.preventDefault();
+  function handlePointerMove(event: MouseEvent) {
+    event.preventDefault();
 
-		const delta = {
-			x: (event.clientX - mouse.x) * viewBox.scale,
-			y: (event.clientY - mouse.y) * viewBox.scale,
-		};
+    const delta = {
+      x: (event.clientX - mouse.x) * viewBox.scale,
+      y: (event.clientY - mouse.y) * viewBox.scale,
+    };
 
-		if (interactionState === InteractionState.DRAGGING && selectedRouter) {
-			selectedRouter.node.x = initialMouse.x + delta.x;
-			selectedRouter.node.y = initialMouse.y + delta.y;
+    if (interactionState === InteractionState.DRAGGING && selectedRouter) {
+      selectedRouter.node.x = initialMouse.x + delta.x;
+      selectedRouter.node.y = initialMouse.y + delta.y;
 
-			network.fastUpdate();
-		} else if (interactionState === InteractionState.PANNING) {
-			mouse.x = event.clientX;
-			mouse.y = event.clientY;
+      network.fastUpdate();
+    } else if (interactionState === InteractionState.PANNING) {
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
 
-			viewBox.x -= delta.x;
-			viewBox.y -= delta.y;
-		} else if (interactionState === InteractionState.CONNECTING) {
-			mouse.x = event.clientX;
-			mouse.y = event.clientY;
-		}
-	}
+      viewBox.x -= delta.x;
+      viewBox.y -= delta.y;
+    } else if (interactionState === InteractionState.CONNECTING) {
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
+    }
+  }
 
-	function handleWheel(event: WheelEvent) {
-		event.preventDefault();
+  function handleWheel(event: WheelEvent) {
+    event.preventDefault();
 
-		if (!SVG) return;
-		if (viewBox.scale < 0.1 && event.deltaY <= 0) return;
-		if (viewBox.scale > 5 && event.deltaY >= 0) return;
+    if (!SVG) return;
+    if (viewBox.scale < 0.1 && event.deltaY <= 0) return;
+    if (viewBox.scale > 5 && event.deltaY >= 0) return;
 
-		mouse.x = event.clientX;
-		mouse.y = event.clientY;
+    mouse.x = event.clientX;
+    mouse.y = event.clientY;
 
-		const boundingRect = SVG.getBoundingClientRect();
+    const boundingRect = SVG.getBoundingClientRect();
 
-		const zoomFactor = event.deltaY > 0 ? 1 + 0.025 : 1 - 0.025;
+    const zoomFactor = event.deltaY > 0 ? 1 + 0.025 : 1 - 0.025;
 
-		const offset = {
-			x: (mouse.x - boundingRect.left) / boundingRect.width,
-			y: (mouse.y - boundingRect.top) / boundingRect.height,
-		};
+    const offset = {
+      x: (mouse.x - boundingRect.left) / boundingRect.width,
+      y: (mouse.y - boundingRect.top) / boundingRect.height,
+    };
 
-		viewBox.x -= viewBox.width * (zoomFactor - 1) * offset.x;
-		viewBox.y -= viewBox.height * (zoomFactor - 1) * offset.y;
+    viewBox.x -= viewBox.width * (zoomFactor - 1) * offset.x;
+    viewBox.y -= viewBox.height * (zoomFactor - 1) * offset.y;
 
-		viewBox.width *= zoomFactor;
-		viewBox.height *= zoomFactor;
-	}
+    viewBox.width *= zoomFactor;
+    viewBox.height *= zoomFactor;
+  }
 
-	function handleDoubleClick(event: MouseEvent) {
-		if (!(event.target instanceof Element)) return;
+  function handleDoubleClick(event: MouseEvent) {
+    if (!(event.target instanceof Element)) return;
 
-		event.preventDefault();
+    event.preventDefault();
 
-		const element = document.elementFromPoint(event.clientX, event.clientY);
+    const element = document.elementFromPoint(event.clientX, event.clientY);
 
-		// Will be handled differently when we start using icons
-		if (!element || element.tagName !== "circle") return;
+    // Will be handled differently when we start using icons
+    if (!element || element.tagName !== "circle") return;
 
-		const target = network.getRouter(parseInt(element.id));
+    const target = network.getRouter(parseInt(element.id));
 
-		if (!target) return;
+    if (!target) return;
 
-		selectedRouter = target;
+    selectedRouter = target;
 
-		routerSettingsDialog.showModal();
-	}
+    routerSettingsDialog.showModal();
+  }
 
-	function handleDrop(event: DragEvent) {
-		event.preventDefault();
+  function handleDrop(event: DragEvent) {
+    event.preventDefault();
 
-		const data = event.dataTransfer?.getData("text/plain");
+    const data = event.dataTransfer?.getData("text/plain");
 
-		switch (data) {
-			case "CE":
-				network.createCE({
-					label: "CE",
-					x: scaledX(event.clientX),
-					y: scaledY(event.clientY),
-				});
-				break;
-			case "LER":
-				network.createLER({
-					label: "LER",
-					x: scaledX(event.clientX),
-					y: scaledY(event.clientY),
-				});
-				break;
-			case "LSR":
-				network.createLSR({
-					label: "LSR",
-					x: scaledX(event.clientX),
-					y: scaledY(event.clientY),
-				});
-				break;
-		}
-	}
+    switch (data) {
+      case "CE":
+        network.createCE({
+          label: "CE",
+          x: scaledX(event.clientX),
+          y: scaledY(event.clientY),
+        });
+        break;
+      case "LER":
+        network.createLER({
+          label: "LER",
+          x: scaledX(event.clientX),
+          y: scaledY(event.clientY),
+        });
+        break;
+      case "LSR":
+        network.createLSR({
+          label: "LSR",
+          x: scaledX(event.clientX),
+          y: scaledY(event.clientY),
+        });
+        break;
+    }
+  }
 
-	function scaledX(x: number) {
-		return SVG ? (x - SVG.getBoundingClientRect().left) * viewBox.scale + viewBox.x : x;
-	}
+  function scaledX(x: number) {
+    return SVG ? (x - SVG.getBoundingClientRect().left) * viewBox.scale + viewBox.x : x;
+  }
 
-	function scaledY(y: number) {
-		return SVG ? (y - SVG.getBoundingClientRect().top) * viewBox.scale + viewBox.y : y;
-	}
+  function scaledY(y: number) {
+    return SVG ? (y - SVG.getBoundingClientRect().top) * viewBox.scale + viewBox.y : y;
+  }
 </script>
 
 {#if !loaded}
-	<p style="font-size: 200px;">Loading...</p>
+  <p style="font-size: 200px;">Loading...</p>
 {/if}
 <svg
-	bind:this={SVG}
-	viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
-	on:pointerdown={handlePointerDown}
-	on:pointerup={handlePointerUp}
-	on:wheel={handleWheel}
-	on:dblclick={handleDoubleClick}
-	on:dragover|preventDefault
-	on:drop={handleDrop}
-	role="button"
-	tabindex="-1"
-	style="cursor: {cursorStyles[interactionState]};"
+  bind:this={SVG}
+  viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
+  on:pointerdown={handlePointerDown}
+  on:pointerup={handlePointerUp}
+  on:wheel={handleWheel}
+  on:dblclick={handleDoubleClick}
+  on:dragover|preventDefault
+  on:drop={handleDrop}
+  role="button"
+  tabindex="-1"
+  style="cursor: {cursorStyles[interactionState]};"
 >
-	{#if interactionState === InteractionState.CONNECTING && selectedRouter}
-		<line
-			x1={selectedRouter.node.x}
-			y1={selectedRouter.node.y}
-			x2={scaledX(mouse.x)}
-			y2={scaledY(mouse.y)}
-			stroke="black"
-		/>
-	{/if}
-	<slot />
+  {#if interactionState === InteractionState.CONNECTING && selectedRouter}
+    <line
+      x1={selectedRouter.node.x}
+      y1={selectedRouter.node.y}
+      x2={scaledX(mouse.x)}
+      y2={scaledY(mouse.y)}
+      stroke="black"
+    />
+  {/if}
+  <slot />
 </svg>
 
 <RouterSettings bind:router={selectedRouter} bind:dialog={routerSettingsDialog} />
 
 <style>
-	svg {
-		width: 100%;
-		height: 100%;
-	}
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 </style>
