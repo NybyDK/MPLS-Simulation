@@ -20,7 +20,10 @@
     {
       text: "Clear",
       callback: () => {
-        if ($locked) return alert("Network is locked.");
+        if ($locked) {
+          alert("Network is locked.");
+          return;
+        }
         if (confirm("Are you sure you want to clear the network?")) network.clear();
       },
     },

@@ -6,7 +6,10 @@
   export let color: string;
 
   function handleDragStart(event: DragEvent) {
-    if ($locked) return alert("Network is locked.");
+    if ($locked) {
+      alert("Network is locked.");
+      return;
+    }
 
     event.dataTransfer?.setData("text/plain", type);
   }
