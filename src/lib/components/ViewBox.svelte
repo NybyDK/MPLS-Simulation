@@ -268,4 +268,7 @@
     width: 100%;
     height: 100%;
   }
+
+  @media (prefers-color-scheme: dark) {
+  }
 </style>

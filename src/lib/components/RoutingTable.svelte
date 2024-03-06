@@ -119,9 +119,16 @@
     border-collapse: collapse;
   }
 
-  td,
-  th {
+  th,
+  td {
     border: 1px solid black;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    th,
+    td {
+      border: 1px solid white;
+    }
   }
 
   button {

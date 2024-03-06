@@ -33,4 +33,10 @@
     user-select: none;
     font-size: 16px;
   }
+
+  @media (prefers-color-scheme: dark) {
+    button {
+      border: 2px solid white;
+    }
+  }
 </style>

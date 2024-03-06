@@ -35,12 +35,12 @@
       background-color: #222222;
     }
 
-    :global(line) {
-      stroke: white;
+    :global(p) {
+      color: white;
     }
 
-    :global(button) {
-      border: 2px solid white;
+    :global(line) {
+      stroke: white;
     }
   }
 </style>

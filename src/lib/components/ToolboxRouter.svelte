@@ -34,4 +34,10 @@
   div:focus {
     outline: none;
   }
+
+  @media (prefers-color-scheme: dark) {
+    div {
+      border: 2px solid white;
+    }
+  }
 </style>
