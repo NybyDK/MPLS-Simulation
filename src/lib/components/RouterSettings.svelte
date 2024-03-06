@@ -1,5 +1,6 @@
 <script lang="ts">
   import { network } from "$lib/stores/network";
+  import { locked } from "$lib/stores/locked";
   import type Router from "$lib/classes/MPLS/Router";
   import CE from "$lib/classes/MPLS/CE";
   import Dialog from "$lib/components/Dialog.svelte";
@@ -32,8 +33,8 @@
     <p>Type: {router.type}</p>
     <p>
       Position:
-      <input type="number" bind:value={router.node.x} />
-      <input type="number" bind:value={router.node.y} />
+      <input type="number" disabled={$locked} bind:value={router.node.x} />
+      <input type="number" disabled={$locked} bind:value={router.node.y} />
     </p>
     {#if router instanceof CE}
       <p>Address: {router.address}</p>
