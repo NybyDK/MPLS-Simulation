@@ -41,7 +41,34 @@
 </script>
 
 {#if router instanceof CE}
-  <p>No table.</p>
+  <p>Flows:</p>
+  <table>
+    <tr>
+      <th>Size (Megabits)</th>
+      <th>Destination</th>
+    </tr>
+    {#each router.flows as flow, index}
+      <tr>
+        <td>
+          <input type="number" bind:value={flow.size} />
+        </td>
+        <td>
+          <input type="text" bind:value={flow.destination} placeholder="Address" />
+        </td>
+        <button
+          on:click={() => {
+            if (router instanceof CE) {
+              router.deleteFlow(index);
+              router = router;
+            }
+          }}
+        >
+          -
+        </button>
+      </tr>
+    {/each}
+  </table>
+  <button on:click={addAndUpdate(router.addEmptyFlow)}>+</button>
 {:else if router instanceof LER}
   <p>FIB:</p>
   <table>
@@ -117,6 +144,7 @@
 <style>
   table {
     border-collapse: collapse;
+    min-width: 500px;
   }
 
   th,
@@ -129,6 +157,11 @@
     td {
       border: 1px solid white;
     }
+  }
+
+  input {
+    width: 100%;
+    text-align: center;
   }
 
   button {
