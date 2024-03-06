@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { network } from "$lib/stores/network";
+  import { locked } from "$lib/stores/locked";
   import type Router from "$lib/classes/MPLS/Router";
   import RouterSettings from "$lib/components/RouterSettings.svelte";
 
@@ -107,6 +108,7 @@
     if (interactionState === InteractionState.CONNECTING && selectedRouter) {
       const element = document.elementFromPoint(event.clientX, event.clientY);
 
+      // Will be handled differently when we start using icons
       const targetId = element?.tagName === "circle" ? element.id : null;
       const target = network.getRouter(parseInt(targetId ?? ""));
 
@@ -130,7 +132,7 @@
       y: (event.clientY - mouse.y) * viewBox.scale,
     };
 
-    if (interactionState === InteractionState.DRAGGING && selectedRouter) {
+    if (!$locked && interactionState === InteractionState.DRAGGING && selectedRouter) {
       selectedRouter.node.x = initialMouse.x + delta.x;
       selectedRouter.node.y = initialMouse.y + delta.y;
 
@@ -141,7 +143,7 @@
 
       viewBox.x -= delta.x;
       viewBox.y -= delta.y;
-    } else if (interactionState === InteractionState.CONNECTING) {
+    } else if (!$locked && interactionState === InteractionState.CONNECTING) {
       mouse.x = event.clientX;
       mouse.y = event.clientY;
     }

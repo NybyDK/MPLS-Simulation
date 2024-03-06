@@ -32,28 +32,6 @@ export class NetworkStore implements Writable<NetworkState> {
     };
   }
 
-  deleteConnection(connection: Connection) {
-    this._connections = this._connections.filter(
-      (c) => c.source.id !== connection.source.id || c.target.id !== connection.target.id,
-    );
-
-    this.fastUpdate();
-  }
-
-  deleteRouter(id: number) {
-    const router = this.getRouter(id);
-
-    if (!router) return;
-
-    this._routers = this._routers.filter((router) => router.id !== id);
-    this._connections = this._connections.filter(
-      (connection) => connection.source.id !== id && connection.target.id !== id,
-    );
-    this.routerMap.delete(id);
-
-    this.fastUpdate();
-  }
-
   addConnection(input: { source: Router; target: Router }) {
     if (input.source === input.target) return;
 
@@ -67,6 +45,14 @@ export class NetworkStore implements Writable<NetworkState> {
     }
 
     this._connections.push(input);
+    this.fastUpdate();
+  }
+
+  deleteConnection(connection: Connection) {
+    this._connections = this._connections.filter(
+      (c) => c.source.id !== connection.source.id || c.target.id !== connection.target.id,
+    );
+
     this.fastUpdate();
   }
 
@@ -94,9 +80,23 @@ export class NetworkStore implements Writable<NetworkState> {
     this.addRouter(router);
   }
 
-  addRouter(router: Router) {
+  private addRouter(router: Router) {
     this._routers.push(router);
     this.routerMap.set(router.id, router);
+    this.fastUpdate();
+  }
+
+  deleteRouter(id: number) {
+    const router = this.getRouter(id);
+
+    if (!router) return;
+
+    this._routers = this._routers.filter((router) => router.id !== id);
+    this._connections = this._connections.filter(
+      (connection) => connection.source.id !== id && connection.target.id !== id,
+    );
+    this.routerMap.delete(id);
+
     this.fastUpdate();
   }
 

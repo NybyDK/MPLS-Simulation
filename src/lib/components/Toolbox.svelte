@@ -2,6 +2,7 @@
   import cytoscape from "cytoscape";
   import type { LayoutOptions } from "cytoscape";
   import { network } from "$lib/stores/network";
+  import { locked } from "$lib/stores/locked";
   import ToolboxRouter from "$lib/components/ToolboxRouter.svelte";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
 
@@ -11,10 +12,17 @@
     { text: "+ Switch", type: "LSR", color: "hotpink" },
   ];
 
-  const ToolboxButtons = [
+  $: ToolboxButtons = [
+    {
+      text: $locked ? "Unlock" : "Lock",
+      callback: () => {
+        $locked = !$locked;
+      },
+    },
     {
       text: "Clear",
       callback: () => {
+        if ($locked) return alert("Network is locked.");
         if (confirm("Are you sure you want to clear the network?")) network.clear();
       },
     },
@@ -58,6 +66,7 @@
 
   function cytoscapeify(layoutOptions: LayoutOptions) {
     if ($network.routers.length === 0) return;
+    if ($locked) return alert("Network is locked.");
 
     const cy = cytoscape({
       headless: true,

@@ -28,4 +28,19 @@
   :global(button:not(:disabled)) {
     cursor: pointer;
   }
+
+  @media (prefers-color-scheme: dark) {
+    :global(body) {
+      color-scheme: dark;
+      background-color: #222222;
+    }
+
+    :global(line) {
+      stroke: white;
+    }
+
+    :global(button) {
+      border: 2px solid white;
+    }
+  }
 </style>
