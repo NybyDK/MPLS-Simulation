@@ -1,9 +1,16 @@
 <script lang="ts">
+  import { locked } from "$lib/stores/locked";
+
   export let text: string;
   export let type: string;
   export let color: string;
 
   function handleDragStart(event: DragEvent) {
+    if ($locked) {
+      alert("Network is locked.");
+      return;
+    }
+
     event.dataTransfer?.setData("text/plain", type);
   }
 </script>
@@ -25,5 +32,15 @@
     margin: 2.5px;
     user-select: none;
     cursor: grab;
+  }
+
+  div:focus {
+    outline: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    div {
+      border: 2px solid white;
+    }
   }
 </style>

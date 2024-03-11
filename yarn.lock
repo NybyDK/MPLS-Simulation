@@ -378,11 +378,6 @@
   resolved "https://registry.npmjs.org/@types/cookie/-/cookie-0.6.0.tgz"
   integrity sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==
 
-"@types/cytoscape@^3.19.16":
-  version "3.19.16"
-  resolved "https://registry.npmjs.org/@types/cytoscape/-/cytoscape-3.19.16.tgz"
-  integrity sha512-A3zkjaZ6cOGyqEvrVuC1YUgiRSJhDZOj8Qhd1ALH2/+YxH2za1BOmR4RWQsKYHsc+aMP/IWoqg1COuUbZ39t/g==
-
 "@types/eslint@8.56.0":
   version "8.56.0"
   resolved "https://registry.npmjs.org/@types/eslint/-/eslint-8.56.0.tgz"
@@ -769,14 +764,6 @@ cssesc@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz"
   integrity sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==
-
-cytoscape@^3.28.1:
-  version "3.28.1"
-  resolved "https://registry.npmjs.org/cytoscape/-/cytoscape-3.28.1.tgz"
-  integrity sha512-xyItz4O/4zp9/239wCcH8ZcFuuZooEeF8KHRmzjDfGdXsj3OG9MFSMA0pJE0uX3uCN/ygof6hHf4L7lst+JaDg==
-  dependencies:
-    heap "^0.2.6"
-    lodash "^4.17.21"
 
 debug@^4.3.1, debug@^4.3.2, debug@^4.3.4:
   version "4.3.4"
@@ -1184,11 +1171,6 @@ has-flag@^4.0.0:
   resolved "https://registry.npmjs.org/has-flag/-/has-flag-4.0.0.tgz"
   integrity sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==
 
-heap@^0.2.6:
-  version "0.2.7"
-  resolved "https://registry.npmjs.org/heap/-/heap-0.2.7.tgz"
-  integrity sha512-2bsegYkkHO+h/9MGbn6KWcE45cHZgPANo5LXF7EvWdT0yT2EguSVO1nDgU5c8+ZOPwp2vMNa7YFsJhVcDR9Sdg==
-
 human-signals@^5.0.0:
   version "5.0.0"
   resolved "https://registry.npmjs.org/human-signals/-/human-signals-5.0.0.tgz"
@@ -1357,11 +1339,6 @@ lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
-
-lodash@^4.17.21:
-  version "4.17.21"
-  resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
-  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 loupe@^2.3.6, loupe@^2.3.7:
   version "2.3.7"

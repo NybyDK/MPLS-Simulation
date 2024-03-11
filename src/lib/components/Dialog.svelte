@@ -13,6 +13,6 @@
   }
 
   dialog::backdrop {
-    background-color: rgba(0, 0, 139, 0.25);
+    background-color: rgba(0, 0, 0, 0.5);
   }
 </style>
