@@ -1,5 +1,5 @@
 import Router from "$lib/classes/MPLS/Router";
-import Packet from "$lib/classes/MPLS/Packet";
+import type Packet from "$lib/classes/MPLS/Packet";
 
 export default class LER extends Router {
   // Maps Customer Edge address to next hop and first label

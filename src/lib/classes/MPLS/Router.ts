@@ -1,4 +1,4 @@
-import Packet from "$lib/classes/MPLS/Packet";
+import type Packet from "$lib/classes/MPLS/Packet";
 
 export default abstract class Router {
   protected labelSpace: Map<string, number>;
