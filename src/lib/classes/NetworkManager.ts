@@ -48,7 +48,7 @@ export class NetworkStore implements Writable<NetworkState> {
       id: `connection-${input.source.id}-${input.target.id}`,
       ...input,
       bandwidth: 0,
-      distance: 1337,
+      distance: 0,
       weight: 0,
     });
     this.fastUpdate();

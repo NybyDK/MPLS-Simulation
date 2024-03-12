@@ -28,7 +28,6 @@
       Label:
       <input type="text" bind:value={router.node.label} />
     </label>
-
     <p>ID: {router.id}</p>
     <p>Type: {router.type}</p>
     <label>
