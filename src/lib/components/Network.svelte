@@ -5,10 +5,12 @@
   import Router from "$lib/components/Router.svelte";
   import Toolbox from "$lib/components/Toolbox.svelte";
   import HelpButton from "$lib/components/HelpButton.svelte";
+
+  let resetToHome: () => void;
 </script>
 
 <div id="network">
-  <ViewBox>
+  <ViewBox bind:resetToHome>
     {#each $network.connections as connection}
       <Connection {connection} />
     {/each}
@@ -17,7 +19,7 @@
     {/each}
   </ViewBox>
   <div id="top-left-bar" class="absolute-flex">
-    <Toolbox />
+    <Toolbox bind:resetToHome />
   </div>
   <div id="bottom-left-bar" class="absolute-flex">
     <HelpButton />

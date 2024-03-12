@@ -4,10 +4,12 @@
   import ToolboxRouter from "$lib/components/ToolboxRouter.svelte";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
 
+  export let resetToHome: () => void;
+
   const ToolboxRouters = [
-    { text: "+ Customer", type: "CE", color: "lightgreen" },
-    { text: "+ Edge", type: "LER", color: "cyan" },
-    { text: "+ Switch", type: "LSR", color: "hotpink" },
+    { text: "+ CE", type: "CE", color: "lightgreen" },
+    { text: "+ LER", type: "LER", color: "cyan" },
+    { text: "+ LSR", type: "LSR", color: "hotpink" },
   ];
 
   $: ToolboxButtons = [
@@ -26,6 +28,10 @@
         }
         if (confirm("Are you sure you want to clear the network?")) network.clear();
       },
+    },
+    {
+      text: "Home",
+      callback: resetToHome,
     },
   ];
 </script>

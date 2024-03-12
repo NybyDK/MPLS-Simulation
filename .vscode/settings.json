@@ -1,3 +1,8 @@
 {
-  "cSpell.words": ["MPLS"]
+  "cSpell.words": [
+    "MPLS"
+  ],
+  "eslint.validate": [
+    "svelte"
+  ]
 }

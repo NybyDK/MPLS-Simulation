@@ -1,5 +1,5 @@
 import Router from "$lib/classes/MPLS/Router";
-import Packet from "$lib/classes/MPLS/Packet";
+import type Packet from "$lib/classes/MPLS/Packet";
 
 export default class LSR extends Router {
   // Maps incoming label to outgoing label and next hop

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Router from "$lib/classes/MPLS/Router";
+  import type Router from "$lib/classes/MPLS/Router";
   import LER from "$lib/classes/MPLS/LER";
   import LSR from "$lib/classes/MPLS/LSR";
   import CE from "$lib/classes/MPLS/CE";

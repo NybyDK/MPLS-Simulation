@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { network } from "$lib/stores/network";
   import { locked } from "$lib/stores/locked";
+  import type { Node, BoundingBox } from "$lib/interfaces/viewBox";
   import type Router from "$lib/classes/MPLS/Router";
   import RouterSettings from "$lib/components/RouterSettings.svelte";
 
@@ -60,6 +61,41 @@
 
     loaded = true;
   });
+
+  export function resetToHome() {
+    if (!SVG) return;
+
+    const bbox = network.routers
+      .map((router) => router.node)
+      .reduce(
+        (acc: BoundingBox, node: Node) => {
+          return {
+            minX: Math.min(acc.minX, node.x),
+            minY: Math.min(acc.minY, node.y),
+            maxX: Math.max(acc.maxX, node.x),
+            maxY: Math.max(acc.maxY, node.y),
+          };
+        },
+        { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity },
+      );
+
+    const aspectRatio = viewBox.width / viewBox.height;
+    const bboxAspectRatio = (bbox.maxX - bbox.minX) / (bbox.maxY - bbox.minY);
+    const padding = 40;
+
+    viewBox.x = bbox.minX - padding;
+    viewBox.y = bbox.minY - padding;
+
+    if (bboxAspectRatio > 1) {
+      // bbox is wider than tall
+      viewBox.width = bbox.maxX - bbox.minX + (bbox.maxX - bbox.minX) + padding * 2;
+      viewBox.height = viewBox.width / aspectRatio;
+    } else {
+      // bbox is taller than wide
+      viewBox.height = bbox.maxY - bbox.minY + (bbox.maxY - bbox.minY) + padding * 2;
+      viewBox.width = viewBox.height * aspectRatio;
+    }
+  }
 
   function updateViewBox() {
     if (!SVG) return;
