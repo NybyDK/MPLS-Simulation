@@ -17,9 +17,9 @@
   r="20"
   fill={colorMap[router.type]}
 />
-<text x={router.node.x} y={router.node.y} text-anchor="middle" alignment-baseline="middle"
-  >{router.node.label}</text
->
+<text x={router.node.x} y={router.node.y} text-anchor="middle" dominant-baseline="middle">
+  {router.node.label}
+</text>
 
 <style>
   text {

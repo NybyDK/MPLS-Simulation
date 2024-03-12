@@ -44,14 +44,18 @@ export class NetworkStore implements Writable<NetworkState> {
       return;
     }
 
-    this._connections.push(input);
+    this._connections.push({
+      id: `connection-${input.source.id}-${input.target.id}`,
+      ...input,
+      bandwidth: 0,
+      distance: 1337,
+      weight: 0,
+    });
     this.fastUpdate();
   }
 
-  deleteConnection(connection: Connection) {
-    this._connections = this._connections.filter(
-      (c) => c.source.id !== connection.source.id || c.target.id !== connection.target.id,
-    );
+  deleteConnection(id: string) {
+    this._connections = this._connections.filter((connection) => connection.id !== id);
 
     this.fastUpdate();
   }

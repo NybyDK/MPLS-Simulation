@@ -2,8 +2,10 @@
   import { onMount } from "svelte";
   import { network } from "$lib/stores/network";
   import { locked } from "$lib/stores/locked";
+  import type { Connection } from "$lib/interfaces/network";
   import type Router from "$lib/classes/MPLS/Router";
   import RouterSettings from "$lib/components/RouterSettings.svelte";
+  import ConnectionSettings from "$lib/components/ConnectionSettings.svelte";
 
   enum InteractionState {
     NONE,
@@ -42,8 +44,10 @@
 
   let SVG: SVGElement | null = null;
   let selectedRouter: Router | null = null;
+  let selectedConnection: Connection | null = null;
   let interactionState: InteractionState = InteractionState.NONE;
   let routerSettingsDialog: HTMLDialogElement;
+  let connectionSettingsDialog: HTMLDialogElement;
   let loaded = false;
 
   onMount(() => {
@@ -108,7 +112,6 @@
     if (interactionState === InteractionState.CONNECTING && selectedRouter) {
       const element = document.elementFromPoint(event.clientX, event.clientY);
 
-      // Will be handled differently when we start using icons
       const targetId = element?.tagName === "circle" ? element.id : null;
       const target = network.getRouter(parseInt(targetId ?? ""));
 
@@ -182,16 +185,33 @@
 
     const element = document.elementFromPoint(event.clientX, event.clientY);
 
-    // Will be handled differently when we start using icons
-    if (!element || element.tagName !== "circle") return;
+    if (!element) return;
 
-    const target = network.getRouter(parseInt(element.id));
+    if (element.tagName === "circle") {
+      openRouterSettings(element.id);
+    } else if (element.tagName === "rect") {
+      openConnectionSettings(element.id);
+    }
+  }
+
+  function openRouterSettings(id: string) {
+    const target = network.getRouter(parseInt(id));
 
     if (!target) return;
 
     selectedRouter = target;
 
     routerSettingsDialog.showModal();
+  }
+
+  function openConnectionSettings(id: string) {
+    const target = network.connections.find((connection) => id === connection.id);
+
+    if (!target) return;
+
+    selectedConnection = target;
+
+    connectionSettingsDialog.showModal();
   }
 
   function handleDrop(event: DragEvent) {
@@ -262,6 +282,7 @@
 </svg>
 
 <RouterSettings bind:router={selectedRouter} bind:dialog={routerSettingsDialog} />
+<ConnectionSettings bind:connection={selectedConnection} bind:dialog={connectionSettingsDialog} />
 
 <style>
   svg {
