@@ -5,6 +5,9 @@
 	import Router from "$lib/components/Router.svelte";
 	import Toolbox from "$lib/components/Toolbox.svelte";
 	import HelpButton from "$lib/components/HelpButton.svelte";
+	import { onMount } from "svelte";
+
+	$: console.log(network);
 </script>
 
 <div id="network">

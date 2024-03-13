@@ -4,6 +4,8 @@ import type Router from "$lib/classes/MPLS/Router";
 import LER from "$lib/classes/MPLS/LER";
 import LSR from "$lib/classes/MPLS/LSR";
 import CE from "$lib/classes/MPLS/CE";
+import DefaultNetwork from "../DefaultNetwork.json" with { type: "json" };
+import { RouterConfigSchema, ConnectionConfigSchema } from "./schema";
 
 export class NetworkStore implements Writable<NetworkState> {
 	private store = writable<NetworkState>({ routers: [], connections: [] });
@@ -124,5 +126,42 @@ export class NetworkStore implements Writable<NetworkState> {
 
 	fastUpdate() {
 		this.store.set(this.networkState);
+	}
+
+	constructor() {
+		void this.loadDefaultNetwork();
+	}
+
+	async loadDefaultNetwork(): Promise<void> {
+
+    
+
+		try {
+			for (const routerConfig of DefaultNetwork.routers) {
+				switch (routerConfig.node.label) {
+					case "LER":
+						this.createLER(routerConfig);
+						break;
+					case "LSR":
+						this.createLSR(routerConfig);
+						break;
+					case "CE":
+						this.createCE(routerConfig);
+						break;
+					default:
+						break;
+				}
+			}
+
+			for (const connectionConfig of DefaultNetwork.connections) {
+				const sourceRouter = this.getSureRouter(connectionConfig.source.id);
+				const targetRouter = this.getSureRouter(connectionConfig.target.id);
+				if (sourceRouter && targetRouter) {
+					this.addConnection({ source: sourceRouter, target: targetRouter });
+				}
+			}
+		} catch (error) {
+			console.error("Error loading default network:", error);
+		}
 	}
 }

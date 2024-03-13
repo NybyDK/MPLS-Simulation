@@ -38,6 +38,7 @@
 	"type": "module",
 	"dependencies": {
 		"@sveltejs/adapter-static": "^3.0.1",
-		"cytoscape": "^3.28.1"
+		"cytoscape": "^3.28.1",
+		"zod": "^3.22.4"
 	}
 }
