@@ -1,38 +1,63 @@
 import Router from "$lib/classes/MPLS/Router";
-import Packet from "$lib/classes/MPLS/Packet";
+import type Packet from "$lib/classes/MPLS/Packet";
 
 export default class LER extends Router {
-	private routingTable: Map<string, string> = new Map();
+  // Maps Customer Edge address to next hop and first label
+  FIB: Map<string, { label: number; nextHop: string }> = new Map([
+    [
+      "0",
+      {
+        label: 0,
+        nextHop: "0",
+      },
+    ],
+  ]);
+  allowedConnections: string[] = ["CE", "LSR"];
 
-	allowedConnections: string[] = ["CE", "LSR"];
+  assignLabel = (destinationIP: string, label: number) => {
+    this.labelSpace.set(destinationIP, label);
+  };
 
-	assignLabel(destinationIP: string, label: number) {
-		this.labelSpace.set(destinationIP, label);
-	}
+  addEmptyEntry = () => {
+    this.FIB.set("0", { label: 0, nextHop: "0" });
+  };
 
-	advertiseRoutingInformation(destinationIP: string, nextHop: string) {
-		for (const neighborRouter of this.neighborRouters) {
-			if (neighborRouter instanceof LER) {
-				neighborRouter.receiveRoutingInformation(destinationIP, nextHop);
-			}
-		}
-	}
+  updateAddress = (oldAddress: string, newAddress: string) => {
+    const oldValue = this.FIB.get(oldAddress);
+    if (!oldValue)
+      throw new Error(`Unable to update old FIB address '${oldAddress}' to '${newAddress}'.`);
 
-	receiveRoutingInformation(destinationIP: string, nextHop: string) {
-		this.routingTable.set(destinationIP, nextHop);
-	}
+    this.FIB.set(newAddress, oldValue);
+    this.FIB.delete(oldAddress);
+  };
 
-	processPacket(packet: Packet) {
-		const nextHop = this.routingTable.get(packet.destination);
-		if (nextHop) {
-			packet.destination = nextHop;
-			packet.label = this.labelSpace.get(packet.destination) || 0;
+  deleteEntry = (address: string) => {
+    this.FIB.delete(address);
+  };
 
-			this.sendPacket(packet, nextHop);
-		}
-	}
+  advertiseInformation = (destination: string, label: number, nextHop: string) => {
+    for (const neighborRouter of this.neighborRouters) {
+      if (neighborRouter instanceof LER) {
+        neighborRouter.receiveInformation(destination, label, nextHop);
+      }
+    }
+  };
 
-	get type(): "LER" {
-		return "LER";
-	}
+  receiveInformation = (destination: string, label: number, nextHop: string) => {
+    this.FIB.set(destination, { label, nextHop });
+  };
+
+  processPacket = (packet: Packet) => {
+    const destination = this.FIB.get(packet.destination);
+    if (destination) {
+      packet.label = destination.label;
+      packet.destination = destination.nextHop;
+
+      this.sendPacket(packet, destination.nextHop);
+    }
+  };
+
+  get type(): "LER" {
+    return "LER";
+  }
 }

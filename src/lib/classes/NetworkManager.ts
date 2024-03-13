@@ -8,134 +8,131 @@ import DefaultNetwork from "../DefaultNetwork.json" with { type: "json" };
 import { RouterConfigSchema, ConnectionConfigSchema } from "./schema";
 
 export class NetworkStore implements Writable<NetworkState> {
-	private store = writable<NetworkState>({ routers: [], connections: [] });
+  private store = writable<NetworkState>({ routers: [], connections: [] });
 
-	set = this.store.set;
-	update = this.store.update;
-	subscribe = this.store.subscribe;
+  set = this.store.set;
+  update = this.store.update;
+  subscribe = this.store.subscribe;
 
-	private _routers: Router[] = [];
-	private _connections: Connection[] = [];
-	private routerMap = new Map<number, Router>();
-	private counter = 0;
+  private _routers: Router[] = [];
+  private _connections: Connection[] = [];
+  private routerMap = new Map<number, Router>();
+  private counter = 0;
 
-	get routers() {
-		return this._routers;
-	}
+  get routers() {
+    return this._routers;
+  }
 
-	get connections() {
-		return this._connections;
-	}
+  get connections() {
+    return this._connections;
+  }
 
-	get networkState(): NetworkState {
-		return {
-			routers: this.routers,
-			connections: this.connections,
-		};
-	}
+  get networkState(): NetworkState {
+    return {
+      routers: this.routers,
+      connections: this.connections,
+    };
+  }
 
-	deleteConnection(connection: Connection) {
-		this._connections = this._connections.filter(
-			(c) => c.source.id !== connection.source.id || c.target.id !== connection.target.id,
-		);
+  addConnection(input: { source: Router; target: Router }) {
+    if (input.source === input.target) return;
 
-		this.fastUpdate();
-	}
+    if (!input.source.allowedConnections.includes(input.target.type)) return;
 
-	deleteRouter(id: number) {
-		const router = this.getRouter(id);
+    if (
+      this.doesConnectionExist(input) ||
+      this.doesConnectionExist({ source: input.target, target: input.source })
+    ) {
+      return;
+    }
 
-		if (!router) return;
+    this._connections.push({
+      id: `connection-${input.source.id}-${input.target.id}`,
+      ...input,
+      bandwidth: 0,
+      distance: 0,
+      weight: 0,
+    });
+    this.fastUpdate();
+  }
 
-		this._routers = this._routers.filter((router) => router.id !== id);
-		this._connections = this._connections.filter(
-			(connection) => connection.source.id !== id && connection.target.id !== id,
-		);
-		this.routerMap.delete(id);
+  deleteConnection(id: string) {
+    this._connections = this._connections.filter((connection) => connection.id !== id);
 
-		this.fastUpdate();
-	}
+    this.fastUpdate();
+  }
 
-	addConnection(input: { source: Router; target: Router }) {
-		if (input.source === input.target) return;
+  private doesConnectionExist(input: { source: Router; target: Router }) {
+    return this._connections.some(
+      (connection) => connection.source === input.source && connection.target === input.target,
+    );
+  }
 
-		if (!input.source.allowedConnections.includes(input.target.type)) return;
+  createCE(node: { label: string; x: number; y: number }) {
+    const router = new CE(this.counter++, node);
 
-		if (
-			this.doesConnectionExist(input) ||
-			this.doesConnectionExist({ source: input.target, target: input.source })
-		) {
-			return;
-		}
+    this.addRouter(router);
+  }
 
-		this._connections.push(input);
-		this.fastUpdate();
-	}
+  createLER(node: { label: string; x: number; y: number }) {
+    const router = new LER(this.counter++, node);
 
-	private doesConnectionExist(input: { source: Router; target: Router }) {
-		return this._connections.some(
-			(connection) => connection.source === input.source && connection.target === input.target,
-		);
-	}
+    this.addRouter(router);
+  }
 
-	createCE(node: { label: string; x: number; y: number }) {
-		const router = new CE(this.counter++, node);
+  createLSR(node: { label: string; x: number; y: number }) {
+    const router = new LSR(this.counter++, node);
 
-		this.addRouter(router);
-	}
+    this.addRouter(router);
+  }
 
-	createLER(node: { label: string; x: number; y: number }) {
-		const router = new LER(this.counter++, node);
+  private addRouter(router: Router) {
+    this._routers.push(router);
+    this.routerMap.set(router.id, router);
+    this.fastUpdate();
+  }
 
-		this.addRouter(router);
-	}
+  deleteRouter(id: number) {
+    const router = this.getRouter(id);
 
-	createLSR(node: { label: string; x: number; y: number }) {
-		const router = new LSR(this.counter++, node);
+    if (!router) return;
 
-		this.addRouter(router);
-	}
+    this._routers = this._routers.filter((router) => router.id !== id);
+    this._connections = this._connections.filter(
+      (connection) => connection.source.id !== id && connection.target.id !== id,
+    );
+    this.routerMap.delete(id);
 
-	addRouter(router: Router) {
-		this._routers.push(router);
-		this.routerMap.set(router.id, router);
-		this.fastUpdate();
-	}
+    this.fastUpdate();
+  }
 
-	getRouter(id: number) {
-		return this.routerMap.get(id);
-	}
+  getRouter(id: number) {
+    return this.routerMap.get(id);
+  }
 
-	getSureRouter(id: number) {
-		const router = this.getRouter(id);
+  getSureRouter(id: number) {
+    const router = this.getRouter(id);
 
-		if (!router) {
-			throw new Error(`Router with id ${id} not found`);
-		}
+    if (!router) {
+      throw new Error(`Router with id ${id} not found`);
+    }
 
-		return router;
-	}
+    return router;
+  }
 
-	clear() {
-		this._routers = [];
-		this._connections = [];
-		this.routerMap.clear();
-		this.counter = 0;
-		this.fastUpdate();
-	}
-
-	fastUpdate() {
-		this.store.set(this.networkState);
-	}
+  clear() {
+    this._routers = [];
+    this._connections = [];
+    this.routerMap.clear();
+    this.counter = 0;
+    this.fastUpdate();
+  }
 
 	constructor() {
 		void this.loadDefaultNetwork();
 	}
 
-	async loadDefaultNetwork(): Promise<void> {
-
-    
-
+	loadDefaultNetwork(): Promise<void> {
 		try {
 			for (const routerConfig of DefaultNetwork.routers) {
 				switch (routerConfig.node.label) {
@@ -164,4 +161,8 @@ export class NetworkStore implements Writable<NetworkState> {
 			console.error("Error loading default network:", error);
 		}
 	}
+  
+  fastUpdate() {
+    this.store.set(this.networkState);
+  }
 }

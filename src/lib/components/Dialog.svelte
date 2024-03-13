@@ -1,18 +1,18 @@
 <script lang="ts">
-	export let dialog: HTMLDialogElement;
+  export let dialog: HTMLDialogElement;
 </script>
 
 <dialog bind:this={dialog} on:close>
-	<slot />
+  <slot />
 </dialog>
 
 <style>
-	dialog {
-		padding: 10px;
-		margin: auto;
-	}
+  dialog {
+    padding: 10px;
+    margin: auto;
+  }
 
-	dialog::backdrop {
-		background-color: rgba(0, 0, 139, 0.25);
-	}
+  dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 </style>
