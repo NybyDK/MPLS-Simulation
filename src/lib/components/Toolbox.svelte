@@ -3,6 +3,7 @@
   import { locked } from "$lib/stores/locked";
   import ToolboxRouter from "$lib/components/ToolboxRouter.svelte";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
+  import { paths } from "$lib/stores/paths";
 
   const ToolboxRouters = [
     { text: "+ Customer", type: "CE", color: "lightgreen" },
@@ -25,6 +26,12 @@
           return;
         }
         if (confirm("Are you sure you want to clear the network?")) network.clear();
+      },
+    },
+    {
+      text: "LDP (actually Dijkstra)",
+      callback: () => {
+        paths.findShortestPaths();
       },
     },
   ];
