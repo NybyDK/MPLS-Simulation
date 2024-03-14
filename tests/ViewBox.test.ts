@@ -461,6 +461,9 @@ test("Can delete a connection", async ({ page }) => {
   await deleteButton.click();
   await page.keyboard.press("Enter");
   await page.keyboard.press("Escape");
+  await deleteButton.click();
+  await page.keyboard.press("Enter");
+  await page.keyboard.press("Escape");
 
   await expect(connection).not.toBeVisible();
   await expect(connectionBox).not.toBeVisible();
