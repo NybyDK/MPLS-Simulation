@@ -25,7 +25,7 @@
           alert("Network is locked.");
           return;
         }
-        if (confirm("Are you sure you want to clear the network?")) network.clear();
+        network.clear();
       },
     },
     {

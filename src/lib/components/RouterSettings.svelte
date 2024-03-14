@@ -10,7 +10,7 @@
   export let dialog: HTMLDialogElement;
 
   function handleClickDeleteButton() {
-    if (router && confirm("Are you sure you want to delete this router?")) {
+    if (router) {
       network.deleteRouter(router.id);
       dialog.close();
     }
