@@ -1,9 +1,11 @@
 name: test:integration
+
 on:
   push:
     branches: main
   pull_request:
     branches: main
+
 jobs:
   test-integration:
     runs-on: ubuntu-latest
@@ -17,6 +19,4 @@ jobs:
       - name: Install browsers
         run: yarn playwright install --with-deps
       - name: Run your tests
-        run: yarn playwright test
-        env:
-          HOME: /root
+        run: yarn playwright test:integration
