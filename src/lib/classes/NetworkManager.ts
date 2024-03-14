@@ -4,9 +4,9 @@ import type Router from "$lib/classes/MPLS/Router";
 import LER from "$lib/classes/MPLS/LER";
 import LSR from "$lib/classes/MPLS/LSR";
 import CE from "$lib/classes/MPLS/CE";
-import DefaultNetwork from "../DefaultNetwork.json" with { type: "json" };
+/* import DefaultNetwork from "../DefaultNetwork.json" with { type: "json" };
 import { RouterConfigSchema, ConnectionConfigSchema } from "./schema";
-
+ */
 export class NetworkStore implements Writable<NetworkState> {
   private store = writable<NetworkState>({ routers: [], connections: [] });
 
@@ -128,7 +128,7 @@ export class NetworkStore implements Writable<NetworkState> {
     this.fastUpdate();
   }
 
-	constructor() {
+	/* constructor() {
 		void this.loadDefaultNetwork();
 	}
 
@@ -161,7 +161,7 @@ export class NetworkStore implements Writable<NetworkState> {
 			console.error("Error loading default network:", error);
 		}
 	}
-  
+   */
   fastUpdate() {
     this.store.set(this.networkState);
   }
