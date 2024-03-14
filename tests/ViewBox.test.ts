@@ -376,13 +376,10 @@ test("Can delete a CE router", async ({ page }) => {
   await circle.dblclick();
 
   const dialog = page.locator("dialog[open]").first();
-
-  page.on("dialog", (dialog) => {
-    void dialog.accept();
-  });
   const deleteButton = dialog.getByRole("button", { name: "Delete Router" });
 
   await deleteButton.click();
+  await page.keyboard.press("Enter");
   await page.keyboard.press("Escape");
 
   await expect(circle).not.toBeVisible();
@@ -399,13 +396,10 @@ test("Can delete a LER router", async ({ page }) => {
   await circle.dblclick();
 
   const dialog = page.locator("dialog[open]").first();
-
-  page.on("dialog", (dialog) => {
-    void dialog.accept();
-  });
   const deleteButton = dialog.getByRole("button", { name: "Delete Router" });
 
   await deleteButton.click();
+  await page.keyboard.press("Enter");
   await page.keyboard.press("Escape");
 
   await expect(circle).not.toBeVisible();
@@ -422,13 +416,10 @@ test("Can delete a LSR router", async ({ page }) => {
   await circle.dblclick();
 
   const dialog = page.locator("dialog[open]").first();
-
-  page.on("dialog", (dialog) => {
-    void dialog.accept();
-  });
   const deleteButton = dialog.getByRole("button", { name: "Delete Router" });
 
   await deleteButton.click();
+  await page.keyboard.press("Enter");
   await page.keyboard.press("Escape");
 
   await expect(circle).not.toBeVisible();
@@ -465,13 +456,10 @@ test("Can delete a connection", async ({ page }) => {
   await connectionBox.dblclick();
 
   const dialog = page.locator("dialog[open]").first();
-
-  page.on("dialog", (dialog) => {
-    void dialog.accept();
-  });
   const deleteButton = dialog.getByRole("button", { name: "Delete Connection" });
 
   await deleteButton.click();
+  await page.keyboard.press("Enter");
   await page.keyboard.press("Escape");
 
   await expect(connection).not.toBeVisible();
