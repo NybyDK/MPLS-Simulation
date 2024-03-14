@@ -4,10 +4,6 @@ import { expect, test } from "@playwright/test";
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
 
-  page.on("dialog", (dialog) => {
-    void dialog.accept();
-  });
-
   const clear = page.getByRole("button", { name: "Clear" });
   await clear.click();
 });
