@@ -1,5 +1,13 @@
 import { expect, test } from "@playwright/test";
 
+// Go to main page and clear the default network
+test.beforeEach(async ({ page }) => {
+  await page.goto("/");
+
+  const clear = page.getByRole("button", { name: "Clear" });
+  await clear.click();
+});
+
 test("Can change label on a CE router", async ({ page }) => {
   const CustomerButton = page.getByRole("button", { name: "+ Customer" });
   const SVG = page.locator("svg");
