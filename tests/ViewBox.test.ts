@@ -351,18 +351,14 @@ test("Can change distance on a connection", async ({ page }) => {
 
   await connectionBox.dblclick();
 
-  const dialog = page.locator("dialog[open]").first();
-  const input = dialog.locator("input").nth(1);
+  const input = page.getByLabel("Distance:");
 
   const newDistance = "1000";
 
-  await page.waitForTimeout(1000);
   await input.fill(newDistance);
-  await page.waitForTimeout(1000);
+  await page.keyboard.press("Enter");
   await page.keyboard.press("Escape");
-  await page.waitForTimeout(1000);
   await expect(connectionBoxText).toContainText(newDistance + " km");
-  await page.waitForTimeout(1000);
 });
 
 test("Can delete a CE router", async ({ page }) => {
