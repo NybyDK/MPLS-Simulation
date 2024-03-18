@@ -347,7 +347,6 @@ test("Can change distance on a connection", async ({ page }) => {
   await page.keyboard.up("Shift");
 
   const connectionBox = SVG.locator("rect");
-  const connectionBoxText = SVG.locator("text").first();
 
   await connectionBox.dblclick();
 
@@ -357,9 +356,11 @@ test("Can change distance on a connection", async ({ page }) => {
 
   await input.fill(newDistance);
   await page.keyboard.press("Escape");
-  await connectionBox.dblclick();
+  await page.waitForTimeout(1234);
+  await SVG.locator("rect").dblclick();
   await page.keyboard.press("Escape");
-  await expect(connectionBoxText).toContainText(newDistance + " km");
+  await page.waitForTimeout(1234);
+  await expect(SVG.locator("text").first()).toContainText(newDistance + " km");
 });
 
 test("Can delete a CE router", async ({ page }) => {
