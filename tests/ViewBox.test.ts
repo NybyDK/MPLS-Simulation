@@ -356,7 +356,8 @@ test("Can change distance on a connection", async ({ page }) => {
   const newDistance = "1000";
 
   await input.fill(newDistance);
-  await page.keyboard.press("Enter");
+  await page.keyboard.press("Tab");
+  await page.getByLabel("Distance:").click();
   await page.keyboard.press("Escape");
   await expect(connectionBoxText).toContainText(newDistance + " km");
 });
