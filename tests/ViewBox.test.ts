@@ -84,8 +84,6 @@ test("Can establish a connection between CE and LER", async ({ page }) => {
 
   await page.keyboard.down("Shift");
   await CECircle.dragTo(LERCircle);
-  // Drag it again because WebKit refuses to do it the first time
-  await CECircle.dragTo(LERCircle);
   await page.keyboard.up("Shift");
 
   const connection = SVG.locator("line");
@@ -118,8 +116,6 @@ test("Can establish a connection between LER and LSR", async ({ page }) => {
 
   await page.keyboard.down("Shift");
   await LERCircle.dragTo(LSRCircle);
-  // Drag it again because WebKit refuses to do it the first time
-  await LERCircle.dragTo(LSRCircle);
   await page.keyboard.up("Shift");
 
   const connection = SVG.locator("line");
@@ -150,8 +146,6 @@ test("Can establish a connection between LSR and LSR", async ({ page }) => {
   const [LSRCircle1, LSRCircle2] = await SVG.locator("circle").all();
 
   await page.keyboard.down("Shift");
-  await LSRCircle1.dragTo(LSRCircle2);
-  // Drag it again because WebKit refuses to do it the first time
   await LSRCircle1.dragTo(LSRCircle2);
   await page.keyboard.up("Shift");
 
@@ -184,8 +178,6 @@ test("Cannot establish a connection between CE and CE", async ({ page }) => {
 
   await page.keyboard.down("Shift");
   await CECircle1.dragTo(CECircle2);
-  // Drag it again because WebKit refuses to do it the first time
-  await CECircle1.dragTo(CECircle2);
   await page.keyboard.up("Shift");
 
   const connection = SVG.locator("line");
@@ -216,8 +208,6 @@ test("Cannot establish a connection between CE and LSR", async ({ page }) => {
 
   await page.keyboard.down("Shift");
   await CECircle.dragTo(LSRCircle);
-  // Drag it again because WebKit refuses to do it the first time
-  await CECircle.dragTo(LSRCircle);
   await page.keyboard.up("Shift");
 
   const connection = SVG.locator("line");
@@ -247,8 +237,6 @@ test("Cannot establish a connection between LER and LER", async ({ page }) => {
 
   await page.keyboard.down("Shift");
   await LERCircle1.dragTo(LERCircle2);
-  // Drag it again because WebKit refuses to do it the first time
-  await LERCircle1.dragTo(LERCircle2);
   await page.keyboard.up("Shift");
 
   const connection = SVG.locator("line");
@@ -269,8 +257,7 @@ test("Can change label on a CE router", async ({ page }) => {
 
   await CECircle.dblclick();
 
-  const dialog = page.locator("dialog[open]").first();
-  const input = dialog.locator("input").first();
+  const input = page.getByLabel("Label:");
 
   const newLabel = "Mr. Topholt";
 
@@ -290,8 +277,7 @@ test("Can change label on a LER router", async ({ page }) => {
 
   await CECircle.dblclick();
 
-  const dialog = page.locator("dialog[open]").first();
-  const input = dialog.locator("input").first();
+  const input = page.getByLabel("Label:");
 
   const newLabel = "Mr. Topholt";
 
@@ -311,8 +297,7 @@ test("Can change label on a LSR router", async ({ page }) => {
 
   await CECircle.dblclick();
 
-  const dialog = page.locator("dialog[open]").first();
-  const input = dialog.locator("input").first();
+  const input = page.getByLabel("Label:");
 
   const newLabel = "Mr. Topholt";
 
@@ -342,8 +327,6 @@ test("Can change distance on a connection", async ({ page }) => {
 
   await page.keyboard.down("Shift");
   await LERCircle.dragTo(LSRCircle);
-  // Drag it again because WebKit refuses to do it the first time
-  await LERCircle.dragTo(LSRCircle);
   await page.keyboard.up("Shift");
 
   const connectionBox = SVG.locator("rect");
@@ -356,10 +339,6 @@ test("Can change distance on a connection", async ({ page }) => {
 
   await input.fill(newDistance);
   await page.keyboard.press("Escape");
-  await page.waitForTimeout(1234);
-  await SVG.locator("rect").dblclick();
-  await page.keyboard.press("Escape");
-  await page.waitForTimeout(1234);
   await expect(SVG.locator("text").first()).toContainText(newDistance + " km");
 });
 
@@ -437,8 +416,6 @@ test("Can delete a connection", async ({ page }) => {
   const [CECircle, LERCircle] = await SVG.locator("circle").all();
 
   await page.keyboard.down("Shift");
-  await CECircle.dragTo(LERCircle);
-  // Drag it again because WebKit refuses to do it the first time
   await CECircle.dragTo(LERCircle);
   await page.keyboard.up("Shift");
 
