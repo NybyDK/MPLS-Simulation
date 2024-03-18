@@ -359,6 +359,10 @@ test("Can change distance on a connection", async ({ page }) => {
   await page.keyboard.press("Tab");
   await page.getByLabel("Distance:").click();
   await page.keyboard.press("Escape");
+  await page.keyboard.press("Escape");
+  await page.keyboard.press("Escape");
+  await page.keyboard.press("Escape");
+  await page.keyboard.press("Escape");
   await expect(connectionBoxText).toContainText(newDistance + " km");
 });
 
