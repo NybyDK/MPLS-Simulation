@@ -19,3 +19,14 @@ yarn dev --host
 ## Building
 
 Build a production version of your app with `yarn build` and preview the build with `yarn preview`
+
+## Testing
+
+To run testing use the following command in the terminal:
+
+```bash
+yarn test:integration --ui
+
+#Or the followin for unit tests
+yarn test:unit --ui
+```
