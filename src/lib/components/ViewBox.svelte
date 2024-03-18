@@ -109,7 +109,7 @@
 
     event.preventDefault();
 
-    if (interactionState === InteractionState.CONNECTING && selectedRouter) {
+    if (!$locked && interactionState === InteractionState.CONNECTING && selectedRouter) {
       const element = document.elementFromPoint(event.clientX, event.clientY);
 
       const targetId = element?.tagName === "circle" ? element.id : null;
@@ -267,9 +267,9 @@
   on:drop={handleDrop}
   role="button"
   tabindex="-1"
-  style="cursor: {cursorStyles[interactionState]};"
+  style="cursor: {$locked ? 'default' : cursorStyles[interactionState]};"
 >
-  {#if interactionState === InteractionState.CONNECTING && selectedRouter}
+  {#if !$locked && interactionState === InteractionState.CONNECTING && selectedRouter}
     <line
       x1={selectedRouter.node.x}
       y1={selectedRouter.node.y}

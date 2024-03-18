@@ -8,7 +8,7 @@
   export let dialog: HTMLDialogElement;
 
   function handleClickDeleteButton() {
-    if (connection) {
+    if (!$locked && connection && confirm("Are you sure you want to delete this connection?")) {
       network.deleteConnection(connection.id);
       dialog.close();
     }

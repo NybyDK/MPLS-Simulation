@@ -21,7 +21,7 @@
     {
       text: "Clear",
       callback: () => {
-        if ($locked) {
+        if ($locked && confirm("Are you sure you want to clear the network?")) {
           alert("Network is locked.");
           return;
         }

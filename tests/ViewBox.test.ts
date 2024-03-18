@@ -3,6 +3,8 @@ import { expect, test } from "@playwright/test";
 // Go to main page and clear the default network
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
+  await page.waitForLoadState("domcontentloaded");
+  await page.waitForSelector("svg");
 
   const clear = page.getByRole("button", { name: "Clear" });
   await clear.click();
@@ -61,6 +63,22 @@ test("Can drag and drop a LSR Router", async ({ page }) => {
   await expect(circle).toHaveAttribute("fill", "hotpink");
   await expect(circleText).toBeVisible();
   await expect(circleText).toContainText("LSR");
+});
+
+test("Cannot create a router when locked", async ({ page }) => {
+  const lockButton = page.getByRole("button", { name: "Lock" });
+  await lockButton.click();
+
+  const source = page.getByRole("button", { name: "+ Edge" });
+  const target = page.locator("svg");
+
+  await source.dragTo(target);
+
+  const circle = target.locator("circle");
+  const circleText = target.locator("text");
+
+  await expect(circle).not.toBeVisible();
+  await expect(circleText).not.toBeVisible();
 });
 
 test("Can establish a connection between CE and LER", async ({ page }) => {
@@ -246,6 +264,39 @@ test("Cannot establish a connection between LER and LER", async ({ page }) => {
   await expect(connectionBox).not.toBeVisible();
 });
 
+test("Cannot create a connection when locked", async ({ page }) => {
+  const CustomerButton = page.getByRole("button", { name: "+ Customer" });
+  const EdgeButton = page.getByRole("button", { name: "+ Edge" });
+  const SVG = page.locator("svg");
+
+  const SVGBoundingBox = await SVG.boundingBox();
+
+  if (!SVGBoundingBox) throw new Error("Could not find SVG bounding box");
+
+  const middle = {
+    x: SVGBoundingBox.width / 2,
+    y: SVGBoundingBox.height / 2,
+  };
+
+  await CustomerButton.dragTo(SVG, { targetPosition: { x: middle.x - 100, y: middle.y } });
+  await EdgeButton.dragTo(SVG, { targetPosition: { x: middle.x + 100, y: middle.y } });
+
+  const [CECircle, LERCircle] = await SVG.locator("circle").all();
+
+  const lockButton = page.getByRole("button", { name: "Lock" });
+  await lockButton.click();
+
+  await page.keyboard.down("Shift");
+  await CECircle.dragTo(LERCircle);
+  await page.keyboard.up("Shift");
+
+  const connection = SVG.locator("line");
+  const connectionBox = SVG.locator("rect");
+
+  await expect(connection).not.toBeVisible();
+  await expect(connectionBox).not.toBeVisible();
+});
+
 test("Can change label on a CE router", async ({ page }) => {
   const CustomerButton = page.getByRole("button", { name: "+ Customer" });
   const SVG = page.locator("svg");
@@ -304,42 +355,6 @@ test("Can change label on a LSR router", async ({ page }) => {
   await input.fill(newLabel);
   await page.keyboard.press("Escape");
   await expect(CECircleText).toContainText(newLabel);
-});
-
-test("Can change distance on a connection", async ({ page }) => {
-  const EdgeButton = page.getByRole("button", { name: "+ Edge" });
-  const SwitchButton = page.getByRole("button", { name: "+ Switch" });
-  const SVG = page.locator("svg");
-
-  const SVGBoundingBox = await SVG.boundingBox();
-
-  if (!SVGBoundingBox) throw new Error("Could not find SVG bounding box");
-
-  const middle = {
-    x: SVGBoundingBox.width / 2,
-    y: SVGBoundingBox.height / 2,
-  };
-
-  await EdgeButton.dragTo(SVG, { targetPosition: { x: middle.x - 100, y: middle.y } });
-  await SwitchButton.dragTo(SVG, { targetPosition: { x: middle.x + 100, y: middle.y } });
-
-  const [LERCircle, LSRCircle] = await SVG.locator("circle").all();
-
-  await page.keyboard.down("Shift");
-  await LERCircle.dragTo(LSRCircle);
-  await page.keyboard.up("Shift");
-
-  const connectionBox = SVG.locator("rect");
-
-  await connectionBox.dblclick();
-
-  const input = page.getByLabel("Distance:");
-
-  const newDistance = "1000";
-
-  await input.fill(newDistance);
-  await page.keyboard.press("Escape");
-  await expect(SVG.locator("text").first()).toContainText(newDistance + " km");
 });
 
 test("Can delete a CE router", async ({ page }) => {
@@ -431,6 +446,160 @@ test("Can delete a connection", async ({ page }) => {
 
   await expect(connection).not.toBeVisible();
   await expect(connectionBox).not.toBeVisible();
+});
+
+test("Can change distance on a connection", async ({ page }) => {
+  const EdgeButton = page.getByRole("button", { name: "+ Edge" });
+  const SwitchButton = page.getByRole("button", { name: "+ Switch" });
+  const SVG = page.locator("svg");
+
+  const SVGBoundingBox = await SVG.boundingBox();
+
+  if (!SVGBoundingBox) throw new Error("Could not find SVG bounding box");
+
+  const middle = {
+    x: SVGBoundingBox.width / 2,
+    y: SVGBoundingBox.height / 2,
+  };
+
+  await EdgeButton.dragTo(SVG, { targetPosition: { x: middle.x - 100, y: middle.y } });
+  await SwitchButton.dragTo(SVG, { targetPosition: { x: middle.x + 100, y: middle.y } });
+
+  const [LERCircle, LSRCircle] = await SVG.locator("circle").all();
+
+  await page.keyboard.down("Shift");
+  await LERCircle.dragTo(LSRCircle);
+  await page.keyboard.up("Shift");
+
+  const connectionBox = SVG.locator("rect");
+
+  await connectionBox.dblclick();
+
+  const input = page.getByLabel("Distance:");
+
+  const newDistance = "1000";
+
+  await input.fill(newDistance);
+  await page.keyboard.press("Escape");
+  await expect(SVG.locator("text").first()).toContainText(newDistance + " km");
+});
+
+test("Can pan the viewbox when unlocked", async ({ page }) => {
+  const DRAG_DISTANCE = 100;
+  const SVG = page.locator("svg");
+
+  const SVGBoundingBox = await SVG.boundingBox();
+  if (!SVGBoundingBox) throw new Error("Could not find SVG bounding box");
+
+  const middle = {
+    x: SVGBoundingBox.width / 2,
+    y: SVGBoundingBox.height / 2,
+  };
+
+  const initialViewBox = await SVG.getAttribute("viewBox");
+  if (!initialViewBox) throw new Error("Could not get initial viewbox");
+
+  const initialViewBoxValues = initialViewBox.split(" ").map(Number);
+
+  const expectedViewBoxValues = initialViewBoxValues.map((value, index) =>
+    index < 2 ? value - DRAG_DISTANCE : value,
+  );
+  const expectedViewBox = expectedViewBoxValues.join(" ");
+
+  await SVG.dragTo(SVG, {
+    targetPosition: { x: middle.x + DRAG_DISTANCE, y: middle.y + DRAG_DISTANCE },
+  });
+
+  const newViewBox = await SVG.getAttribute("viewBox");
+  if (!newViewBox) throw new Error("Could not get new viewbox");
+
+  expect(newViewBox).toBe(expectedViewBox);
+});
+
+test("Can pan the viewbox when locked", async ({ page }) => {
+  const lockButton = page.getByRole("button", { name: "Lock" });
+  await lockButton.click();
+
+  const DRAG_DISTANCE = 100;
+  const SVG = page.locator("svg");
+
+  const SVGBoundingBox = await SVG.boundingBox();
+  if (!SVGBoundingBox) throw new Error("Could not find SVG bounding box");
+
+  const middle = {
+    x: SVGBoundingBox.width / 2,
+    y: SVGBoundingBox.height / 2,
+  };
+
+  const initialViewBox = await SVG.getAttribute("viewBox");
+  if (!initialViewBox) throw new Error("Could not get initial viewbox");
+
+  const initialViewBoxValues = initialViewBox.split(" ").map(Number);
+
+  const expectedViewBoxValues = initialViewBoxValues.map((value, index) =>
+    index < 2 ? value - DRAG_DISTANCE : value,
+  );
+  const expectedViewBox = expectedViewBoxValues.join(" ");
+
+  await SVG.dragTo(SVG, {
+    targetPosition: { x: middle.x + DRAG_DISTANCE, y: middle.y + DRAG_DISTANCE },
+  });
+
+  const newViewBox = await SVG.getAttribute("viewBox");
+  if (!newViewBox) throw new Error("Could not get new viewbox");
+
+  expect(newViewBox).toBe(expectedViewBox);
+});
+
+test("Can zoom the viewbox when unlocked", async ({ page }) => {
+  const SVG = page.locator("svg");
+
+  const SVGBoundingBox = await SVG.boundingBox();
+  if (!SVGBoundingBox) throw new Error("Could not find SVG bounding box");
+
+  const middle = {
+    x: SVGBoundingBox.width / 2,
+    y: SVGBoundingBox.height / 2,
+  };
+
+  const initialViewBox = await SVG.getAttribute("viewBox");
+  if (!initialViewBox) throw new Error("Could not get initial viewbox");
+
+  const expectedViewBox = "-624 -351 1248 702";
+
+  await SVG.dispatchEvent("wheel", { deltaY: -1, clientX: middle.x, clientY: middle.y });
+
+  const newViewBox = await SVG.getAttribute("viewBox");
+  if (!newViewBox) throw new Error("Could not get new viewbox");
+
+  expect(newViewBox).toBe(expectedViewBox);
+});
+
+test("Can zoom the viewbox when locked", async ({ page }) => {
+  const lockButton = page.getByRole("button", { name: "Lock" });
+  await lockButton.click();
+
+  const SVG = page.locator("svg");
+
+  const SVGBoundingBox = await SVG.boundingBox();
+  if (!SVGBoundingBox) throw new Error("Could not find SVG bounding box");
+
+  const middle = {
+    x: SVGBoundingBox.width / 2,
+    y: SVGBoundingBox.height / 2,
+  };
+
+  const initialViewBox = await SVG.getAttribute("viewBox");
+  if (!initialViewBox) throw new Error("Could not get initial viewbox");
+
+  const expectedViewBox = "-624 -351 1248 702";
+
+  await SVG.dispatchEvent("wheel", { deltaY: -1, clientX: middle.x, clientY: middle.y });
+
+  const newViewBox = await SVG.getAttribute("viewBox");
+  if (!newViewBox) throw new Error("Could not get new viewbox");
+
+  expect(newViewBox).toBe(expectedViewBox);
 });
 
 test("Can move a router when unlocked", async ({ page }) => {
