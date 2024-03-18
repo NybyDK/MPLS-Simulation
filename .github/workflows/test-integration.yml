@@ -9,6 +9,8 @@ on:
 jobs:
   test-integration:
     runs-on: macos-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.41.1-jammy
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -16,7 +18,7 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Install browsers
-        run: yarn playwright install --with-deps
       - name: Run your tests
         run: yarn playwright test
+        env:
+          HOME: /root
