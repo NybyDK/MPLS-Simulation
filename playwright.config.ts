@@ -8,7 +8,7 @@ const config: PlaywrightTestConfig = {
     timeout: 10 * 60 * 1000,
   },
   testDir: "tests",
-  testMatch: /(.+\.)?(test|spec)\.ts/,
+  testMatch: /(.+\.)?test\.ts/,
   projects: [
     {
       name: "chromium",
