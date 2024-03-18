@@ -22,3 +22,5 @@ jobs:
         run: yarn playwright install --with-deps
       - name: Run your tests
         run: yarn playwright test
+        env:
+          HOME: /root
