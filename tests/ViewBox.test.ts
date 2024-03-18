@@ -6,6 +6,10 @@ test.beforeEach(async ({ page }) => {
   await page.waitForLoadState("domcontentloaded");
   await page.waitForSelector("svg");
 
+  page.on("dialog", (dialog) => {
+    void dialog.accept();
+  });
+
   const clear = page.getByRole("button", { name: "Clear" });
   await clear.click();
 });
