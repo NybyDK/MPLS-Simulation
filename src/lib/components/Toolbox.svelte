@@ -21,11 +21,11 @@
     {
       text: "Clear",
       callback: () => {
-        if ($locked && confirm("Are you sure you want to clear the network?")) {
+        if ($locked) {
           alert("Network is locked.");
           return;
         }
-        network.clear();
+        if (confirm("Are you sure you want to clear the network?")) network.clear();
       },
     },
     {
