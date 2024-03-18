@@ -432,3 +432,48 @@ test("Can delete a connection", async ({ page }) => {
   await expect(connection).not.toBeVisible();
   await expect(connectionBox).not.toBeVisible();
 });
+
+test("Can move a router when unlocked", async ({ page }) => {
+  const source = page.getByRole("button", { name: "+ Customer" });
+  const SVG = page.locator("svg");
+
+  await source.dragTo(SVG);
+
+  const circle = SVG.locator("circle");
+
+  const oldPosition = await circle.boundingBox();
+
+  if (!oldPosition) throw new Error("Could not find old position");
+
+  await circle.dragTo(SVG, { targetPosition: { x: 100, y: 100 } });
+
+  const newPosition = await circle.boundingBox();
+
+  if (!newPosition) throw new Error("Could not find new position");
+
+  expect(newPosition).not.toEqual(oldPosition);
+});
+
+test("Cannot move a router when locked", async ({ page }) => {
+  const source = page.getByRole("button", { name: "+ Customer" });
+  const SVG = page.locator("svg");
+
+  await source.dragTo(SVG);
+
+  const circle = SVG.locator("circle");
+
+  const oldPosition = await circle.boundingBox();
+
+  if (!oldPosition) throw new Error("Could not find old position");
+
+  const lock = page.getByRole("button", { name: "Lock" });
+  await lock.click();
+
+  await circle.dragTo(SVG, { targetPosition: { x: 100, y: 100 } });
+
+  const newPosition = await circle.boundingBox();
+
+  if (!newPosition) throw new Error("Could not find new position");
+
+  expect(newPosition).toEqual(oldPosition);
+});
