@@ -19,8 +19,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Install browsers
-        run: yarn playwright install --with-deps
-      - name: Run your tests
         run: yarn playwright test
         env:
           HOME: /root
