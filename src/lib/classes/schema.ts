@@ -18,9 +18,19 @@ const Router = z.object({
   allowedConnections: z.array(z.string()),
 });
 
+const Connection = z.object({
+  id: z.string(),
+  source: Router,
+  target: Router,
+  bandwidth: z.number(),
+  distance: z.number(),
+  weight: z.number(),
+});
+
 const DefaultNetworkSchema = z.object({
   store: z.object({}).optional(),
   _routers: z.array(Router),
+  _connections: z.array(Connection).optional(),
 });
 
 export const validateDefaultNetwork = DefaultNetworkSchema.safeParse(DefaultNetwork);

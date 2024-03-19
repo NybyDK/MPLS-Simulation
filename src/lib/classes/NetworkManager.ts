@@ -148,6 +148,16 @@ export class NetworkStore implements Writable<NetworkState> {
           break;
       }
     }
+    if (validateDefaultNetwork.data._connections) {
+      for (const connectionData of validateDefaultNetwork.data._connections) {
+        const sourceRouter = this.getRouter(connectionData.source.id);
+        const targetRouter = this.getRouter(connectionData.target.id);
+
+        if (sourceRouter && targetRouter) {
+          this.addConnection({ source: sourceRouter, target: targetRouter });
+        }
+      }
+    }
   }
 
   fastUpdate() {
