@@ -4,9 +4,8 @@ import type Router from "$lib/classes/MPLS/Router";
 import LER from "$lib/classes/MPLS/LER";
 import LSR from "$lib/classes/MPLS/LSR";
 import CE from "$lib/classes/MPLS/CE";
-/* import DefaultNetwork from "../DefaultNetwork.json" with { type: "json" };
-import { RouterConfigSchema, ConnectionConfigSchema } from "./schema";
- */
+import { validateDefaultNetwork } from "$lib/classes/schema";
+//import DefaultNetwork from "$lib/data/DefaultNetwork.json";
 export class NetworkStore implements Writable<NetworkState> {
   private store = writable<NetworkState>({ routers: [], connections: [] });
 
@@ -128,40 +127,29 @@ export class NetworkStore implements Writable<NetworkState> {
     this.fastUpdate();
   }
 
-	/* constructor() {
-		void this.loadDefaultNetwork();
-	}
+  constructor() {
+    this.loadDefaultNetwork();
+  }
 
-	loadDefaultNetwork(): Promise<void> {
-		try {
-			for (const routerConfig of DefaultNetwork.routers) {
-				switch (routerConfig.node.label) {
-					case "LER":
-						this.createLER(routerConfig);
-						break;
-					case "LSR":
-						this.createLSR(routerConfig);
-						break;
-					case "CE":
-						this.createCE(routerConfig);
-						break;
-					default:
-						break;
-				}
-			}
+  loadDefaultNetwork() {
+    if (!validateDefaultNetwork.success) throw new Error("unable to parse default");
+    for (const routerData of validateDefaultNetwork.data._routers) {
+      switch (routerData.node.label) {
+        case "LER":
+          this.createLER(routerData.node);
+          break;
+        case "LSR":
+          this.createLSR(routerData.node);
+          break;
+        case "CE":
+          this.createCE(routerData.node);
+          break;
+        default:
+          break;
+      }
+    }
+  }
 
-			for (const connectionConfig of DefaultNetwork.connections) {
-				const sourceRouter = this.getSureRouter(connectionConfig.source.id);
-				const targetRouter = this.getSureRouter(connectionConfig.target.id);
-				if (sourceRouter && targetRouter) {
-					this.addConnection({ source: sourceRouter, target: targetRouter });
-				}
-			}
-		} catch (error) {
-			console.error("Error loading default network:", error);
-		}
-	}
-   */
   fastUpdate() {
     this.store.set(this.networkState);
   }
