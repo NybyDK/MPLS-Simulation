@@ -1,5 +1,4 @@
 import Router from "$lib/classes/MPLS/Router";
-import type Packet from "$lib/classes/MPLS/Packet";
 import type { Flow } from "$lib/interfaces/network";
 
 export default class CE extends Router {
@@ -14,11 +13,6 @@ export default class CE extends Router {
 
   deleteFlow = (index: number) => {
     this.flows.splice(index, 1);
-  };
-
-  processPacket = (packet: Packet) => {
-    if (!this.nextHop) return;
-    this.sendPacket(packet, this.nextHop);
   };
 
   get type(): "CE" {
