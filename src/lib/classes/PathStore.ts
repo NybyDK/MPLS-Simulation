@@ -24,6 +24,10 @@ export class PathStore implements Writable<Map<number, Map<number, Router[]>>> {
     return sourceMap.get(targetId);
   }
 
+  public findShortestPath(source: Router, target: Router) {
+    return dijkstra(source, target);
+  }
+
   public findShortestPaths() {
     const paths: Map<number, Map<number, Router[]>> = new Map();
 

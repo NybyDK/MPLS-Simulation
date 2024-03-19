@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { network } from "$lib/stores/network";
+  import { paths } from "$lib/stores/paths";
   import type Router from "$lib/classes/MPLS/Router";
   import LER from "$lib/classes/MPLS/LER";
   import LSR from "$lib/classes/MPLS/LSR";
@@ -23,7 +25,7 @@
       return;
     }
 
-    router.updateAddress(oldAddress, newAddress);
+    router.updateFIBAddress(oldAddress, newAddress);
   }
 
   function handleOnChangeLIB(event: Event, oldLabel: number) {
@@ -36,7 +38,45 @@
       return;
     }
 
-    router.updateLabel(oldLabel, newLabel);
+    router.updateLIBLabel(oldLabel, newLabel);
+  }
+
+  function handleOnChangeFlows(event: Event) {
+    if (!(event.target instanceof HTMLInputElement)) return;
+    if (!(router instanceof CE)) return;
+
+    const target = event.target.value;
+
+    const CERouters = $network.routers.filter((router): router is CE => router instanceof CE);
+    const destinationRouter = CERouters.find((router) => router.address === target);
+
+    if (!destinationRouter) {
+      alert("Destination router not found.");
+      return;
+    }
+
+    const path = paths.findShortestPath(router, destinationRouter);
+
+    let incomingLabel: number | undefined;
+    let firstLER = true;
+
+    for (let i = path.length - 1; i > 0; i--) {
+      const currentRouter = path[i];
+      const previousRouter = path[i - 1];
+
+      const outgoingLabel =
+        incomingLabel ?? Math.floor(Math.random() * ((currentRouter.id + 1) * 1000));
+      incomingLabel = Math.floor(Math.random() * ((previousRouter.id + 1) * 1000));
+
+      if (previousRouter instanceof LER && firstLER) {
+        previousRouter.receiveLIBEntry(incomingLabel, -1, target);
+        firstLER = false;
+      } else if (previousRouter instanceof LER && !firstLER) {
+        previousRouter.receiveFIBEntry(target, outgoingLabel, currentRouter.id.toString());
+      } else if (previousRouter instanceof LSR) {
+        previousRouter.receiveLIBEntry(incomingLabel, outgoingLabel, currentRouter.id.toString());
+      }
+    }
   }
 </script>
 
@@ -53,7 +93,14 @@
           <input type="number" bind:value={flow.size} />
         </td>
         <td>
-          <input type="text" bind:value={flow.destination} placeholder="Address" />
+          <input
+            type="text"
+            bind:value={flow.destination}
+            placeholder="Address"
+            on:change={(event) => {
+              handleOnChangeFlows(event);
+            }}
+          />
         </td>
         <button
           on:click={() => {
@@ -93,7 +140,7 @@
         <button
           on:click={() => {
             if (router instanceof LER) {
-              router.deleteEntry(address);
+              router.deleteFIBEntry(address);
               router = router;
             }
           }}
@@ -103,7 +150,41 @@
       </tr>
     {/each}
   </table>
-  <button on:click={addAndUpdate(router.addEmptyEntry)}>+</button>
+  <button on:click={addAndUpdate(router.addEmptyFIBEntry)}>+</button>
+  <p>LIB:</p>
+  <table>
+    <tr>
+      <th>Incoming</th>
+      <th>Outgoing</th>
+      <th>Next hop</th>
+    </tr>
+    {#each [...router.LIB] as [incomingLabel, value]}
+      <tr>
+        <td>
+          <input
+            type="number"
+            value={incomingLabel}
+            on:change={(event) => {
+              handleOnChangeLIB(event, incomingLabel);
+            }}
+          />
+        </td>
+        <td><input type="number" bind:value={value.outgoingLabel} /></td>
+        <td><input type="text" bind:value={value.nextHop} /></td>
+        <button
+          on:click={() => {
+            if (router instanceof LER) {
+              router.deleteLIBEntry(incomingLabel);
+              router = router;
+            }
+          }}
+        >
+          -
+        </button>
+      </tr>
+    {/each}
+  </table>
+  <button on:click={addAndUpdate(router.addEmptyLIBEntry)}>+</button>
 {:else if router instanceof LSR}
   <p>LIB:</p>
   <table>
@@ -128,7 +209,7 @@
         <button
           on:click={() => {
             if (router instanceof LSR) {
-              router.deleteEntry(incomingLabel);
+              router.deleteLIBEntry(incomingLabel);
               router = router;
             }
           }}
@@ -138,7 +219,7 @@
       </tr>
     {/each}
   </table>
-  <button on:click={addAndUpdate(router.addEmptyEntry)}>+</button>
+  <button on:click={addAndUpdate(router.addEmptyLIBEntry)}>+</button>
 {/if}
 
 <style>
