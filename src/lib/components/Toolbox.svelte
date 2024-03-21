@@ -1,9 +1,10 @@
 <script lang="ts">
   import { network } from "$lib/stores/network";
   import { locked } from "$lib/stores/locked";
+  import { paths } from "$lib/stores/paths";
   import ToolboxRouter from "$lib/components/ToolboxRouter.svelte";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
-  import { paths } from "$lib/stores/paths";
+  import CE from "$lib/classes/MPLS/CE";
 
   const ToolboxRouters = [
     { text: "+ Customer", type: "CE", color: "lightgreen" },
@@ -32,6 +33,13 @@
       text: "LDP (actually Dijkstra)",
       callback: () => {
         paths.findShortestPaths();
+      },
+    },
+    {
+      text: "Test",
+      callback: () => {
+        const CERouters = $network.routers.filter((router): router is CE => router instanceof CE);
+        network.addPacket(CERouters[0], CERouters[1]);
       },
     },
   ];

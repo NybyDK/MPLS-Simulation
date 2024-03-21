@@ -1,6 +1,7 @@
 <script lang="ts">
   import { network } from "$lib/stores/network";
   import ViewBox from "$lib/components/ViewBox.svelte";
+  import Packet from "$lib/components/Packet.svelte";
   import Connection from "$lib/components/Connection.svelte";
   import Router from "$lib/components/Router.svelte";
   import Toolbox from "$lib/components/Toolbox.svelte";
@@ -14,6 +15,9 @@
     {/each}
     {#each $network.routers as router}
       <Router {router} />
+    {/each}
+    {#each $network.packets as packet (packet.id)}
+      <Packet {packet} />
     {/each}
   </ViewBox>
   <div id="top-left-bar" class="absolute-flex">

@@ -1,4 +1,6 @@
+import { network } from "$lib/stores/network";
 import Router from "$lib/classes/MPLS/Router";
+import type Packet from "./Packet";
 
 export default class LSR extends Router {
   // Maps incoming label to outgoing label and next hop
@@ -25,6 +27,21 @@ export default class LSR extends Router {
   receiveLIBEntry = (incomingLabel: number, outgoingLabel: number, nextHop: string) => {
     this.LIB.set(incomingLabel, { outgoingLabel, nextHop });
   };
+
+  receivePacket(packet: Packet): void {
+    const nextHop = this.LIB.get(packet.label)?.nextHop;
+    if (!nextHop) return;
+
+    const newLabel = this.LIB.get(packet.label)?.outgoingLabel;
+    if (!newLabel) return;
+    packet.label = newLabel;
+
+    const nextRouter = network.getRouter(parseInt(nextHop));
+    if (!nextRouter) return;
+    packet.nextHop = nextRouter;
+
+    packet.ttl -= 1;
+  }
 
   get type(): "LSR" {
     return "LSR";

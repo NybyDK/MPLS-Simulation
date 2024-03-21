@@ -1,12 +1,13 @@
 import { writable, type Writable } from "svelte/store";
 import type { Connection, NetworkState } from "$lib/interfaces/network";
 import type Router from "$lib/classes/MPLS/Router";
+import Packet from "$lib/classes/MPLS/Packet";
 import LER from "$lib/classes/MPLS/LER";
 import LSR from "$lib/classes/MPLS/LSR";
 import CE from "$lib/classes/MPLS/CE";
 
 export class NetworkStore implements Writable<NetworkState> {
-  private store = writable<NetworkState>({ routers: [], connections: [] });
+  private store = writable<NetworkState>({ routers: [], connections: [], packets: [] });
 
   set = this.store.set;
   update = this.store.update;
@@ -14,6 +15,7 @@ export class NetworkStore implements Writable<NetworkState> {
 
   private _routers: Router[] = [];
   private _connections: Connection[] = [];
+  private _packets: Packet[] = [];
   private routerMap = new Map<number, Router>();
   private counter = 0;
 
@@ -25,10 +27,15 @@ export class NetworkStore implements Writable<NetworkState> {
     return this._connections;
   }
 
+  get packets() {
+    return this._packets;
+  }
+
   get networkState(): NetworkState {
     return {
       routers: this.routers,
       connections: this.connections,
+      packets: this.packets,
     };
   }
 
@@ -116,6 +123,20 @@ export class NetworkStore implements Writable<NetworkState> {
     }
 
     return router;
+  }
+
+  addPacket(source: CE, destination: CE) {
+    const packet = new Packet(this.counter++, source, destination, {
+      x: source.node.x,
+      y: source.node.y,
+    });
+    this._packets.push(packet);
+    this.fastUpdate();
+  }
+
+  deletePacket(packetId: number) {
+    this._packets = this._packets.filter((packet) => packet.id !== packetId);
+    this.fastUpdate();
   }
 
   clear() {

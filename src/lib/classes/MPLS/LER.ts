@@ -1,4 +1,7 @@
+import { network } from "$lib/stores/network";
 import Router from "$lib/classes/MPLS/Router";
+import type Packet from "./Packet";
+import CE from "./CE";
 
 export default class LER extends Router {
   // Maps Customer Edge address to next hop and first label
@@ -48,6 +51,40 @@ export default class LER extends Router {
   receiveLIBEntry = (incomingLabel: number, outgoingLabel: number, nextHop: string) => {
     this.LIB.set(incomingLabel, { outgoingLabel, nextHop });
   };
+
+  receivePacket(packet: Packet): void {
+    const destination = packet.destination;
+
+    if (packet.label === -1) {
+      const nextHop = this.FIB.get(destination.address)?.nextHop;
+      if (!nextHop) return;
+
+      const newLabel = this.FIB.get(destination.address)?.label;
+      if (!newLabel) return;
+
+      packet.label = newLabel;
+      packet.node = { x: this.node.x, y: this.node.y };
+      const nextRouter = network.getRouter(parseInt(nextHop));
+      if (!nextRouter) return;
+
+      packet.nextHop = nextRouter;
+    } else {
+      const nextHop = this.LIB.get(packet.label)?.nextHop;
+      if (!nextHop) return;
+
+      const newLabel = this.LIB.get(packet.label)?.outgoingLabel;
+      if (!newLabel) return;
+      packet.label = newLabel;
+      packet.node = { x: this.node.x, y: this.node.y };
+      const nextRouter = network.routers.find(
+        (router) => router instanceof CE && router.address === nextHop,
+      );
+      if (!nextRouter) return;
+      packet.nextHop = nextRouter;
+    }
+
+    packet.ttl--;
+  }
 
   get type(): "LER" {
     return "LER";
