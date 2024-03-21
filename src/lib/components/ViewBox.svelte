@@ -178,6 +178,11 @@
     viewBox.height *= zoomFactor;
   }
 
+  export function zooming(zoomFactor: number) {
+    viewBox.width *= zoomFactor;
+    viewBox.height *= zoomFactor;
+  }
+
   function handleDoubleClick(event: MouseEvent) {
     if (!(event.target instanceof Element)) return;
 
