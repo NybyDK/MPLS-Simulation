@@ -1,6 +1,6 @@
 import Router from "$lib/classes/MPLS/Router";
 import type { Flow } from "$lib/interfaces/network";
-import type Packet from "./Packet";
+import type Packet from "$lib/classes/MPLS/Packet";
 
 export default class CE extends Router {
   flows: Flow[] = [];
