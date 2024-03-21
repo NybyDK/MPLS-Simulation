@@ -14,6 +14,7 @@ export default class Packet {
     public readonly destination: CE,
     public node: { x: number; y: number },
   ) {
+    // TODO: "as" is bad, but entire line will be changed soon
     this.nextHop = paths.getPath(source.id, destination.id)?.[1] as Router;
   }
 

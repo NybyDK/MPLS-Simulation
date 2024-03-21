@@ -17,6 +17,7 @@ export class NetworkStore implements Writable<NetworkState> {
   private _connections: Connection[] = [];
   private _packets: Packet[] = [];
   private routerMap = new Map<number, Router>();
+  // TODO: Map connections and packets
   private counter = 0;
 
   get routers() {
@@ -142,6 +143,7 @@ export class NetworkStore implements Writable<NetworkState> {
   clear() {
     this._routers = [];
     this._connections = [];
+    this._packets = [];
     this.routerMap.clear();
     this.counter = 0;
     this.fastUpdate();
