@@ -10,10 +10,10 @@
 
 <div id="network">
   <ViewBox>
-    {#each $network.connections as connection}
+    {#each $network.connections as connection (connection.id)}
       <Connection {connection} />
     {/each}
-    {#each $network.routers as router}
+    {#each $network.routers as router (router.id)}
       <Router {router} />
     {/each}
     {#each $network.packets as packet (packet.id)}
