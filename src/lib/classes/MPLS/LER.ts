@@ -84,6 +84,7 @@ export default class LER extends Router {
       packet.nextHop = nextRouter;
     }
 
+    // TODO: Check if packet is below 0, if so, destroy it
     packet.ttl--;
   }
 

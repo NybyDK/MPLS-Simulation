@@ -41,6 +41,7 @@ export default class LSR extends Router {
     if (!nextRouter) return;
     packet.nextHop = nextRouter;
 
+    // TODO: Check if packet is below 0, if so, destroy it
     packet.ttl -= 1;
   }
 
