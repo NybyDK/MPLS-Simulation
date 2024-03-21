@@ -52,6 +52,7 @@ export default class LER extends Router {
     this.LIB.set(incomingLabel, { outgoingLabel, nextHop });
   };
 
+  // TODO: Instead of early return, do fallback to normal routing lookup, and if that fails too, packet.destroy();
   receivePacket(packet: Packet): void {
     const destination = packet.destination;
 

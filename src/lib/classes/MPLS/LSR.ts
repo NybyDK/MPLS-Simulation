@@ -28,6 +28,7 @@ export default class LSR extends Router {
     this.LIB.set(incomingLabel, { outgoingLabel, nextHop });
   };
 
+  // TODO: Instead of early return, do fallback to normal routing lookup, and if that fails too, packet.destroy();
   receivePacket(packet: Packet): void {
     const nextHop = this.LIB.get(packet.label)?.nextHop;
     if (!nextHop) return;
