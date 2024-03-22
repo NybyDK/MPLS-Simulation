@@ -452,42 +452,6 @@ test("Can delete a link", async ({ page }) => {
   await expect(linkBox).not.toBeVisible();
 });
 
-test("Can change distance on a link", async ({ page }) => {
-  const EdgeButton = page.getByRole("button", { name: "+ Edge" });
-  const SwitchButton = page.getByRole("button", { name: "+ Switch" });
-  const SVG = page.locator("svg");
-
-  const SVGBoundingBox = await SVG.boundingBox();
-
-  if (!SVGBoundingBox) throw new Error("Could not find SVG bounding box");
-
-  const middle = {
-    x: SVGBoundingBox.width / 2,
-    y: SVGBoundingBox.height / 2,
-  };
-
-  await EdgeButton.dragTo(SVG, { targetPosition: { x: middle.x - 100, y: middle.y } });
-  await SwitchButton.dragTo(SVG, { targetPosition: { x: middle.x + 100, y: middle.y } });
-
-  const [LERCircle, LSRCircle] = await SVG.locator("circle").all();
-
-  await page.keyboard.down("Shift");
-  await LERCircle.dragTo(LSRCircle);
-  await page.keyboard.up("Shift");
-
-  const linkBox = SVG.locator("rect");
-
-  await linkBox.dblclick();
-
-  const input = page.getByLabel("Distance:");
-
-  const newDistance = "1000";
-
-  await input.fill(newDistance);
-  await page.keyboard.press("Escape");
-  await expect(SVG.locator("text").first()).toContainText(newDistance + " km");
-});
-
 test("Can pan the viewbox when unlocked", async ({ page }) => {
   const DRAG_DISTANCE = 100;
   const SVG = page.locator("svg");

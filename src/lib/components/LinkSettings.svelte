@@ -22,17 +22,10 @@
   }}
 >
   {#if link}
+    Distance: {link.distance}
     <label>
       Bandwidth:
       <input type="number" disabled={$locked} bind:value={link.bandwidth} />
-    </label>
-    <label>
-      Distance:
-      <input type="number" disabled={$locked} bind:value={link.distance} />
-    </label>
-    <label>
-      Weight:
-      <input type="number" disabled={$locked} bind:value={link.weight} />
     </label>
     <button on:click={handleClickDeleteButton}>Delete Link</button>
   {:else}

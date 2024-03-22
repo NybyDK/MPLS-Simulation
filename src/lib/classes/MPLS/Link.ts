@@ -2,7 +2,6 @@ import type Router from "$lib/classes/MPLS/Router";
 
 export default class Link {
   public bandwidth: number = 0;
-  public weight: number = 0;
 
   constructor(
     public readonly id: string,
