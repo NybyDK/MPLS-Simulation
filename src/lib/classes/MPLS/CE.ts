@@ -4,7 +4,6 @@ import type Packet from "$lib/classes/MPLS/Packet";
 export default class CE extends Router {
   address = `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
   destinations: string[] = [];
-  nextHop: string | undefined;
 
   addEmptyDestination = () => {
     this.destinations.push("");
@@ -15,7 +14,7 @@ export default class CE extends Router {
   };
 
   receivePacket(packet: Packet): void {
-    packet.destroy();
+    packet.drop();
   }
 
   get type(): "CE" {
