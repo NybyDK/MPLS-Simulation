@@ -6,7 +6,7 @@ import type Router from "$lib/classes/MPLS/Router";
 export default class Packet {
   public label: number = -1;
   public ttl: number = 32;
-  public nextHop: Router;
+  public nextHop: Router | undefined;
 
   constructor(
     public readonly id: number,
@@ -14,8 +14,8 @@ export default class Packet {
     public readonly destination: CE,
     public node: { x: number; y: number },
   ) {
-    // TODO: "as" is bad, but entire line will be changed soon
-    this.nextHop = paths.getPath(source.id, destination.id)?.[1] as Router;
+    // TODO: Entire line will be changed soon, will use source CE's firsthop
+    this.nextHop = paths.getPath(source.id, destination.id)?.[1];
   }
 
   destroy() {

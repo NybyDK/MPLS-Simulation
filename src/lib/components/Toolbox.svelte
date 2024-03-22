@@ -38,6 +38,7 @@
     {
       text: "Test",
       callback: () => {
+        // TODO: Remove this test
         const CERouters = $network.routers.filter((router): router is CE => router instanceof CE);
         network.addPacket(CERouters[0], CERouters[1]);
       },

@@ -17,8 +17,8 @@ export class NetworkStore implements Writable<NetworkState> {
   private _connections: Connection[] = [];
   private _packets: Packet[] = [];
   private routerMap = new Map<number, Router>();
-  // TODO: Map connections and packets
-  private counter = 0;
+  private routerCounter = 0;
+  private packetCounter = 0;
 
   get routers() {
     return this._routers;
@@ -75,19 +75,19 @@ export class NetworkStore implements Writable<NetworkState> {
   }
 
   createCE(node: { label: string; x: number; y: number }) {
-    const router = new CE(this.counter++, node);
+    const router = new CE(this.routerCounter++, node);
 
     this.addRouter(router);
   }
 
   createLER(node: { label: string; x: number; y: number }) {
-    const router = new LER(this.counter++, node);
+    const router = new LER(this.routerCounter++, node);
 
     this.addRouter(router);
   }
 
   createLSR(node: { label: string; x: number; y: number }) {
-    const router = new LSR(this.counter++, node);
+    const router = new LSR(this.routerCounter++, node);
 
     this.addRouter(router);
   }
@@ -127,7 +127,7 @@ export class NetworkStore implements Writable<NetworkState> {
   }
 
   addPacket(source: CE, destination: CE) {
-    const packet = new Packet(this.counter++, source, destination, {
+    const packet = new Packet(this.packetCounter++, source, destination, {
       x: source.node.x,
       y: source.node.y,
     });
@@ -145,7 +145,8 @@ export class NetworkStore implements Writable<NetworkState> {
     this._connections = [];
     this._packets = [];
     this.routerMap.clear();
-    this.counter = 0;
+    this.routerCounter = 0;
+    this.packetCounter = 0;
     this.fastUpdate();
   }
 
