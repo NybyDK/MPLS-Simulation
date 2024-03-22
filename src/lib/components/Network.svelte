@@ -25,7 +25,7 @@
   <div id="bottom-left-bar" class="absolute-flex">
     <HelpButton />
   </div>
-  <div id="bottom-right-nar" class="absoloute-flex">
+  <div id="bottom-right-bar" class="absolute-flex">
     <ViewBoxControls bind:zooming />
   </div>
 </div>
