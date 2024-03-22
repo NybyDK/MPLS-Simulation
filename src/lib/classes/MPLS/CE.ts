@@ -15,7 +15,7 @@ export default class CE extends Router {
   };
 
   receivePacket(packet: Packet): void {
-    packet.destroy();
+    packet.drop();
   }
 
   get type(): "CE" {

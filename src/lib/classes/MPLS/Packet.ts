@@ -4,8 +4,8 @@ import type CE from "$lib/classes/MPLS/CE";
 import type Router from "$lib/classes/MPLS/Router";
 
 export default class Packet {
+  private ttl: number = 32;
   public label: number = -1;
-  public ttl: number = 32;
   public nextHop: Router | undefined;
 
   constructor(
@@ -18,7 +18,11 @@ export default class Packet {
     this.nextHop = paths.getPath(source.id, destination.id)?.[1];
   }
 
-  destroy() {
+  decrementTTL() {
+    if (--this.ttl <= 0) this.drop();
+  }
+
+  drop() {
     network.deletePacket(this.id);
   }
 }

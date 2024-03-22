@@ -88,7 +88,7 @@ export default class LER extends Router {
     }
 
     // TODO: Check if packet is below 0, if so, destroy it
-    packet.ttl--;
+    packet.decrementTTL();
   }
 
   get type(): "LER" {
