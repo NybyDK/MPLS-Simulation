@@ -14,37 +14,33 @@
   $: x2 = link.target.node.x;
   $: y1 = link.source.node.y;
   $: y2 = link.target.node.y;
-  $: middleOfX = middleOf(x1, x2);
-  $: middleOfY = middleOf(y1, y2);
+  $: middle = {
+    x: middleOf(x1, x2),
+    y: middleOf(y1, y2),
+  };
 </script>
 
 <line {x1} {y1} {x2} {y2} stroke="black" />
 <rect
   id={link.id}
-  x={middleOfX - width / 2}
-  y={middleOfY - height / 2}
+  x={middle.x - width / 2}
+  y={middle.y - height / 2}
   {width}
   {height}
-  fill="#222222"
   stroke="white"
 />
-<text
-  x={middleOfX}
-  y={middleOfY}
-  text-anchor="middle"
-  dominant-baseline="middle"
-  fill="white"
-  font-size="12px"
->
+<text x={middle.x} y={middle.y} text-anchor="middle" dominant-baseline="middle" font-size="12px">
   {link.distance} km
 </text>
 
 <style>
   text {
     pointer-events: none;
+    fill: white;
   }
 
   rect {
     cursor: pointer;
+    fill: #222222;
   }
 </style>
