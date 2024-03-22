@@ -20,27 +20,23 @@
   };
 </script>
 
-<line {x1} {y1} {x2} {y2} stroke="black" />
-<rect
-  id={link.id}
-  x={middle.x - width / 2}
-  y={middle.y - height / 2}
-  {width}
-  {height}
-  stroke="white"
-/>
-<text x={middle.x} y={middle.y} text-anchor="middle" dominant-baseline="middle" font-size="12px">
+<line {x1} {y1} {x2} {y2} />
+<rect id={link.id} x={middle.x - width / 2} y={middle.y - height / 2} {width} {height} />
+<text x={middle.x} y={middle.y} dominant-baseline="central">
   {link.distance} km
 </text>
 
 <style>
   text {
     pointer-events: none;
+    font-size: 12px;
     fill: white;
+    text-anchor: middle;
   }
 
   rect {
     cursor: pointer;
     fill: #222222;
+    stroke: white;
   }
 </style>
