@@ -8,11 +8,11 @@
   import HelpButton from "$lib/components/HelpButton.svelte";
   import ViewBoxControls from "$lib/components/ViewBoxControls.svelte";
 
-  let zooming: (zoomFactor: number) => void;
+  let zoom: (zoomFactor: number, mouse: { x: number; y: number }) => void;
 </script>
 
 <div id="network">
-  <ViewBox>
+  <ViewBox bind:zoom>
     {#each $network.links as link (link.id)}
       <Link {link} />
     {/each}
@@ -30,7 +30,7 @@
     <HelpButton />
   </div>
   <div id="bottom-right-bar" class="absolute-flex">
-    <ViewBoxControls bind:zooming />
+    <ViewBoxControls bind:zoom />
   </div>
 </div>
 
@@ -50,6 +50,11 @@
   #bottom-left-bar {
     bottom: 0;
     left: 0;
+  }
+
+  #bottom-right-bar {
+    bottom: 0;
+    right: 0;
   }
 
   .absolute-flex {
