@@ -1,19 +1,17 @@
 import Router from "$lib/classes/MPLS/Router";
-import type { Flow } from "$lib/interfaces/network";
 import type Packet from "$lib/classes/MPLS/Packet";
 
 export default class CE extends Router {
-  flows: Flow[] = [];
   address = `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
+  destinations: string[] = [];
   nextHop: string | undefined;
-  allowedConnections: string[] = ["LER"];
 
-  addEmptyFlow = () => {
-    this.flows.push({ size: 0, destination: "" });
+  addEmptyDestination = () => {
+    this.destinations.push("");
   };
 
-  deleteFlow = (index: number) => {
-    this.flows.splice(index, 1);
+  deleteDestination = (index: number) => {
+    this.destinations.splice(index, 1);
   };
 
   receivePacket(packet: Packet): void {

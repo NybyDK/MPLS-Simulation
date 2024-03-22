@@ -2,7 +2,7 @@
   import { network } from "$lib/stores/network";
   import ViewBox from "$lib/components/ViewBox.svelte";
   import Packet from "$lib/components/Packet.svelte";
-  import Connection from "$lib/components/Connection.svelte";
+  import Link from "$lib/components/Link.svelte";
   import Router from "$lib/components/Router.svelte";
   import Toolbox from "$lib/components/Toolbox.svelte";
   import HelpButton from "$lib/components/HelpButton.svelte";
@@ -10,8 +10,8 @@
 
 <div id="network">
   <ViewBox>
-    {#each $network.connections as connection (connection.id)}
-      <Connection {connection} />
+    {#each $network.links as link (link.id)}
+      <Link {link} />
     {/each}
     {#each $network.routers as router (router.id)}
       <Router {router} />

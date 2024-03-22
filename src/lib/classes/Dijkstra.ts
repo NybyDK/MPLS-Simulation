@@ -31,17 +31,17 @@ export function dijkstra(source: Router, destination: Router) {
     visited[routers.indexOf(currentRouter)] = true;
 
     // Update distances to neighboring routers
-    for (const connection of network.connections) {
+    for (const link of network.links) {
       let neighborRouter: Router;
 
-      if (connection.source === currentRouter) {
-        neighborRouter = connection.target;
-      } else if (connection.target === currentRouter) {
-        neighborRouter = connection.source;
+      if (link.source === currentRouter) {
+        neighborRouter = link.target;
+      } else if (link.target === currentRouter) {
+        neighborRouter = link.source;
       } else continue;
 
       const neighborIndex: number = routers.indexOf(neighborRouter);
-      const totalDistance: number = minDistance + connection.distance;
+      const totalDistance: number = minDistance + link.distance;
 
       if (totalDistance < distances[neighborIndex]) {
         distances[neighborIndex] = totalDistance;
