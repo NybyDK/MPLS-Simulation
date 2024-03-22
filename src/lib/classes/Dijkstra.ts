@@ -1,5 +1,5 @@
 import { network } from "$lib/stores/network";
-import type Router from "./MPLS/Router";
+import type Router from "$lib/classes/MPLS/Router";
 
 export function dijkstra(source: Router, destination: Router) {
   const routers = network.routers;
