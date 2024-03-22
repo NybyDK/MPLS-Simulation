@@ -85,7 +85,7 @@ test("Cannot create a router when locked", async ({ page }) => {
   await expect(circleText).not.toBeVisible();
 });
 
-test("Can establish a connection between CE and LER", async ({ page }) => {
+test("Can establish a link between CE and LER", async ({ page }) => {
   const CustomerButton = page.getByRole("button", { name: "+ Customer" });
   const EdgeButton = page.getByRole("button", { name: "+ Edge" });
   const SVG = page.locator("svg");
@@ -108,16 +108,16 @@ test("Can establish a connection between CE and LER", async ({ page }) => {
   await CECircle.dragTo(LERCircle);
   await page.keyboard.up("Shift");
 
-  const connection = SVG.locator("line");
-  const connectionBox = SVG.locator("rect");
-  const connectionBoxText = SVG.locator("text").first();
+  const link = SVG.locator("line");
+  const linkBox = SVG.locator("rect");
+  const linkBoxText = SVG.locator("text").first();
 
-  await expect(connection).toHaveAttribute("stroke", "black");
-  await expect(connectionBox).toBeVisible();
-  await expect(connectionBoxText).toContainText("0 km");
+  await expect(link).toHaveAttribute("stroke", "black");
+  await expect(linkBox).toBeVisible();
+  await expect(linkBoxText).toContainText("0 km");
 });
 
-test("Can establish a connection between LER and LSR", async ({ page }) => {
+test("Can establish a link between LER and LSR", async ({ page }) => {
   const EdgeButton = page.getByRole("button", { name: "+ Edge" });
   const SwitchButton = page.getByRole("button", { name: "+ Switch" });
   const SVG = page.locator("svg");
@@ -140,16 +140,16 @@ test("Can establish a connection between LER and LSR", async ({ page }) => {
   await LERCircle.dragTo(LSRCircle);
   await page.keyboard.up("Shift");
 
-  const connection = SVG.locator("line");
-  const connectionBox = SVG.locator("rect");
-  const connectionBoxText = SVG.locator("text").first();
+  const link = SVG.locator("line");
+  const linkBox = SVG.locator("rect");
+  const linkBoxText = SVG.locator("text").first();
 
-  await expect(connection).toHaveAttribute("stroke", "black");
-  await expect(connectionBox).toBeVisible();
-  await expect(connectionBoxText).toContainText("0 km");
+  await expect(link).toHaveAttribute("stroke", "black");
+  await expect(linkBox).toBeVisible();
+  await expect(linkBoxText).toContainText("0 km");
 });
 
-test("Can establish a connection between LSR and LSR", async ({ page }) => {
+test("Can establish a link between LSR and LSR", async ({ page }) => {
   const SwitchButton = page.getByRole("button", { name: "+ Switch" });
   const SVG = page.locator("svg");
 
@@ -171,16 +171,16 @@ test("Can establish a connection between LSR and LSR", async ({ page }) => {
   await LSRCircle1.dragTo(LSRCircle2);
   await page.keyboard.up("Shift");
 
-  const connection = SVG.locator("line");
-  const connectionBox = SVG.locator("rect");
-  const connectionBoxText = SVG.locator("text").first();
+  const link = SVG.locator("line");
+  const linkBox = SVG.locator("rect");
+  const linkBoxText = SVG.locator("text").first();
 
-  await expect(connection).toHaveAttribute("stroke", "black");
-  await expect(connectionBox).toBeVisible();
-  await expect(connectionBoxText).toContainText("0 km");
+  await expect(link).toHaveAttribute("stroke", "black");
+  await expect(linkBox).toBeVisible();
+  await expect(linkBoxText).toContainText("0 km");
 });
 
-test("Cannot establish a connection between CE and CE", async ({ page }) => {
+test("Cannot establish a link between CE and CE", async ({ page }) => {
   const CustomerButton = page.getByRole("button", { name: "+ Customer" });
   const SVG = page.locator("svg");
 
@@ -202,14 +202,14 @@ test("Cannot establish a connection between CE and CE", async ({ page }) => {
   await CECircle1.dragTo(CECircle2);
   await page.keyboard.up("Shift");
 
-  const connection = SVG.locator("line");
-  const connectionBox = SVG.locator("rect");
+  const link = SVG.locator("line");
+  const linkBox = SVG.locator("rect");
 
-  await expect(connection).not.toBeVisible();
-  await expect(connectionBox).not.toBeVisible();
+  await expect(link).not.toBeVisible();
+  await expect(linkBox).not.toBeVisible();
 });
 
-test("Cannot establish a connection between CE and LSR", async ({ page }) => {
+test("Cannot establish a link between CE and LSR", async ({ page }) => {
   const CustomerButton = page.getByRole("button", { name: "+ Customer" });
   const SwitchButton = page.getByRole("button", { name: "+ Switch" });
   const SVG = page.locator("svg");
@@ -232,14 +232,14 @@ test("Cannot establish a connection between CE and LSR", async ({ page }) => {
   await CECircle.dragTo(LSRCircle);
   await page.keyboard.up("Shift");
 
-  const connection = SVG.locator("line");
-  const connectionBox = SVG.locator("rect");
+  const link = SVG.locator("line");
+  const linkBox = SVG.locator("rect");
 
-  await expect(connection).not.toBeVisible();
-  await expect(connectionBox).not.toBeVisible();
+  await expect(link).not.toBeVisible();
+  await expect(linkBox).not.toBeVisible();
 });
 
-test("Cannot establish a connection between LER and LER", async ({ page }) => {
+test("Cannot establish a link between LER and LER", async ({ page }) => {
   const EdgeButton = page.getByRole("button", { name: "+ Edge" });
   const SVG = page.locator("svg");
 
@@ -261,14 +261,14 @@ test("Cannot establish a connection between LER and LER", async ({ page }) => {
   await LERCircle1.dragTo(LERCircle2);
   await page.keyboard.up("Shift");
 
-  const connection = SVG.locator("line");
-  const connectionBox = SVG.locator("rect");
+  const link = SVG.locator("line");
+  const linkBox = SVG.locator("rect");
 
-  await expect(connection).not.toBeVisible();
-  await expect(connectionBox).not.toBeVisible();
+  await expect(link).not.toBeVisible();
+  await expect(linkBox).not.toBeVisible();
 });
 
-test("Cannot create a connection when locked", async ({ page }) => {
+test("Cannot create a link when locked", async ({ page }) => {
   const CustomerButton = page.getByRole("button", { name: "+ Customer" });
   const EdgeButton = page.getByRole("button", { name: "+ Edge" });
   const SVG = page.locator("svg");
@@ -294,11 +294,11 @@ test("Cannot create a connection when locked", async ({ page }) => {
   await CECircle.dragTo(LERCircle);
   await page.keyboard.up("Shift");
 
-  const connection = SVG.locator("line");
-  const connectionBox = SVG.locator("rect");
+  const link = SVG.locator("line");
+  const linkBox = SVG.locator("rect");
 
-  await expect(connection).not.toBeVisible();
-  await expect(connectionBox).not.toBeVisible();
+  await expect(link).not.toBeVisible();
+  await expect(linkBox).not.toBeVisible();
 });
 
 test("Can change label on a CE router", async ({ page }) => {
@@ -415,7 +415,7 @@ test("Can delete a LSR router", async ({ page }) => {
   await expect(circle).not.toBeVisible();
 });
 
-test("Can delete a connection", async ({ page }) => {
+test("Can delete a link", async ({ page }) => {
   const CustomerButton = page.getByRole("button", { name: "+ Customer" });
   const EdgeButton = page.getByRole("button", { name: "+ Edge" });
   const SVG = page.locator("svg");
@@ -438,21 +438,21 @@ test("Can delete a connection", async ({ page }) => {
   await CECircle.dragTo(LERCircle);
   await page.keyboard.up("Shift");
 
-  const connection = SVG.locator("line");
-  const connectionBox = SVG.locator("rect");
+  const link = SVG.locator("line");
+  const linkBox = SVG.locator("rect");
 
-  await connectionBox.dblclick();
+  await linkBox.dblclick();
 
   const dialog = page.locator("dialog[open]").first();
 
-  await dialog.getByRole("button", { name: "Delete Connection" }).click();
+  await dialog.getByRole("button", { name: "Delete Link" }).click();
   await page.keyboard.press("Escape");
 
-  await expect(connection).not.toBeVisible();
-  await expect(connectionBox).not.toBeVisible();
+  await expect(link).not.toBeVisible();
+  await expect(linkBox).not.toBeVisible();
 });
 
-test("Can change distance on a connection", async ({ page }) => {
+test("Can change distance on a link", async ({ page }) => {
   const EdgeButton = page.getByRole("button", { name: "+ Edge" });
   const SwitchButton = page.getByRole("button", { name: "+ Switch" });
   const SVG = page.locator("svg");
@@ -475,9 +475,9 @@ test("Can change distance on a connection", async ({ page }) => {
   await LERCircle.dragTo(LSRCircle);
   await page.keyboard.up("Shift");
 
-  const connectionBox = SVG.locator("rect");
+  const linkBox = SVG.locator("rect");
 
-  await connectionBox.dblclick();
+  await linkBox.dblclick();
 
   const input = page.getByLabel("Distance:");
 
