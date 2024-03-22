@@ -81,21 +81,17 @@
 </script>
 
 {#if router instanceof CE}
-  <p>Flows:</p>
+  <p>Destinations:</p>
   <table>
     <tr>
-      <th>Size (Megabits)</th>
       <th>Destination</th>
     </tr>
-    {#each router.flows as flow, index}
+    {#each router.destinations as destination, index}
       <tr>
-        <td>
-          <input type="number" bind:value={flow.size} />
-        </td>
         <td>
           <input
             type="text"
-            bind:value={flow.destination}
+            bind:value={destination}
             placeholder="Address"
             on:change={(event) => {
               handleOnChangeFlows(event);
@@ -105,7 +101,7 @@
         <button
           on:click={() => {
             if (router instanceof CE) {
-              router.deleteFlow(index);
+              router.deleteDestination(index);
               router = router;
             }
           }}
@@ -115,7 +111,7 @@
       </tr>
     {/each}
   </table>
-  <button on:click={addAndUpdate(router.addEmptyFlow)}>+</button>
+  <button on:click={addAndUpdate(router.addEmptyDestination)}>+</button>
 {:else if router instanceof LER}
   <p>FIB:</p>
   <table>

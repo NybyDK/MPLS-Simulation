@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { Connection } from "$lib/interfaces/network";
+  import type Link from "$lib/classes/MPLS/Link";
 
-  export let connection: Connection;
+  export let link: Link;
 
   const width = 50;
   const height = 20;
@@ -10,17 +10,17 @@
     return (a + b) / 2;
   }
 
-  $: x1 = connection.source.node.x;
-  $: x2 = connection.target.node.x;
-  $: y1 = connection.source.node.y;
-  $: y2 = connection.target.node.y;
+  $: x1 = link.source.node.x;
+  $: x2 = link.target.node.x;
+  $: y1 = link.source.node.y;
+  $: y2 = link.target.node.y;
   $: middleOfX = middleOf(x1, x2);
   $: middleOfY = middleOf(y1, y2);
 </script>
 
 <line {x1} {y1} {x2} {y2} stroke="black" />
 <rect
-  id={connection.id}
+  id={link.id}
   x={middleOfX - width / 2}
   y={middleOfY - height / 2}
   {width}
@@ -36,7 +36,7 @@
   fill="white"
   font-size="12px"
 >
-  {connection.distance} km
+  {link.distance} km
 </text>
 
 <style>

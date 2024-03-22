@@ -13,10 +13,10 @@
 </div>
 
 <Dialog bind:dialog>
-  <p>Drag and drop routers that you want to add.</p>
-  <p>Hold the shift key and drag routers to make connections between the routers.</p>
-  <p>Double press a router to configure/delete it.</p>
-  <p>The clear button will delete everything.</p>
+  <p>Drag and drop routers that to add them to the network.</p>
+  <p>Hold the shift key and drag routers to make links.</p>
+  <p>Double click a router to configure it.</p>
+  <p>The clear button will delete the entire network.</p>
   <br />
   <p>Press Esc to close this popup.</p>
 </Dialog>

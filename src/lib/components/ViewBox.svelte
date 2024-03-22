@@ -2,10 +2,10 @@
   import { onMount } from "svelte";
   import { network } from "$lib/stores/network";
   import { locked } from "$lib/stores/locked";
-  import type { Connection } from "$lib/interfaces/network";
+  import type Link from "$lib/classes/MPLS/Link";
   import type Router from "$lib/classes/MPLS/Router";
   import RouterSettings from "$lib/components/RouterSettings.svelte";
-  import ConnectionSettings from "$lib/components/ConnectionSettings.svelte";
+  import LinkSettings from "$lib/components/LinkSettings.svelte";
 
   enum InteractionState {
     NONE,
@@ -44,10 +44,10 @@
 
   let SVG: SVGElement | null = null;
   let selectedRouter: Router | null = null;
-  let selectedConnection: Connection | null = null;
+  let selectedLink: Link | null = null;
   let interactionState: InteractionState = InteractionState.NONE;
   let routerSettingsDialog: HTMLDialogElement;
-  let connectionSettingsDialog: HTMLDialogElement;
+  let linkSettingsDialog: HTMLDialogElement;
   let loaded = false;
 
   onMount(() => {
@@ -116,7 +116,7 @@
       const target = network.getRouter(parseInt(targetId ?? ""));
 
       if (target) {
-        network.addConnection({ source: selectedRouter, target });
+        network.addLink({ source: selectedRouter, target });
       }
     }
 
@@ -195,7 +195,7 @@
     if (element.tagName === "circle") {
       openRouterSettings(element.id);
     } else if (element.tagName === "rect") {
-      openConnectionSettings(element.id);
+      openLinkSettings(element.id);
     }
   }
 
@@ -209,14 +209,14 @@
     routerSettingsDialog.showModal();
   }
 
-  function openConnectionSettings(id: string) {
-    const target = network.connections.find((connection) => id === connection.id);
+  function openLinkSettings(id: string) {
+    const target = network.links.find((link) => id === link.id);
 
     if (!target) return;
 
-    selectedConnection = target;
+    selectedLink = target;
 
-    connectionSettingsDialog.showModal();
+    linkSettingsDialog.showModal();
   }
 
   function handleDrop(event: DragEvent) {
@@ -287,7 +287,7 @@
 </svg>
 
 <RouterSettings bind:router={selectedRouter} bind:dialog={routerSettingsDialog} />
-<ConnectionSettings bind:connection={selectedConnection} bind:dialog={connectionSettingsDialog} />
+<LinkSettings bind:link={selectedLink} bind:dialog={linkSettingsDialog} />
 
 <style>
   svg {

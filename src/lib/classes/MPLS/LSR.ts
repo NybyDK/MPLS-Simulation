@@ -5,7 +5,6 @@ import type Packet from "$lib/classes/MPLS/Packet";
 export default class LSR extends Router {
   // Maps incoming label to outgoing label and next hop
   LIB: Map<number, { outgoingLabel: number; nextHop: string }> = new Map();
-  allowedConnections: string[] = ["LSR", "LER"];
 
   addEmptyLIBEntry = () => {
     this.LIB.set(0, { outgoingLabel: 0, nextHop: "0" });

@@ -8,7 +8,6 @@ export default class LER extends Router {
   FIB: Map<string, { label: number; nextHop: string }> = new Map();
   // Maps incoming label to outgoing label and next hop
   LIB: Map<number, { outgoingLabel: number; nextHop: string }> = new Map();
-  allowedConnections: string[] = ["CE", "LSR"];
 
   addEmptyFIBEntry = () => {
     this.FIB.set("0", { label: 0, nextHop: "0" });
