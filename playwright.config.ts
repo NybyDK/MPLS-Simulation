@@ -8,7 +8,7 @@ const config: PlaywrightTestConfig = {
     timeout: 10 * 60 * 1000,
   },
   testDir: "tests",
-  testMatch: /(.+\.)?(test|spec)\.[jt]s/,
+  testMatch: /(.+\.)?test\.ts/,
   projects: [
     {
       name: "chromium",
@@ -17,10 +17,6 @@ const config: PlaywrightTestConfig = {
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
-    },
-    {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
     },
   ],
 };

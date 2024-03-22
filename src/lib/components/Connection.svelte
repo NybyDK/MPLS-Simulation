@@ -43,4 +43,8 @@
   text {
     pointer-events: none;
   }
+
+  rect {
+    cursor: pointer;
+  }
 </style>

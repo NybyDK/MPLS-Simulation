@@ -7,13 +7,13 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "yarn run test:integration && yarn run test:unit",
+    "test:integration": "playwright test",
+    "test:unit": "vitest",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
-    "fix": "eslint . --fix && prettier --write .",
-    "test:integration": "playwright test",
-    "test:unit": "vitest"
+    "fix": "eslint . --fix && prettier --write ."
   },
   "devDependencies": {
     "@playwright/test": "^1.28.1",
