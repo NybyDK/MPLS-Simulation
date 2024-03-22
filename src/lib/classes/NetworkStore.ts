@@ -134,8 +134,8 @@ export class NetworkStore implements Writable<NetworkState> {
     this.fastUpdate();
   }
 
-  deletePacket(packetId: number) {
-    this._packets = this._packets.filter((packet) => packet.id !== packetId);
+  deletePacket(id: number) {
+    this._packets = this._packets.filter((packet) => packet.id !== id);
     this.fastUpdate();
   }
 
