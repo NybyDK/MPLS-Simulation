@@ -112,7 +112,7 @@ test("Can establish a link between CE and LER", async ({ page }) => {
   const linkBox = SVG.locator("rect");
   const linkBoxText = SVG.locator("text").first();
 
-  await expect(link).toHaveAttribute("stroke", "black");
+  await expect(link).toHaveCSS("stroke", "black");
   await expect(linkBox).toBeVisible();
   await expect(linkBoxText).toContainText("0 km");
 });
@@ -144,7 +144,7 @@ test("Can establish a link between LER and LSR", async ({ page }) => {
   const linkBox = SVG.locator("rect");
   const linkBoxText = SVG.locator("text").first();
 
-  await expect(link).toHaveAttribute("stroke", "black");
+  await expect(link).toHaveCSS("stroke", "black");
   await expect(linkBox).toBeVisible();
   await expect(linkBoxText).toContainText("0 km");
 });
@@ -175,7 +175,7 @@ test("Can establish a link between LSR and LSR", async ({ page }) => {
   const linkBox = SVG.locator("rect");
   const linkBoxText = SVG.locator("text").first();
 
-  await expect(link).toHaveAttribute("stroke", "black");
+  await expect(link).toHaveCSS("stroke", "black");
   await expect(linkBox).toBeVisible();
   await expect(linkBoxText).toContainText("0 km");
 });
