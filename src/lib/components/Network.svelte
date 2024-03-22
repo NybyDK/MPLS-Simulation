@@ -1,6 +1,7 @@
 <script lang="ts">
   import { network } from "$lib/stores/network";
   import ViewBox from "$lib/components/ViewBox.svelte";
+  import Packet from "$lib/components/Packet.svelte";
   import Connection from "$lib/components/Connection.svelte";
   import Router from "$lib/components/Router.svelte";
   import Toolbox from "$lib/components/Toolbox.svelte";
@@ -9,11 +10,14 @@
 
 <div id="network">
   <ViewBox>
-    {#each $network.connections as connection}
+    {#each $network.connections as connection (connection.id)}
       <Connection {connection} />
     {/each}
-    {#each $network.routers as router}
+    {#each $network.routers as router (router.id)}
       <Router {router} />
+    {/each}
+    {#each $network.packets as packet (packet.id)}
+      <Packet {packet} />
     {/each}
   </ViewBox>
   <div id="top-left-bar" class="absolute-flex">

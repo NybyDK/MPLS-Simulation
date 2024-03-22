@@ -1,4 +1,5 @@
 import type Router from "$lib/classes/MPLS/Router";
+import type Packet from "$lib/classes/MPLS/Packet";
 
 type Megabits = number;
 type Kilometers = number;
@@ -20,4 +21,5 @@ export interface Flow {
 export interface NetworkState {
   routers: Router[];
   connections: Connection[];
+  packets: Packet[];
 }
