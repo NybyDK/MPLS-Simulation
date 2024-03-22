@@ -275,7 +275,6 @@
       y1={selectedRouter.node.y}
       x2={scaledX(mouse.x)}
       y2={scaledY(mouse.y)}
-      stroke="black"
     />
   {/if}
   <slot />
