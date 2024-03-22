@@ -51,7 +51,7 @@ export default class LER extends Router {
     this.LIB.set(incomingLabel, { outgoingLabel, nextHop });
   };
 
-  // TODO: Instead of early return, do fallback to normal routing lookup, and if that fails too, packet.destroy();
+  // TODO: Instead of early return, do fallback to normal routing lookup, and if that fails too, packet.drop();
   receivePacket(packet: Packet): void {
     const destination = packet.destination;
 
@@ -87,7 +87,7 @@ export default class LER extends Router {
       packet.nextHop = nextRouter;
     }
 
-    // TODO: Check if packet is below 0, if so, destroy it
+    // TODO: Check if packet is below 0, if so, drop it
     packet.decrementTTL();
   }
 
