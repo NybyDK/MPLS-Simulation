@@ -1,23 +1,9 @@
 import type Router from "$lib/classes/MPLS/Router";
-
-type Megabits = number;
-type Kilometers = number;
-
-export interface Connection {
-  id: string;
-  source: Router;
-  target: Router;
-  bandwidth: Megabits;
-  distance: Kilometers;
-  weight: number;
-}
-
-export interface Flow {
-  size: Megabits;
-  destination: string;
-}
+import type Link from "$lib/classes/MPLS/Link";
+import type Packet from "$lib/classes/MPLS/Packet";
 
 export interface NetworkState {
   routers: Router[];
-  connections: Connection[];
+  links: Link[];
+  packets: Packet[];
 }
