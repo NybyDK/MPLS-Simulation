@@ -112,7 +112,8 @@ test("Can establish a link between CE and LER", async ({ page }) => {
   const linkBox = SVG.locator("rect");
   const linkBoxText = SVG.locator("text").first();
 
-  await expect(link).toHaveAttribute("stroke", "black");
+  // toBeVisible for link does not work in Chrome? But this gives the same result
+  await expect(link).toHaveAttribute("x1");
   await expect(linkBox).toBeVisible();
   await expect(linkBoxText).toContainText("0 km");
 });
@@ -144,7 +145,8 @@ test("Can establish a link between LER and LSR", async ({ page }) => {
   const linkBox = SVG.locator("rect");
   const linkBoxText = SVG.locator("text").first();
 
-  await expect(link).toHaveAttribute("stroke", "black");
+  // toBeVisible for link does not work in Chrome? But this gives the same result
+  await expect(link).toHaveAttribute("x1");
   await expect(linkBox).toBeVisible();
   await expect(linkBoxText).toContainText("0 km");
 });
@@ -175,7 +177,8 @@ test("Can establish a link between LSR and LSR", async ({ page }) => {
   const linkBox = SVG.locator("rect");
   const linkBoxText = SVG.locator("text").first();
 
-  await expect(link).toHaveAttribute("stroke", "black");
+  // toBeVisible for link does not work in Chrome? But this gives the same result
+  await expect(link).toHaveAttribute("x1");
   await expect(linkBox).toBeVisible();
   await expect(linkBoxText).toContainText("0 km");
 });

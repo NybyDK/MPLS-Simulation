@@ -17,7 +17,7 @@
   r="20"
   fill={colorMap[router.type]}
 />
-<text x={router.node.x} y={router.node.y} text-anchor="middle" dominant-baseline="middle">
+<text x={router.node.x} y={router.node.y} dominant-baseline="central">
   {router.node.label}
 </text>
 
@@ -25,6 +25,7 @@
   text {
     user-select: none;
     pointer-events: none;
+    text-anchor: middle;
   }
 
   circle {
