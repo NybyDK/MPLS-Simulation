@@ -2,3891 +2,1048 @@
   "store": {},
   "_routers": [
       {
-          "labelSpace": {},
-          "neighborRouters": {},
+          "id": 0,
+          "node": {
+              "label": "LSR",
+              "x": -15,
+              "y": -24
+          },
+          "LIB": {}
+      },
+      {
           "id": 1,
           "node": {
               "label": "LSR",
-              "x": -77,
-              "y": -61.66668701171875
+              "x": -158,
+              "y": -27.66668701171875
           },
-          "LIB": {},
-          "allowedConnections": [
-              "LSR",
-              "LER"
-          ]
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 2,
           "node": {
               "label": "LSR",
-              "x": 22,
-              "y": -62.66668701171875
+              "x": -86.66665649414062,
+              "y": -109.00003051757812
           },
-          "LIB": {},
-          "allowedConnections": [
-              "LSR",
-              "LER"
-          ]
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 3,
           "node": {
               "label": "LSR",
-              "x": -31.470778634960805,
-              "y": -143.49029784058715
+              "x": -169.11736786201587,
+              "y": 53.236339378254854
           },
-          "LIB": {},
-          "allowedConnections": [
-              "LSR",
-              "LER"
-          ]
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 4,
           "node": {
-              "label": "LER",
-              "x": 94.66665649414062,
-              "y": -101.00003051757812
+              "label": "LSR",
+              "x": -31,
+              "y": 108.93735629158438
           },
-          "FIB": {},
-          "allowedConnections": [
-              "CE",
-              "LSR"
-          ]
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 5,
           "node": {
-              "label": "LER",
-              "x": 104.66665649414062,
-              "y": -22.66668701171875
+              "label": "LSR",
+              "x": -128.86068179903017,
+              "y": 151.82320920591235
           },
-          "FIB": {},
-          "allowedConnections": [
-              "CE",
-              "LSR"
-          ]
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 6,
           "node": {
-              "label": "CE",
-              "x": 156.33334350585938,
-              "y": -192.33334350585938
+              "label": "LER",
+              "x": 78.66668701171875,
+              "y": -75.66668701171875
           },
-          "flows": [],
-          "address": "157.218.220.82",
-          "allowedConnections": [
-              "LER"
-          ]
+          "FIB": {},
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 7,
           "node": {
-              "label": "CE",
-              "x": 182.99996948242188,
-              "y": -143.3333740234375
+              "label": "LER",
+              "x": 88.65857301940508,
+              "y": -8.887426226259073
           },
-          "flows": [],
-          "address": "235.50.66.41",
-          "allowedConnections": [
-              "LER"
-          ]
+          "FIB": {},
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 8,
           "node": {
               "label": "CE",
-              "x": 191.66665649414062,
-              "y": -99.33331298828125
+              "x": 159.66665649414062,
+              "y": -139.66668701171875
           },
-          "flows": [],
-          "address": "173.118.226.134",
-          "allowedConnections": [
-              "LER"
-          ]
+          "address": "109.151.93.250",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 9,
           "node": {
               "label": "CE",
-              "x": 194.33328247070312,
-              "y": -53.333343505859375
+              "x": 171.66665649414062,
+              "y": -84.33334350585938
           },
-          "flows": [],
-          "address": "199.235.152.158",
-          "allowedConnections": [
-              "LER"
-          ]
+          "address": "253.133.24.115",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 10,
           "node": {
               "label": "CE",
-              "x": 192.00003051757812,
-              "y": -14.3333740234375
+              "x": 194.89560200222078,
+              "y": -33.683007671818174
           },
-          "flows": [],
-          "address": "120.23.137.129",
-          "allowedConnections": [
-              "LER"
-          ]
+          "address": "231.121.150.170",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 11,
           "node": {
               "label": "CE",
-              "x": 189.66671752929688,
-              "y": 30.999969482421875
+              "x": 186,
+              "y": 16.999969482421875
           },
-          "flows": [],
-          "address": "101.223.16.44",
-          "allowedConnections": [
-              "LER"
-          ]
+          "address": "16.244.244.205",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 12,
           "node": {
-              "label": "CE",
-              "x": 170.99996948242188,
+              "label": "LER",
+              "x": 70,
               "y": 74.33331298828125
           },
-          "flows": [],
-          "address": "220.133.75.130",
-          "allowedConnections": [
-              "LER"
-          ]
+          "FIB": {},
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 13,
           "node": {
-              "label": "CE",
-              "x": 153.33334350585938,
-              "y": 120.3333740234375
+              "label": "LER",
+              "x": 36,
+              "y": 136.6666259765625
           },
-          "flows": [],
-          "address": "161.196.148.143",
-          "allowedConnections": [
-              "LER"
-          ]
+          "FIB": {},
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 14,
           "node": {
-              "label": "LER",
-              "x": -149.33334350585938,
-              "y": -106.3333740234375
+              "label": "CE",
+              "x": 169.3333740234375,
+              "y": 72.99996948242188
           },
-          "FIB": {},
-          "allowedConnections": [
-              "CE",
-              "LSR"
-          ]
+          "address": "141.206.70.100",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 15,
           "node": {
-              "label": "LER",
-              "x": -150.6666717529297,
-              "y": -22
+              "label": "CE",
+              "x": 150.66665649414062,
+              "y": 126.99996948242188
           },
-          "FIB": {},
-          "allowedConnections": [
-              "CE",
-              "LSR"
-          ]
+          "address": "112.230.218.249",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 16,
           "node": {
               "label": "CE",
-              "x": -200.6666717529297,
-              "y": -212.6666717529297
+              "x": 117.66665649414062,
+              "y": 181.33331298828125
           },
-          "flows": [],
-          "address": "7.9.124.182",
-          "allowedConnections": [
-              "LER"
-          ]
+          "address": "134.181.74.216",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 17,
           "node": {
               "label": "CE",
-              "x": -261.66668701171875,
-              "y": -121.66670227050781
+              "x": 78,
+              "y": 228
           },
-          "flows": [],
-          "address": "96.196.84.95",
-          "allowedConnections": [
-              "LER"
-          ]
+          "address": "244.252.237.222",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 18,
           "node": {
-              "label": "CE",
-              "x": -244.66668701171875,
-              "y": -166.6667022705078
+              "label": "LER",
+              "x": -220.04956168638876,
+              "y": -107.7172286954627
           },
-          "flows": [],
-          "address": "154.179.18.161",
-          "allowedConnections": [
-              "LER"
-          ]
+          "FIB": {},
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 19,
           "node": {
-              "label": "CE",
-              "x": -260.6666717529297,
-              "y": -65.33334350585938
+              "label": "LER",
+              "x": -259.96223431483713,
+              "y": -33.878521840839454
           },
-          "flows": [],
-          "address": "14.105.219.217",
-          "allowedConnections": [
-              "LER"
-          ]
+          "FIB": {},
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 20,
           "node": {
               "label": "CE",
-              "x": -266.66666412353516,
-              "y": -16.3333740234375
+              "x": -252.92287297966416,
+              "y": -193.91306365752908
           },
-          "flows": [],
-          "address": "222.250.190.185",
-          "allowedConnections": [
-              "LER"
-          ]
+          "address": "200.31.134.134",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 21,
           "node": {
               "label": "CE",
-              "x": -261.3333511352539,
-              "y": 37
+              "x": -304.88571670212326,
+              "y": -152.072883723861
           },
-          "flows": [],
-          "address": "234.163.57.53",
-          "allowedConnections": [
-              "LER"
-          ]
+          "address": "215.213.169.165",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 22,
           "node": {
               "label": "CE",
-              "x": -253.66669464111328,
-              "y": 80.66665649414062
+              "x": -347.40077486938407,
+              "y": -104.833909610133
           },
-          "flows": [],
-          "address": "71.251.35.76",
-          "allowedConnections": [
-              "LER"
-          ]
+          "address": "224.225.248.125",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 23,
           "node": {
               "label": "CE",
-              "x": -245.66667938232422,
-              "y": 133.99993896484375
+              "x": -379.79320786263395,
+              "y": -44.4355745139962
           },
-          "flows": [],
-          "address": "44.223.43.188",
-          "allowedConnections": [
-              "LER"
-          ]
+          "address": "252.160.93.139",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 24,
           "node": {
-              "label": "LSR",
-              "x": -130.66671752929688,
-              "y": 102.99996948242188
+              "label": "LER",
+              "x": -265.40744840395257,
+              "y": 47.00558384436968
           },
-          "LIB": {},
-          "allowedConnections": [
-              "LSR",
-              "LER"
-          ]
+          "FIB": {},
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 25,
           "node": {
-              "label": "LSR",
-              "x": 79.66665649414062,
-              "y": 99.66665649414062
+              "label": "LER",
+              "x": -254.9473995590575,
+              "y": 110.44073970142057
           },
-          "LIB": {},
-          "allowedConnections": [
-              "LSR",
-              "LER"
-          ]
+          "FIB": {},
+          "LIB": {}
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 26,
           "node": {
-              "label": "LSR",
-              "x": -29,
-              "y": 178.66668701171875
+              "label": "CE",
+              "x": -367.6460406633177,
+              "y": 21.36157020811232
           },
-          "LIB": {},
-          "allowedConnections": [
-              "LSR",
-              "LER"
-          ]
+          "address": "28.55.135.118",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 27,
           "node": {
-              "label": "LER",
-              "x": 71.99996948242188,
-              "y": 245.99996948242188
+              "label": "CE",
+              "x": -363.596995227487,
+              "y": 76.02378785173326
           },
-          "FIB": {},
-          "allowedConnections": [
-              "CE",
-              "LSR"
-          ]
+          "address": "125.53.28.10",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 28,
           "node": {
-              "label": "LER",
-              "x": 199.66665649414062,
-              "y": 226.6666259765625
+              "label": "CE",
+              "x": -358.1982551081193,
+              "y": 131.6982687850509
           },
-          "FIB": {},
-          "allowedConnections": [
-              "CE",
-              "LSR"
-          ]
+          "address": "213.160.2.190",
+          "destinations": []
       },
       {
-          "labelSpace": {},
-          "neighborRouters": {},
           "id": 29,
           "node": {
               "label": "CE",
-              "x": 216.66664123535156,
-              "y": 156
+              "x": -334.57878349716736,
+              "y": 190.40953958745868
           },
-          "flows": [],
-          "address": "227.107.39.121",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 30,
-          "node": {
-              "label": "CE",
-              "x": 304.99989318847656,
-              "y": 203
-          },
-          "flows": [],
-          "address": "160.111.61.26",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 31,
-          "node": {
-              "label": "CE",
-              "x": 295.9999542236328,
-              "y": 256.3333435058594
-          },
-          "flows": [],
-          "address": "186.64.152.35",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 32,
-          "node": {
-              "label": "CE",
-              "x": 260.66664123535156,
-              "y": 361.3333740234375
-          },
-          "flows": [],
-          "address": "56.117.86.51",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 33,
-          "node": {
-              "label": "CE",
-              "x": 288.66664123535156,
-              "y": 310
-          },
-          "flows": [],
-          "address": "146.46.63.29",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 34,
-          "node": {
-              "label": "CE",
-              "x": 300.66661071777344,
-              "y": 136.33334350585938
-          },
-          "flows": [],
-          "address": "110.76.57.100",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 35,
-          "node": {
-              "label": "CE",
-              "x": 144.3332977294922,
-              "y": 300.3333435058594
-          },
-          "flows": [],
-          "address": "142.239.146.27",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 36,
-          "node": {
-              "label": "CE",
-              "x": 96.33329772949219,
-              "y": 346
-          },
-          "flows": [],
-          "address": "180.207.10.56",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 37,
-          "node": {
-              "label": "CE",
-              "x": 25.999984741210938,
-              "y": 305.66668701171875
-          },
-          "flows": [],
-          "address": "38.136.83.99",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 38,
-          "node": {
-              "label": "CE",
-              "x": -25.333343505859375,
-              "y": 257.0000305175781
-          },
-          "flows": [],
-          "address": "80.21.17.247",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 39,
-          "node": {
-              "label": "CE",
-              "x": 176.00001525878906,
-              "y": 264.3333435058594
-          },
-          "flows": [],
-          "address": "200.86.108.71",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 40,
-          "node": {
-              "label": "LER",
-              "x": -222.66668701171875,
-              "y": 205.66671752929688
-          },
-          "FIB": {},
-          "allowedConnections": [
-              "CE",
-              "LSR"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 41,
-          "node": {
-              "label": "LER",
-              "x": -137.66668701171875,
-              "y": 265.0000305175781
-          },
-          "FIB": {},
-          "allowedConnections": [
-              "CE",
-              "LSR"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 42,
-          "node": {
-              "label": "CE",
-              "x": -312.0000305175781,
-              "y": 173.00003051757812
-          },
-          "flows": [],
-          "address": "65.201.167.93",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 43,
-          "node": {
-              "label": "CE",
-              "x": -318.6667022705078,
-              "y": 231.66671752929688
-          },
-          "flows": [],
-          "address": "238.93.14.170",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 44,
-          "node": {
-              "label": "CE",
-              "x": -302.0000305175781,
-              "y": 275.3333740234375
-          },
-          "flows": [],
-          "address": "69.21.177.194",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 45,
-          "node": {
-              "label": "CE",
-              "x": -275.3333740234375,
-              "y": 321.3333435058594
-          },
-          "flows": [],
-          "address": "118.140.196.206",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 46,
-          "node": {
-              "label": "CE",
-              "x": -222.00003051757812,
-              "y": 297.6667175292969
-          },
-          "flows": [],
-          "address": "143.248.173.96",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 47,
-          "node": {
-              "label": "CE",
-              "x": -183.00003051757812,
-              "y": 335.6667175292969
-          },
-          "flows": [],
-          "address": "95.161.11.239",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 48,
-          "node": {
-              "label": "CE",
-              "x": -126.66671752929688,
-              "y": 379.3334045410156
-          },
-          "flows": [],
-          "address": "88.98.36.62",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 49,
-          "node": {
-              "label": "CE",
-              "x": -76.00003051757812,
-              "y": 343.3333435058594
-          },
-          "flows": [],
-          "address": "222.128.37.7",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 50,
-          "node": {
-              "label": "LSR",
-              "x": -29.263794802844394,
-              "y": -236.28612420719028
-          },
-          "LIB": {},
-          "allowedConnections": [
-              "LSR",
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 51,
-          "node": {
-              "label": "LSR",
-              "x": -76.3201155711299,
-              "y": -304.517773165711
-          },
-          "LIB": {},
-          "allowedConnections": [
-              "LSR",
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 52,
-          "node": {
-              "label": "LSR",
-              "x": 36.02680045038073,
-              "y": -303.929551654323
-          },
-          "LIB": {},
-          "allowedConnections": [
-              "LSR",
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 53,
-          "node": {
-              "label": "LER",
-              "x": -160.43320682068247,
-              "y": -326.28129594151204
-          },
-          "FIB": {},
-          "allowedConnections": [
-              "CE",
-              "LSR"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 54,
-          "node": {
-              "label": "LER",
-              "x": -105.73027566257497,
-              "y": -393.9246695370004
-          },
-          "FIB": {},
-          "allowedConnections": [
-              "CE",
-              "LSR"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 55,
-          "node": {
-              "label": "LER",
-              "x": 53.08468576418875,
-              "y": -380.39600558823156
-          },
-          "FIB": {},
-          "allowedConnections": [
-              "CE",
-              "LSR"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 56,
-          "node": {
-              "label": "LER",
-              "x": 192.48615808378946,
-              "y": -318.04641018865766
-          },
-          "FIB": {},
-          "allowedConnections": [
-              "CE",
-              "LSR"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 57,
-          "node": {
-              "label": "CE",
-              "x": -255.72218367674074,
-              "y": -303.92957858014523
-          },
-          "flows": [],
-          "address": "165.134.62.162",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 58,
-          "node": {
-              "label": "CE",
-              "x": -255.7221836767407,
-              "y": -352.16223466791797
-          },
-          "flows": [],
-          "address": "45.158.77.190",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 59,
-          "node": {
-              "label": "CE",
-              "x": -230.42943953590057,
-              "y": -250.402982741525
-          },
-          "flows": [],
-          "address": "101.61.220.247",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 60,
-          "node": {
-              "label": "CE",
-              "x": -234.5468554865056,
-              "y": -392.1601127061251
-          },
-          "flows": [],
-          "address": "31.48.237.173",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 61,
-          "node": {
-              "label": "CE",
-              "x": -179.84392432839803,
-              "y": -447.4512115239762
-          },
-          "flows": [],
-          "address": "239.235.113.30",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 62,
-          "node": {
-              "label": "CE",
-              "x": -116.90610741743617,
-              "y": -496.27211604895916
-          },
-          "flows": [],
-          "address": "225.22.83.50",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 63,
-          "node": {
-              "label": "CE",
-              "x": -58.08578723454584,
-              "y": -476.8613985412436
-          },
-          "flows": [],
-          "address": "195.14.3.188",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 64,
-          "node": {
-              "label": "CE",
-              "x": 35.43857893899281,
-              "y": -452.15684898596925
-          },
-          "flows": [],
-          "address": "121.12.125.3",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 65,
-          "node": {
-              "label": "CE",
-              "x": 102.62002365167275,
-              "y": -485.4749708097274
-          },
-          "flows": [],
-          "address": "148.44.203.1",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 66,
-          "node": {
-              "label": "CE",
-              "x": 155.28571666885665,
-              "y": -448.8887928826665
-          },
-          "flows": [],
-          "address": "9.3.32.90",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 67,
-          "node": {
-              "label": "CE",
-              "x": -31.44470243275625,
-              "y": -410.35139294832396
-          },
-          "flows": [],
-          "address": "238.138.175.120",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 68,
-          "node": {
-              "label": "CE",
-              "x": 214.69756370470122,
-              "y": -437.2553480895993
-          },
-          "flows": [],
-          "address": "31.218.79.74",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 69,
-          "node": {
-              "label": "CE",
-              "x": 265.6432674717439,
-              "y": -397.7581035358219
-          },
-          "flows": [],
-          "address": "1.221.42.176",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 70,
-          "node": {
-              "label": "CE",
-              "x": 293.69205281225595,
-              "y": -353.6814595746482
-          },
-          "flows": [],
-          "address": "50.154.165.84",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 71,
-          "node": {
-              "label": "CE",
-              "x": 304.56812312938666,
-              "y": -295.8666173912858
-          },
-          "flows": [],
-          "address": "198.141.57.51",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 72,
-          "node": {
-              "label": "CE",
-              "x": 283.3884237982271,
-              "y": -242.6312008188032
-          },
-          "flows": [],
-          "address": "92.161.173.55",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 73,
-          "node": {
-              "label": "CE",
-              "x": 139.13761760182192,
-              "y": -386.3095919155897
-          },
-          "flows": [],
-          "address": "16.168.120.174",
-          "allowedConnections": [
-              "LER"
-          ]
-      },
-      {
-          "labelSpace": {},
-          "neighborRouters": {},
-          "id": 74,
-          "node": {
-              "label": "CE",
-              "x": 203.24910449143508,
-              "y": -215.1548829848767
-          },
-          "flows": [],
-          "address": "137.98.107.213",
-          "allowedConnections": [
-              "LER"
-          ]
+          "address": "19.38.66.197",
+          "destinations": []
       }
   ],
-  "_connections": [
+  "_links": [
       {
-          "id": "connection-2-1",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 2,
-              "node": {
-                  "label": "LSR",
-                  "x": 22,
-                  "y": -62.66668701171875
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 1,
-              "node": {
-                  "label": "LSR",
-                  "x": -77,
-                  "y": -61.66668701171875
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
           "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-3-2",
+          "id": "5-3",
           "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 3,
-              "node": {
-                  "label": "LSR",
-                  "x": -31.470778634960805,
-                  "y": -143.49029784058715
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 2,
-              "node": {
-                  "label": "LSR",
-                  "x": 22,
-                  "y": -62.66668701171875
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-1-3",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 1,
-              "node": {
-                  "label": "LSR",
-                  "x": -77,
-                  "y": -61.66668701171875
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 3,
-              "node": {
-                  "label": "LSR",
-                  "x": -31.470778634960805,
-                  "y": -143.49029784058715
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-5-2",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
               "id": 5,
               "node": {
-                  "label": "LER",
-                  "x": 104.66665649414062,
-                  "y": -22.66668701171875
+                  "label": "LSR",
+                  "x": -128.86068179903017,
+                  "y": 151.82320920591235
               },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
+              "LIB": {}
           },
           "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
+              "id": 3,
+              "node": {
+                  "label": "LSR",
+                  "x": -169.11736786201587,
+                  "y": 53.236339378254854
+              },
+              "LIB": {}
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "5-4",
+          "source": {
+              "id": 5,
+              "node": {
+                  "label": "LSR",
+                  "x": -128.86068179903017,
+                  "y": 151.82320920591235
+              },
+              "LIB": {}
+          },
+          "target": {
+              "id": 4,
+              "node": {
+                  "label": "LSR",
+                  "x": -31,
+                  "y": 108.93735629158438
+              },
+              "LIB": {}
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "4-3",
+          "source": {
+              "id": 4,
+              "node": {
+                  "label": "LSR",
+                  "x": -31,
+                  "y": 108.93735629158438
+              },
+              "LIB": {}
+          },
+          "target": {
+              "id": 3,
+              "node": {
+                  "label": "LSR",
+                  "x": -169.11736786201587,
+                  "y": 53.236339378254854
+              },
+              "LIB": {}
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "3-0",
+          "source": {
+              "id": 3,
+              "node": {
+                  "label": "LSR",
+                  "x": -169.11736786201587,
+                  "y": 53.236339378254854
+              },
+              "LIB": {}
+          },
+          "target": {
+              "id": 0,
+              "node": {
+                  "label": "LSR",
+                  "x": -15,
+                  "y": -24
+              },
+              "LIB": {}
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "4-1",
+          "source": {
+              "id": 4,
+              "node": {
+                  "label": "LSR",
+                  "x": -31,
+                  "y": 108.93735629158438
+              },
+              "LIB": {}
+          },
+          "target": {
+              "id": 1,
+              "node": {
+                  "label": "LSR",
+                  "x": -158,
+                  "y": -27.66668701171875
+              },
+              "LIB": {}
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "0-1",
+          "source": {
+              "id": 0,
+              "node": {
+                  "label": "LSR",
+                  "x": -15,
+                  "y": -24
+              },
+              "LIB": {}
+          },
+          "target": {
+              "id": 1,
+              "node": {
+                  "label": "LSR",
+                  "x": -158,
+                  "y": -27.66668701171875
+              },
+              "LIB": {}
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "1-2",
+          "source": {
+              "id": 1,
+              "node": {
+                  "label": "LSR",
+                  "x": -158,
+                  "y": -27.66668701171875
+              },
+              "LIB": {}
+          },
+          "target": {
               "id": 2,
               "node": {
                   "label": "LSR",
-                  "x": 22,
-                  "y": -62.66668701171875
+                  "x": -86.66665649414062,
+                  "y": -109.00003051757812
               },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
+              "LIB": {}
+          }
       },
       {
-          "id": "connection-4-2",
+          "bandwidth": 0,
+          "id": "2-0",
           "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 4,
-              "node": {
-                  "label": "LER",
-                  "x": 94.66665649414062,
-                  "y": -101.00003051757812
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
               "id": 2,
               "node": {
                   "label": "LSR",
-                  "x": 22,
-                  "y": -62.66668701171875
+                  "x": -86.66665649414062,
+                  "y": -109.00003051757812
               },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-8-4",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 8,
-              "node": {
-                  "label": "CE",
-                  "x": 191.66665649414062,
-                  "y": -99.33331298828125
-              },
-              "flows": [],
-              "address": "173.118.226.134",
-              "allowedConnections": [
-                  "LER"
-              ]
+              "LIB": {}
           },
           "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 4,
+              "id": 0,
               "node": {
-                  "label": "LER",
-                  "x": 94.66665649414062,
-                  "y": -101.00003051757812
+                  "label": "LSR",
+                  "x": -15,
+                  "y": -24
               },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
+              "LIB": {}
+          }
       },
       {
-          "id": "connection-7-4",
+          "bandwidth": 0,
+          "id": "0-6",
           "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 7,
+              "id": 0,
               "node": {
-                  "label": "CE",
-                  "x": 182.99996948242188,
-                  "y": -143.3333740234375
+                  "label": "LSR",
+                  "x": -15,
+                  "y": -24
               },
-              "flows": [],
-              "address": "235.50.66.41",
-              "allowedConnections": [
-                  "LER"
-              ]
+              "LIB": {}
           },
           "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 4,
-              "node": {
-                  "label": "LER",
-                  "x": 94.66665649414062,
-                  "y": -101.00003051757812
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-6-4",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
               "id": 6,
               "node": {
-                  "label": "CE",
-                  "x": 156.33334350585938,
-                  "y": -192.33334350585938
+                  "label": "LER",
+                  "x": 78.66668701171875,
+                  "y": -75.66668701171875
               },
-              "flows": [],
-              "address": "157.218.220.82",
-              "allowedConnections": [
-                  "LER"
-              ]
+              "FIB": {},
+              "LIB": {}
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "0-7",
+          "source": {
+              "id": 0,
+              "node": {
+                  "label": "LSR",
+                  "x": -15,
+                  "y": -24
+              },
+              "LIB": {}
           },
           "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
+              "id": 7,
+              "node": {
+                  "label": "LER",
+                  "x": 88.65857301940508,
+                  "y": -8.887426226259073
+              },
+              "FIB": {},
+              "LIB": {}
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "4-12",
+          "source": {
               "id": 4,
               "node": {
-                  "label": "LER",
-                  "x": 94.66665649414062,
-                  "y": -101.00003051757812
+                  "label": "LSR",
+                  "x": -31,
+                  "y": 108.93735629158438
               },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-9-4",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 9,
-              "node": {
-                  "label": "CE",
-                  "x": 194.33328247070312,
-                  "y": -53.333343505859375
-              },
-              "flows": [],
-              "address": "199.235.152.158",
-              "allowedConnections": [
-                  "LER"
-              ]
+              "LIB": {}
           },
           "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 4,
-              "node": {
-                  "label": "LER",
-                  "x": 94.66665649414062,
-                  "y": -101.00003051757812
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-10-5",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 10,
-              "node": {
-                  "label": "CE",
-                  "x": 192.00003051757812,
-                  "y": -14.3333740234375
-              },
-              "flows": [],
-              "address": "120.23.137.129",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 5,
-              "node": {
-                  "label": "LER",
-                  "x": 104.66665649414062,
-                  "y": -22.66668701171875
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-11-5",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 11,
-              "node": {
-                  "label": "CE",
-                  "x": 189.66671752929688,
-                  "y": 30.999969482421875
-              },
-              "flows": [],
-              "address": "101.223.16.44",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 5,
-              "node": {
-                  "label": "LER",
-                  "x": 104.66665649414062,
-                  "y": -22.66668701171875
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-12-5",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
               "id": 12,
               "node": {
-                  "label": "CE",
-                  "x": 170.99996948242188,
+                  "label": "LER",
+                  "x": 70,
                   "y": 74.33331298828125
               },
-              "flows": [],
-              "address": "220.133.75.130",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 5,
-              "node": {
-                  "label": "LER",
-                  "x": 104.66665649414062,
-                  "y": -22.66668701171875
-              },
               "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
+              "LIB": {}
+          }
       },
       {
-          "id": "connection-13-5",
+          "bandwidth": 0,
+          "id": "4-13",
           "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
+              "id": 4,
+              "node": {
+                  "label": "LSR",
+                  "x": -31,
+                  "y": 108.93735629158438
+              },
+              "LIB": {}
+          },
+          "target": {
               "id": 13,
               "node": {
-                  "label": "CE",
-                  "x": 153.33334350585938,
-                  "y": 120.3333740234375
-              },
-              "flows": [],
-              "address": "161.196.148.143",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 5,
-              "node": {
                   "label": "LER",
-                  "x": 104.66665649414062,
-                  "y": -22.66668701171875
+                  "x": 36,
+                  "y": 136.6666259765625
               },
               "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
+              "LIB": {}
+          }
       },
       {
-          "id": "connection-15-1",
+          "bandwidth": 0,
+          "id": "13-17",
           "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 15,
+              "id": 13,
               "node": {
                   "label": "LER",
-                  "x": -150.6666717529297,
-                  "y": -22
+                  "x": 36,
+                  "y": 136.6666259765625
               },
               "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
+              "LIB": {}
           },
           "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 1,
-              "node": {
-                  "label": "LSR",
-                  "x": -77,
-                  "y": -61.66668701171875
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-14-1",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 14,
-              "node": {
-                  "label": "LER",
-                  "x": -149.33334350585938,
-                  "y": -106.3333740234375
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 1,
-              "node": {
-                  "label": "LSR",
-                  "x": -77,
-                  "y": -61.66668701171875
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-18-14",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 18,
-              "node": {
-                  "label": "CE",
-                  "x": -244.66668701171875,
-                  "y": -166.6667022705078
-              },
-              "flows": [],
-              "address": "154.179.18.161",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 14,
-              "node": {
-                  "label": "LER",
-                  "x": -149.33334350585938,
-                  "y": -106.3333740234375
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-16-14",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 16,
-              "node": {
-                  "label": "CE",
-                  "x": -200.6666717529297,
-                  "y": -212.6666717529297
-              },
-              "flows": [],
-              "address": "7.9.124.182",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 14,
-              "node": {
-                  "label": "LER",
-                  "x": -149.33334350585938,
-                  "y": -106.3333740234375
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-17-14",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
               "id": 17,
               "node": {
                   "label": "CE",
-                  "x": -261.66668701171875,
-                  "y": -121.66670227050781
+                  "x": 78,
+                  "y": 228
               },
-              "flows": [],
-              "address": "96.196.84.95",
-              "allowedConnections": [
-                  "LER"
-              ]
+              "address": "244.252.237.222",
+              "destinations": []
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "13-16",
+          "source": {
+              "id": 13,
+              "node": {
+                  "label": "LER",
+                  "x": 36,
+                  "y": 136.6666259765625
+              },
+              "FIB": {},
+              "LIB": {}
           },
           "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
+              "id": 16,
+              "node": {
+                  "label": "CE",
+                  "x": 117.66665649414062,
+                  "y": 181.33331298828125
+              },
+              "address": "134.181.74.216",
+              "destinations": []
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "12-15",
+          "source": {
+              "id": 12,
+              "node": {
+                  "label": "LER",
+                  "x": 70,
+                  "y": 74.33331298828125
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 15,
+              "node": {
+                  "label": "CE",
+                  "x": 150.66665649414062,
+                  "y": 126.99996948242188
+              },
+              "address": "112.230.218.249",
+              "destinations": []
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "12-14",
+          "source": {
+              "id": 12,
+              "node": {
+                  "label": "LER",
+                  "x": 70,
+                  "y": 74.33331298828125
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
               "id": 14,
               "node": {
-                  "label": "LER",
-                  "x": -149.33334350585938,
-                  "y": -106.3333740234375
+                  "label": "CE",
+                  "x": 169.3333740234375,
+                  "y": 72.99996948242188
               },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
+              "address": "141.206.70.100",
+              "destinations": []
+          }
       },
       {
-          "id": "connection-19-14",
+          "bandwidth": 0,
+          "id": "7-11",
           "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 19,
+              "id": 7,
+              "node": {
+                  "label": "LER",
+                  "x": 88.65857301940508,
+                  "y": -8.887426226259073
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 11,
               "node": {
                   "label": "CE",
-                  "x": -260.6666717529297,
-                  "y": -65.33334350585938
+                  "x": 186,
+                  "y": 16.999969482421875
               },
-              "flows": [],
-              "address": "14.105.219.217",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 14,
-              "node": {
-                  "label": "LER",
-                  "x": -149.33334350585938,
-                  "y": -106.3333740234375
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
+              "address": "16.244.244.205",
+              "destinations": []
+          }
       },
       {
-          "id": "connection-20-15",
+          "bandwidth": 0,
+          "id": "7-10",
           "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 20,
+              "id": 7,
+              "node": {
+                  "label": "LER",
+                  "x": 88.65857301940508,
+                  "y": -8.887426226259073
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 10,
               "node": {
                   "label": "CE",
-                  "x": -266.66666412353516,
-                  "y": -16.3333740234375
+                  "x": 194.89560200222078,
+                  "y": -33.683007671818174
               },
-              "flows": [],
-              "address": "222.250.190.185",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 15,
-              "node": {
-                  "label": "LER",
-                  "x": -150.6666717529297,
-                  "y": -22
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
+              "address": "231.121.150.170",
+              "destinations": []
+          }
       },
       {
-          "id": "connection-21-15",
+          "bandwidth": 0,
+          "id": "6-9",
           "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 21,
+              "id": 6,
+              "node": {
+                  "label": "LER",
+                  "x": 78.66668701171875,
+                  "y": -75.66668701171875
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 9,
               "node": {
                   "label": "CE",
-                  "x": -261.3333511352539,
-                  "y": 37
+                  "x": 171.66665649414062,
+                  "y": -84.33334350585938
               },
-              "flows": [],
-              "address": "234.163.57.53",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 15,
-              "node": {
-                  "label": "LER",
-                  "x": -150.6666717529297,
-                  "y": -22
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
+              "address": "253.133.24.115",
+              "destinations": []
+          }
       },
       {
-          "id": "connection-22-15",
+          "bandwidth": 0,
+          "id": "6-8",
           "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 22,
+              "id": 6,
+              "node": {
+                  "label": "LER",
+                  "x": 78.66668701171875,
+                  "y": -75.66668701171875
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 8,
               "node": {
                   "label": "CE",
-                  "x": -253.66669464111328,
-                  "y": 80.66665649414062
+                  "x": 159.66665649414062,
+                  "y": -139.66668701171875
               },
-              "flows": [],
-              "address": "71.251.35.76",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 15,
-              "node": {
-                  "label": "LER",
-                  "x": -150.6666717529297,
-                  "y": -22
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
+              "address": "109.151.93.250",
+              "destinations": []
+          }
       },
       {
-          "id": "connection-23-15",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 23,
-              "node": {
-                  "label": "CE",
-                  "x": -245.66667938232422,
-                  "y": 133.99993896484375
-              },
-              "flows": [],
-              "address": "44.223.43.188",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 15,
-              "node": {
-                  "label": "LER",
-                  "x": -150.6666717529297,
-                  "y": -22
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
           "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-25-1",
+          "id": "3-24",
           "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 25,
-              "node": {
-                  "label": "LSR",
-                  "x": 79.66665649414062,
-                  "y": 99.66665649414062
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 1,
-              "node": {
-                  "label": "LSR",
-                  "x": -77,
-                  "y": -61.66668701171875
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-24-2",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 24,
-              "node": {
-                  "label": "LSR",
-                  "x": -130.66671752929688,
-                  "y": 102.99996948242188
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 2,
-              "node": {
-                  "label": "LSR",
-                  "x": 22,
-                  "y": -62.66668701171875
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-24-25",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 24,
-              "node": {
-                  "label": "LSR",
-                  "x": -130.66671752929688,
-                  "y": 102.99996948242188
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 25,
-              "node": {
-                  "label": "LSR",
-                  "x": 79.66665649414062,
-                  "y": 99.66665649414062
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-26-25",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 26,
-              "node": {
-                  "label": "LSR",
-                  "x": -29,
-                  "y": 178.66668701171875
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 25,
-              "node": {
-                  "label": "LSR",
-                  "x": 79.66665649414062,
-                  "y": 99.66665649414062
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-26-24",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 26,
-              "node": {
-                  "label": "LSR",
-                  "x": -29,
-                  "y": 178.66668701171875
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 24,
-              "node": {
-                  "label": "LSR",
-                  "x": -130.66671752929688,
-                  "y": 102.99996948242188
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-28-25",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 28,
-              "node": {
-                  "label": "LER",
-                  "x": 199.66665649414062,
-                  "y": 226.6666259765625
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 25,
-              "node": {
-                  "label": "LSR",
-                  "x": 79.66665649414062,
-                  "y": 99.66665649414062
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-27-25",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 27,
-              "node": {
-                  "label": "LER",
-                  "x": 71.99996948242188,
-                  "y": 245.99996948242188
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 25,
-              "node": {
-                  "label": "LSR",
-                  "x": 79.66665649414062,
-                  "y": 99.66665649414062
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-33-28",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 33,
-              "node": {
-                  "label": "CE",
-                  "x": 288.66664123535156,
-                  "y": 310
-              },
-              "flows": [],
-              "address": "146.46.63.29",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 28,
-              "node": {
-                  "label": "LER",
-                  "x": 199.66665649414062,
-                  "y": 226.6666259765625
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-32-28",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 32,
-              "node": {
-                  "label": "CE",
-                  "x": 260.66664123535156,
-                  "y": 361.3333740234375
-              },
-              "flows": [],
-              "address": "56.117.86.51",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 28,
-              "node": {
-                  "label": "LER",
-                  "x": 199.66665649414062,
-                  "y": 226.6666259765625
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-31-28",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 31,
-              "node": {
-                  "label": "CE",
-                  "x": 295.9999542236328,
-                  "y": 256.3333435058594
-              },
-              "flows": [],
-              "address": "186.64.152.35",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 28,
-              "node": {
-                  "label": "LER",
-                  "x": 199.66665649414062,
-                  "y": 226.6666259765625
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-30-28",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 30,
-              "node": {
-                  "label": "CE",
-                  "x": 304.99989318847656,
-                  "y": 203
-              },
-              "flows": [],
-              "address": "160.111.61.26",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 28,
-              "node": {
-                  "label": "LER",
-                  "x": 199.66665649414062,
-                  "y": 226.6666259765625
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-29-28",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 29,
-              "node": {
-                  "label": "CE",
-                  "x": 216.66664123535156,
-                  "y": 156
-              },
-              "flows": [],
-              "address": "227.107.39.121",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 28,
-              "node": {
-                  "label": "LER",
-                  "x": 199.66665649414062,
-                  "y": 226.6666259765625
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-28-34",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 28,
-              "node": {
-                  "label": "LER",
-                  "x": 199.66665649414062,
-                  "y": 226.6666259765625
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 34,
-              "node": {
-                  "label": "CE",
-                  "x": 300.66661071777344,
-                  "y": 136.33334350585938
-              },
-              "flows": [],
-              "address": "110.76.57.100",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-35-27",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 35,
-              "node": {
-                  "label": "CE",
-                  "x": 144.3332977294922,
-                  "y": 300.3333435058594
-              },
-              "flows": [],
-              "address": "142.239.146.27",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 27,
-              "node": {
-                  "label": "LER",
-                  "x": 71.99996948242188,
-                  "y": 245.99996948242188
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-36-27",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 36,
-              "node": {
-                  "label": "CE",
-                  "x": 96.33329772949219,
-                  "y": 346
-              },
-              "flows": [],
-              "address": "180.207.10.56",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 27,
-              "node": {
-                  "label": "LER",
-                  "x": 71.99996948242188,
-                  "y": 245.99996948242188
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-37-27",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 37,
-              "node": {
-                  "label": "CE",
-                  "x": 25.999984741210938,
-                  "y": 305.66668701171875
-              },
-              "flows": [],
-              "address": "38.136.83.99",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 27,
-              "node": {
-                  "label": "LER",
-                  "x": 71.99996948242188,
-                  "y": 245.99996948242188
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-38-27",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 38,
-              "node": {
-                  "label": "CE",
-                  "x": -25.333343505859375,
-                  "y": 257.0000305175781
-              },
-              "flows": [],
-              "address": "80.21.17.247",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 27,
-              "node": {
-                  "label": "LER",
-                  "x": 71.99996948242188,
-                  "y": 245.99996948242188
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-39-27",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 39,
-              "node": {
-                  "label": "CE",
-                  "x": 176.00001525878906,
-                  "y": 264.3333435058594
-              },
-              "flows": [],
-              "address": "200.86.108.71",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 27,
-              "node": {
-                  "label": "LER",
-                  "x": 71.99996948242188,
-                  "y": 245.99996948242188
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-40-24",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 40,
-              "node": {
-                  "label": "LER",
-                  "x": -222.66668701171875,
-                  "y": 205.66671752929688
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 24,
-              "node": {
-                  "label": "LSR",
-                  "x": -130.66671752929688,
-                  "y": 102.99996948242188
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-41-24",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 41,
-              "node": {
-                  "label": "LER",
-                  "x": -137.66668701171875,
-                  "y": 265.0000305175781
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 24,
-              "node": {
-                  "label": "LSR",
-                  "x": -130.66671752929688,
-                  "y": 102.99996948242188
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-42-40",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 42,
-              "node": {
-                  "label": "CE",
-                  "x": -312.0000305175781,
-                  "y": 173.00003051757812
-              },
-              "flows": [],
-              "address": "65.201.167.93",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 40,
-              "node": {
-                  "label": "LER",
-                  "x": -222.66668701171875,
-                  "y": 205.66671752929688
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-43-40",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 43,
-              "node": {
-                  "label": "CE",
-                  "x": -318.6667022705078,
-                  "y": 231.66671752929688
-              },
-              "flows": [],
-              "address": "238.93.14.170",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 40,
-              "node": {
-                  "label": "LER",
-                  "x": -222.66668701171875,
-                  "y": 205.66671752929688
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-44-40",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 44,
-              "node": {
-                  "label": "CE",
-                  "x": -302.0000305175781,
-                  "y": 275.3333740234375
-              },
-              "flows": [],
-              "address": "69.21.177.194",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 40,
-              "node": {
-                  "label": "LER",
-                  "x": -222.66668701171875,
-                  "y": 205.66671752929688
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-45-40",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 45,
-              "node": {
-                  "label": "CE",
-                  "x": -275.3333740234375,
-                  "y": 321.3333435058594
-              },
-              "flows": [],
-              "address": "118.140.196.206",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 40,
-              "node": {
-                  "label": "LER",
-                  "x": -222.66668701171875,
-                  "y": 205.66671752929688
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-46-41",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 46,
-              "node": {
-                  "label": "CE",
-                  "x": -222.00003051757812,
-                  "y": 297.6667175292969
-              },
-              "flows": [],
-              "address": "143.248.173.96",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 41,
-              "node": {
-                  "label": "LER",
-                  "x": -137.66668701171875,
-                  "y": 265.0000305175781
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-47-41",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 47,
-              "node": {
-                  "label": "CE",
-                  "x": -183.00003051757812,
-                  "y": 335.6667175292969
-              },
-              "flows": [],
-              "address": "95.161.11.239",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 41,
-              "node": {
-                  "label": "LER",
-                  "x": -137.66668701171875,
-                  "y": 265.0000305175781
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-48-41",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 48,
-              "node": {
-                  "label": "CE",
-                  "x": -126.66671752929688,
-                  "y": 379.3334045410156
-              },
-              "flows": [],
-              "address": "88.98.36.62",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 41,
-              "node": {
-                  "label": "LER",
-                  "x": -137.66668701171875,
-                  "y": 265.0000305175781
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-49-41",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 49,
-              "node": {
-                  "label": "CE",
-                  "x": -76.00003051757812,
-                  "y": 343.3333435058594
-              },
-              "flows": [],
-              "address": "222.128.37.7",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 41,
-              "node": {
-                  "label": "LER",
-                  "x": -137.66668701171875,
-                  "y": 265.0000305175781
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-3-50",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
               "id": 3,
               "node": {
                   "label": "LSR",
-                  "x": -31.470778634960805,
-                  "y": -143.49029784058715
+                  "x": -169.11736786201587,
+                  "y": 53.236339378254854
               },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
+              "LIB": {}
           },
           "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 50,
+              "id": 24,
+              "node": {
+                  "label": "LER",
+                  "x": -265.40744840395257,
+                  "y": 47.00558384436968
+              },
+              "FIB": {},
+              "LIB": {}
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "3-25",
+          "source": {
+              "id": 3,
               "node": {
                   "label": "LSR",
-                  "x": -29.263794802844394,
-                  "y": -236.28612420719028
+                  "x": -169.11736786201587,
+                  "y": 53.236339378254854
               },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
+              "LIB": {}
           },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
+          "target": {
+              "id": 25,
+              "node": {
+                  "label": "LER",
+                  "x": -254.9473995590575,
+                  "y": 110.44073970142057
+              },
+              "FIB": {},
+              "LIB": {}
+          }
       },
       {
-          "id": "connection-50-51",
+          "bandwidth": 0,
+          "id": "25-29",
           "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 50,
+              "id": 25,
+              "node": {
+                  "label": "LER",
+                  "x": -254.9473995590575,
+                  "y": 110.44073970142057
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 29,
+              "node": {
+                  "label": "CE",
+                  "x": -334.57878349716736,
+                  "y": 190.40953958745868
+              },
+              "address": "19.38.66.197",
+              "destinations": []
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "25-28",
+          "source": {
+              "id": 25,
+              "node": {
+                  "label": "LER",
+                  "x": -254.9473995590575,
+                  "y": 110.44073970142057
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 28,
+              "node": {
+                  "label": "CE",
+                  "x": -358.1982551081193,
+                  "y": 131.6982687850509
+              },
+              "address": "213.160.2.190",
+              "destinations": []
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "24-27",
+          "source": {
+              "id": 24,
+              "node": {
+                  "label": "LER",
+                  "x": -265.40744840395257,
+                  "y": 47.00558384436968
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 27,
+              "node": {
+                  "label": "CE",
+                  "x": -363.596995227487,
+                  "y": 76.02378785173326
+              },
+              "address": "125.53.28.10",
+              "destinations": []
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "24-26",
+          "source": {
+              "id": 24,
+              "node": {
+                  "label": "LER",
+                  "x": -265.40744840395257,
+                  "y": 47.00558384436968
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 26,
+              "node": {
+                  "label": "CE",
+                  "x": -367.6460406633177,
+                  "y": 21.36157020811232
+              },
+              "address": "28.55.135.118",
+              "destinations": []
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "19-23",
+          "source": {
+              "id": 19,
+              "node": {
+                  "label": "LER",
+                  "x": -259.96223431483713,
+                  "y": -33.878521840839454
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 23,
+              "node": {
+                  "label": "CE",
+                  "x": -379.79320786263395,
+                  "y": -44.4355745139962
+              },
+              "address": "252.160.93.139",
+              "destinations": []
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "19-22",
+          "source": {
+              "id": 19,
+              "node": {
+                  "label": "LER",
+                  "x": -259.96223431483713,
+                  "y": -33.878521840839454
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 22,
+              "node": {
+                  "label": "CE",
+                  "x": -347.40077486938407,
+                  "y": -104.833909610133
+              },
+              "address": "224.225.248.125",
+              "destinations": []
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "18-21",
+          "source": {
+              "id": 18,
+              "node": {
+                  "label": "LER",
+                  "x": -220.04956168638876,
+                  "y": -107.7172286954627
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 21,
+              "node": {
+                  "label": "CE",
+                  "x": -304.88571670212326,
+                  "y": -152.072883723861
+              },
+              "address": "215.213.169.165",
+              "destinations": []
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "18-20",
+          "source": {
+              "id": 18,
+              "node": {
+                  "label": "LER",
+                  "x": -220.04956168638876,
+                  "y": -107.7172286954627
+              },
+              "FIB": {},
+              "LIB": {}
+          },
+          "target": {
+              "id": 20,
+              "node": {
+                  "label": "CE",
+                  "x": -252.92287297966416,
+                  "y": -193.91306365752908
+              },
+              "address": "200.31.134.134",
+              "destinations": []
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "1-19",
+          "source": {
+              "id": 1,
               "node": {
                   "label": "LSR",
-                  "x": -29.263794802844394,
-                  "y": -236.28612420719028
+                  "x": -158,
+                  "y": -27.66668701171875
               },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
+              "LIB": {}
           },
           "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 51,
+              "id": 19,
+              "node": {
+                  "label": "LER",
+                  "x": -259.96223431483713,
+                  "y": -33.878521840839454
+              },
+              "FIB": {},
+              "LIB": {}
+          }
+      },
+      {
+          "bandwidth": 0,
+          "id": "1-18",
+          "source": {
+              "id": 1,
               "node": {
                   "label": "LSR",
-                  "x": -76.3201155711299,
-                  "y": -304.517773165711
+                  "x": -158,
+                  "y": -27.66668701171875
               },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-50-52",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 50,
-              "node": {
-                  "label": "LSR",
-                  "x": -29.263794802844394,
-                  "y": -236.28612420719028
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
+              "LIB": {}
           },
           "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 52,
-              "node": {
-                  "label": "LSR",
-                  "x": 36.02680045038073,
-                  "y": -303.929551654323
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-51-52",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 51,
-              "node": {
-                  "label": "LSR",
-                  "x": -76.3201155711299,
-                  "y": -304.517773165711
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 52,
-              "node": {
-                  "label": "LSR",
-                  "x": 36.02680045038073,
-                  "y": -303.929551654323
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-52-56",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 52,
-              "node": {
-                  "label": "LSR",
-                  "x": 36.02680045038073,
-                  "y": -303.929551654323
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 56,
+              "id": 18,
               "node": {
                   "label": "LER",
-                  "x": 192.48615808378946,
-                  "y": -318.04641018865766
+                  "x": -220.04956168638876,
+                  "y": -107.7172286954627
               },
               "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-52-55",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 52,
-              "node": {
-                  "label": "LSR",
-                  "x": 36.02680045038073,
-                  "y": -303.929551654323
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 55,
-              "node": {
-                  "label": "LER",
-                  "x": 53.08468576418875,
-                  "y": -380.39600558823156
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-51-54",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 51,
-              "node": {
-                  "label": "LSR",
-                  "x": -76.3201155711299,
-                  "y": -304.517773165711
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 54,
-              "node": {
-                  "label": "LER",
-                  "x": -105.73027566257497,
-                  "y": -393.9246695370004
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-51-53",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 51,
-              "node": {
-                  "label": "LSR",
-                  "x": -76.3201155711299,
-                  "y": -304.517773165711
-              },
-              "LIB": {},
-              "allowedConnections": [
-                  "LSR",
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 53,
-              "node": {
-                  "label": "LER",
-                  "x": -160.43320682068247,
-                  "y": -326.28129594151204
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-57-53",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 57,
-              "node": {
-                  "label": "CE",
-                  "x": -255.72218367674074,
-                  "y": -303.92957858014523
-              },
-              "flows": [],
-              "address": "165.134.62.162",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 53,
-              "node": {
-                  "label": "LER",
-                  "x": -160.43320682068247,
-                  "y": -326.28129594151204
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-58-53",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 58,
-              "node": {
-                  "label": "CE",
-                  "x": -255.7221836767407,
-                  "y": -352.16223466791797
-              },
-              "flows": [],
-              "address": "45.158.77.190",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 53,
-              "node": {
-                  "label": "LER",
-                  "x": -160.43320682068247,
-                  "y": -326.28129594151204
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-59-53",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 59,
-              "node": {
-                  "label": "CE",
-                  "x": -230.42943953590057,
-                  "y": -250.402982741525
-              },
-              "flows": [],
-              "address": "101.61.220.247",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 53,
-              "node": {
-                  "label": "LER",
-                  "x": -160.43320682068247,
-                  "y": -326.28129594151204
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-60-53",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 60,
-              "node": {
-                  "label": "CE",
-                  "x": -234.5468554865056,
-                  "y": -392.1601127061251
-              },
-              "flows": [],
-              "address": "31.48.237.173",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 53,
-              "node": {
-                  "label": "LER",
-                  "x": -160.43320682068247,
-                  "y": -326.28129594151204
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-61-54",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 61,
-              "node": {
-                  "label": "CE",
-                  "x": -179.84392432839803,
-                  "y": -447.4512115239762
-              },
-              "flows": [],
-              "address": "239.235.113.30",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 54,
-              "node": {
-                  "label": "LER",
-                  "x": -105.73027566257497,
-                  "y": -393.9246695370004
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-62-54",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 62,
-              "node": {
-                  "label": "CE",
-                  "x": -116.90610741743617,
-                  "y": -496.27211604895916
-              },
-              "flows": [],
-              "address": "225.22.83.50",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 54,
-              "node": {
-                  "label": "LER",
-                  "x": -105.73027566257497,
-                  "y": -393.9246695370004
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-54-63",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 54,
-              "node": {
-                  "label": "LER",
-                  "x": -105.73027566257497,
-                  "y": -393.9246695370004
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 63,
-              "node": {
-                  "label": "CE",
-                  "x": -58.08578723454584,
-                  "y": -476.8613985412436
-              },
-              "flows": [],
-              "address": "195.14.3.188",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-64-55",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 64,
-              "node": {
-                  "label": "CE",
-                  "x": 35.43857893899281,
-                  "y": -452.15684898596925
-              },
-              "flows": [],
-              "address": "121.12.125.3",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 55,
-              "node": {
-                  "label": "LER",
-                  "x": 53.08468576418875,
-                  "y": -380.39600558823156
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-55-65",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 55,
-              "node": {
-                  "label": "LER",
-                  "x": 53.08468576418875,
-                  "y": -380.39600558823156
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 65,
-              "node": {
-                  "label": "CE",
-                  "x": 102.62002365167275,
-                  "y": -485.4749708097274
-              },
-              "flows": [],
-              "address": "148.44.203.1",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-66-55",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 66,
-              "node": {
-                  "label": "CE",
-                  "x": 155.28571666885665,
-                  "y": -448.8887928826665
-              },
-              "flows": [],
-              "address": "9.3.32.90",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 55,
-              "node": {
-                  "label": "LER",
-                  "x": 53.08468576418875,
-                  "y": -380.39600558823156
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-67-55",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 67,
-              "node": {
-                  "label": "CE",
-                  "x": -31.44470243275625,
-                  "y": -410.35139294832396
-              },
-              "flows": [],
-              "address": "238.138.175.120",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 55,
-              "node": {
-                  "label": "LER",
-                  "x": 53.08468576418875,
-                  "y": -380.39600558823156
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-68-56",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 68,
-              "node": {
-                  "label": "CE",
-                  "x": 214.69756370470122,
-                  "y": -437.2553480895993
-              },
-              "flows": [],
-              "address": "31.218.79.74",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 56,
-              "node": {
-                  "label": "LER",
-                  "x": 192.48615808378946,
-                  "y": -318.04641018865766
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-69-56",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 69,
-              "node": {
-                  "label": "CE",
-                  "x": 265.6432674717439,
-                  "y": -397.7581035358219
-              },
-              "flows": [],
-              "address": "1.221.42.176",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 56,
-              "node": {
-                  "label": "LER",
-                  "x": 192.48615808378946,
-                  "y": -318.04641018865766
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-70-56",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 70,
-              "node": {
-                  "label": "CE",
-                  "x": 293.69205281225595,
-                  "y": -353.6814595746482
-              },
-              "flows": [],
-              "address": "50.154.165.84",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 56,
-              "node": {
-                  "label": "LER",
-                  "x": 192.48615808378946,
-                  "y": -318.04641018865766
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-71-56",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 71,
-              "node": {
-                  "label": "CE",
-                  "x": 304.56812312938666,
-                  "y": -295.8666173912858
-              },
-              "flows": [],
-              "address": "198.141.57.51",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 56,
-              "node": {
-                  "label": "LER",
-                  "x": 192.48615808378946,
-                  "y": -318.04641018865766
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-72-56",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 72,
-              "node": {
-                  "label": "CE",
-                  "x": 283.3884237982271,
-                  "y": -242.6312008188032
-              },
-              "flows": [],
-              "address": "92.161.173.55",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 56,
-              "node": {
-                  "label": "LER",
-                  "x": 192.48615808378946,
-                  "y": -318.04641018865766
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-73-55",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 73,
-              "node": {
-                  "label": "CE",
-                  "x": 139.13761760182192,
-                  "y": -386.3095919155897
-              },
-              "flows": [],
-              "address": "16.168.120.174",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 55,
-              "node": {
-                  "label": "LER",
-                  "x": 53.08468576418875,
-                  "y": -380.39600558823156
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
-      },
-      {
-          "id": "connection-74-56",
-          "source": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 74,
-              "node": {
-                  "label": "CE",
-                  "x": 203.24910449143508,
-                  "y": -215.1548829848767
-              },
-              "flows": [],
-              "address": "137.98.107.213",
-              "allowedConnections": [
-                  "LER"
-              ]
-          },
-          "target": {
-              "labelSpace": {},
-              "neighborRouters": {},
-              "id": 56,
-              "node": {
-                  "label": "LER",
-                  "x": 192.48615808378946,
-                  "y": -318.04641018865766
-              },
-              "FIB": {},
-              "allowedConnections": [
-                  "CE",
-                  "LSR"
-              ]
-          },
-          "bandwidth": 0,
-          "distance": 0,
-          "weight": 0
+              "LIB": {}
+          }
       }
   ],
+  "_packets": [],
   "routerMap": {},
-  "counter": 75
+  "routerCounter": 30,
+  "packetCounter": 0
 }
-  

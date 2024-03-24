@@ -9,28 +9,40 @@ const NodeSchema = z.object({
 });
 
 const Router = z.object({
-  labelSpace: z.object({}).optional(),
-  neighborRouters: z.object({}).optional(),
+  label: z.literal("LSR").or(z.literal("LER")).or(z.literal("CE")),
   id: z.number(),
   node: NodeSchema,
   LIB: z.object({}).optional(),
   FIB: z.object({}).optional(),
-  allowedConnections: z.array(z.string()),
+  adress: z.string().optional(),
+  destinations: z.array(z.string()).optional(),
 });
 
-const Connection = z.object({
+const Link = z.object({
   id: z.string(),
-  source: Router,
-  target: Router,
-  bandwidth: z.number(),
-  distance: z.number(),
-  weight: z.number(),
+  source: z.object({
+    id: z.number(),
+    node: NodeSchema,
+    LIB: z.object({}).optional(),
+    FIB: z.object({}).optional(),
+    adress: z.string().optional(),
+    destinations: z.array(z.string()).optional(),
+  }),
+  target: z.object({
+    id: z.number(),
+    node: NodeSchema,
+    LIB: z.object({}).optional(),
+    FIB: z.object({}).optional(),
+    address: z.string().optional(),
+    destinations: z.array(z.string()).optional(),
+  }),
+  bandwidth: z.number().optional(),
 });
 
 const DefaultNetworkSchema = z.object({
   store: z.object({}).optional(),
   _routers: z.array(Router),
-  _connections: z.array(Connection).optional(),
+  _links: z.array(Link).optional(),
 });
 
 export const validateDefaultNetwork = DefaultNetworkSchema.safeParse(DefaultNetwork);

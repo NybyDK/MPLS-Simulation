@@ -6,6 +6,7 @@ import Packet from "$lib/classes/MPLS/Packet";
 import LER from "$lib/classes/MPLS/LER";
 import LSR from "$lib/classes/MPLS/LSR";
 import CE from "$lib/classes/MPLS/CE";
+import { validateDefaultNetwork } from "$lib/classes/schema";
 
 const allowedLinks = {
   CE: ["LER"],
@@ -47,7 +48,7 @@ export class NetworkStore implements Writable<NetworkState> {
     };
   }
 
-  addLink(input: { source: Router; target: Router }) {
+  addLink(input: { source: Router; target: Router; bandwidth?: number }) {
     if (input.source === input.target) return;
 
     if (!allowedLinks[input.source.type].includes(input.target.type)) return;
@@ -60,6 +61,10 @@ export class NetworkStore implements Writable<NetworkState> {
     }
 
     const link = new Link(`${input.source.id}-${input.target.id}`, input.source, input.target);
+
+    if (input.bandwidth !== undefined){
+      link.bandwidth = input.bandwidth;
+    }
 
     this._links.push(link);
     this.fastUpdate();
@@ -156,27 +161,43 @@ export class NetworkStore implements Writable<NetworkState> {
   loadDefaultNetwork() {
     if (!validateDefaultNetwork.success) throw new Error("unable to parse default");
     for (const routerData of validateDefaultNetwork.data._routers) {
-      switch (routerData.node.label) {
+      switch (routerData.label) {
         case "LER":
-          this.createLER(routerData.node);
+          this.createLER({
+            label: routerData.label,
+            x: routerData.node.x,
+            y: routerData.node.y,
+          });
           break;
         case "LSR":
-          this.createLSR(routerData.node);
+          this.createLSR({
+            label: routerData.label,
+            x: routerData.node.x,
+            y: routerData.node.y,
+          });
           break;
         case "CE":
-          this.createCE(routerData.node);
+          this.createCE({
+            label: routerData.label,
+            x: routerData.node.x,
+            y: routerData.node.y,
+          });
           break;
         default:
           break;
       }
     }
-    if (validateDefaultNetwork.data._connections) {
-      for (const connectionData of validateDefaultNetwork.data._connections) {
-        const sourceRouter = this.getRouter(connectionData.source.id);
-        const targetRouter = this.getRouter(connectionData.target.id);
+    if (validateDefaultNetwork.data._links) {
+      for (const linkData of validateDefaultNetwork.data._links) {
+        const sourceRouter = this.getRouter(linkData.source.id);
+        const targetRouter = this.getRouter(linkData.target.id);
 
         if (sourceRouter && targetRouter) {
-          this.addConnection({ source: sourceRouter, target: targetRouter });
+          this.addLink({
+            source: sourceRouter,
+            target: targetRouter,
+            bandwidth: linkData.bandwidth,
+          });
         }
       }
     }
