@@ -1,33 +1,45 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import type Packet from "$lib/classes/MPLS/Packet";
 
   export let packet: Packet;
 
-  function handleTransitionEnd() {
-    packet.nextHop.receivePacket(packet);
+  let transitionDuration: number;
+
+  function calculateTransitionDuration() {
+    // TOOD: In the future, nextHop will be a link, not a router, and then we can use the link's distance here, as it is already calculated in the Link class
+    const distance = Math.sqrt(
+      (packet.node.x - packet.nextHop.node.x) ** 2 + (packet.node.y - packet.nextHop.node.y) ** 2,
+    );
+
+    // 1000 ms for every 100 km, TODO: make this configurable
+    transitionDuration = (distance / 100) * 1000;
+  }
+
+  function updatePosition() {
+    calculateTransitionDuration();
+
     packet.node.x = packet.nextHop.node.x;
     packet.node.y = packet.nextHop.node.y;
   }
 
-  onMount(() => {
-    requestAnimationFrame(() => {
-      packet.node.x = packet.nextHop.node.x;
-      packet.node.y = packet.nextHop.node.y;
-    });
-  });
+  function handleTransitionEnd() {
+    packet.nextHop.receivePacket(packet);
+
+    updatePosition();
+  }
+
+  requestAnimationFrame(updatePosition);
 </script>
 
 <circle
   on:transitionend={handleTransitionEnd}
-  class="moving-circle"
-  transform={`translate(${packet.node.x}, ${packet.node.y})`}
   r="5"
+  transform={`translate(${packet.node.x}, ${packet.node.y})`}
+  style={`transition: transform ${transitionDuration}ms linear;`}
 />
 
 <style>
-  .moving-circle {
+  circle {
     fill: red;
-    transition: transform 1000ms linear;
   }
 </style>

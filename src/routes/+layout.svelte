@@ -29,6 +29,10 @@
     cursor: pointer;
   }
 
+  :global(line) {
+    stroke: black;
+  }
+
   @media (prefers-color-scheme: dark) {
     :global(body) {
       color-scheme: dark;
