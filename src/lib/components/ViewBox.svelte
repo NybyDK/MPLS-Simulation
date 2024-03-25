@@ -155,16 +155,20 @@
   function handleWheel(event: WheelEvent) {
     event.preventDefault();
 
-    if (!SVG) return;
-    if (viewBox.scale < 0.1 && event.deltaY <= 0) return;
-    if (viewBox.scale > 5 && event.deltaY >= 0) return;
-
     mouse.x = event.clientX;
     mouse.y = event.clientY;
 
-    const boundingRect = SVG.getBoundingClientRect();
+    const zoomFactor = event.deltaY > 0 ? 1.025 : 0.975;
 
-    const zoomFactor = event.deltaY > 0 ? 1 + 0.025 : 1 - 0.025;
+    zoom(zoomFactor, mouse);
+  }
+
+  export function zoom(zoomFactor: number, mouse: { x: number; y: number }) {
+    if (!SVG) return;
+    if (viewBox.scale < 0.1 && zoomFactor < 1) return;
+    if (viewBox.scale > 5 && zoomFactor > 1) return;
+
+    const boundingRect = SVG.getBoundingClientRect();
 
     const offset = {
       x: (mouse.x - boundingRect.left) / boundingRect.width,
