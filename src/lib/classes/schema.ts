@@ -9,12 +9,11 @@ const NodeSchema = z.object({
 });
 
 const Router = z.object({
-  label: z.literal("LSR").or(z.literal("LER")).or(z.literal("CE")),
   id: z.number(),
   node: NodeSchema,
   LIB: z.object({}).optional(),
   FIB: z.object({}).optional(),
-  adress: z.string().optional(),
+  address: z.string().optional(),
   destinations: z.array(z.string()).optional(),
 });
 
@@ -25,7 +24,7 @@ const Link = z.object({
     node: NodeSchema,
     LIB: z.object({}).optional(),
     FIB: z.object({}).optional(),
-    adress: z.string().optional(),
+    address: z.string().optional(),
     destinations: z.array(z.string()).optional(),
   }),
   target: z.object({

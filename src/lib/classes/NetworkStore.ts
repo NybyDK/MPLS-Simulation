@@ -62,7 +62,7 @@ export class NetworkStore implements Writable<NetworkState> {
 
     const link = new Link(`${input.source.id}-${input.target.id}`, input.source, input.target);
 
-    if (input.bandwidth !== undefined){
+    if (input.bandwidth !== undefined) {
       link.bandwidth = input.bandwidth;
     }
 
@@ -161,24 +161,24 @@ export class NetworkStore implements Writable<NetworkState> {
   loadDefaultNetwork() {
     if (!validateDefaultNetwork.success) throw new Error("unable to parse default");
     for (const routerData of validateDefaultNetwork.data._routers) {
-      switch (routerData.label) {
+      switch (routerData.node.label) {
         case "LER":
           this.createLER({
-            label: routerData.label,
+            label: routerData.node.label,
             x: routerData.node.x,
             y: routerData.node.y,
           });
           break;
         case "LSR":
           this.createLSR({
-            label: routerData.label,
+            label: routerData.node.label,
             x: routerData.node.x,
             y: routerData.node.y,
           });
           break;
         case "CE":
           this.createCE({
-            label: routerData.label,
+            label: routerData.node.label,
             x: routerData.node.x,
             y: routerData.node.y,
           });
