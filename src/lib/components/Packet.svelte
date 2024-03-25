@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { config } from "$lib/stores/config";
   import type Packet from "$lib/classes/MPLS/Packet";
 
   export let packet: Packet;
@@ -11,8 +12,8 @@
       (packet.node.x - packet.nextHop.node.x) ** 2 + (packet.node.y - packet.nextHop.node.y) ** 2,
     );
 
-    // 1000 ms for every 100 km, TODO: make this configurable
-    transitionDuration = (distance / 100) * 1000;
+    // 1000 ms for every 250 km, TODO: make this configurable
+    transitionDuration = ((distance / 250) * 1000) / $config.speedMultiplier;
   }
 
   function updatePosition() {

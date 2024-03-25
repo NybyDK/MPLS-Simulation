@@ -67,9 +67,7 @@
 
   function updateViewBox() {
     if (!SVG) return;
-
     const zoomFactor = viewBox.scale || 1;
-
     viewBox.width = SVG.getBoundingClientRect().width * zoomFactor;
     viewBox.height = SVG.getBoundingClientRect().height * zoomFactor;
   }
