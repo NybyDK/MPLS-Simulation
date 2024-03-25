@@ -8,7 +8,8 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "noImplicitAny": true //https://rb.gy/x658sa Fixes TS7006
   }
   // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
   //
