@@ -52,6 +52,7 @@
 
     if (!destinationRouter) {
       alert("Destination router not found.");
+      //Add a way of switching to IPv4 when a Destination is not found, and find all other cases where a router does not know what to do with a label
       return;
     }
 
