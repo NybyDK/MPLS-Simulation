@@ -8,11 +8,8 @@
   let animation: Animation | undefined;
   let packetElement: SVGElement | undefined;
 
-  $: {
-    if (animation) {
-      $config.running ? animation.play() : animation.pause();
-    }
-  }
+  $: if (animation) $config.running ? animation.play() : animation.pause();
+  $: if (animation) animation.playbackRate = $config.speedMultiplier;
 
   function calculateTransitionDuration() {
     // TOOD: In the future, nextHop will be a link, not a router, and then we can use the link's distance here, as it is already calculated in the Link class
@@ -21,7 +18,7 @@
     );
 
     // 1000 ms for every 250 km, TODO: make this configurable
-    transitionDuration = Math.round(((distance / 250) * 1000) / $config.speedMultiplier);
+    transitionDuration = Math.round((distance / 250) * 1000);
   }
 
   function animateToNextHop() {

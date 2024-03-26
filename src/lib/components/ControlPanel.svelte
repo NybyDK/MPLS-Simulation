@@ -80,14 +80,7 @@
 
     <div id="slider">
       <p>Speed Multiplier: {$config.speedMultiplier}</p>
-      <input
-        type="range"
-        min="0.1"
-        max="2"
-        step="0.1"
-        disabled={$network.packets.length !== 0}
-        bind:value={$config.speedMultiplier}
-      />
+      <input type="range" min="0.1" max="2" step="0.1" bind:value={$config.speedMultiplier} />
     </div>
   </div>
 </div>
