@@ -137,7 +137,7 @@
       selectedRouter.node.x = initialMouse.x + delta.x;
       selectedRouter.node.y = initialMouse.y + delta.y;
 
-      network.fastUpdate();
+      network.notify();
     } else if (interactionState === InteractionState.PANNING) {
       mouse.x = event.clientX;
       mouse.y = event.clientY;
@@ -269,7 +269,7 @@
   on:drop={handleDrop}
   role="button"
   tabindex="-1"
-  style="cursor: {$locked ? 'default' : cursorStyles[interactionState]};"
+  style={`cursor: ${$locked ? "default" : cursorStyles[interactionState]};`}
 >
   {#if !$locked && interactionState === InteractionState.CONNECTING && selectedRouter}
     <line

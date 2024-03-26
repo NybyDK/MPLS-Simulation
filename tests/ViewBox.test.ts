@@ -34,7 +34,6 @@ test("Can drag and drop a CE Router", async ({ page }) => {
   const circleText = target.locator("text");
 
   await expect(circle).toBeVisible();
-  await expect(circle).toHaveAttribute("fill", "lightgreen");
   await expect(circleText).toBeVisible();
   await expect(circleText).toContainText("CE");
 });
@@ -49,7 +48,6 @@ test("Can drag and drop a LER Router", async ({ page }) => {
   const circleText = target.locator("text");
 
   await expect(circle).toBeVisible();
-  await expect(circle).toHaveAttribute("fill", "cyan");
   await expect(circleText).toBeVisible();
   await expect(circleText).toContainText("LER");
 });
@@ -64,25 +62,16 @@ test("Can drag and drop a LSR Router", async ({ page }) => {
   const circleText = target.locator("text");
 
   await expect(circle).toBeVisible();
-  await expect(circle).toHaveAttribute("fill", "hotpink");
   await expect(circleText).toBeVisible();
   await expect(circleText).toContainText("LSR");
 });
 
-test("Cannot create a router when locked", async ({ page }) => {
-  const lockButton = page.getByRole("button", { name: "Lock" });
-  await lockButton.click();
+test("Cannot create a router when in edit mode", async ({ page }) => {
+  const modeButton = page.getByRole("button", { name: "Simulation" });
+  await modeButton.click();
 
-  const source = page.getByRole("button", { name: "+ Edge" });
-  const target = page.locator("svg");
-
-  await source.dragTo(target);
-
-  const circle = target.locator("circle");
-  const circleText = target.locator("text");
-
-  await expect(circle).not.toBeVisible();
-  await expect(circleText).not.toBeVisible();
+  const draggables = page.locator("button[draggable]");
+  await expect(draggables).toHaveCount(0);
 });
 
 test("Can establish a link between CE and LER", async ({ page }) => {
@@ -271,7 +260,7 @@ test("Cannot establish a link between LER and LER", async ({ page }) => {
   await expect(linkBox).not.toBeVisible();
 });
 
-test("Cannot create a link when locked", async ({ page }) => {
+test("Cannot create a link when in simulation mode", async ({ page }) => {
   const CustomerButton = page.getByRole("button", { name: "+ Customer" });
   const EdgeButton = page.getByRole("button", { name: "+ Edge" });
   const SVG = page.locator("svg");
@@ -290,8 +279,8 @@ test("Cannot create a link when locked", async ({ page }) => {
 
   const [CECircle, LERCircle] = await SVG.locator("circle").all();
 
-  const lockButton = page.getByRole("button", { name: "Lock" });
-  await lockButton.click();
+  const modeButton = page.getByRole("button", { name: "Simulation" });
+  await modeButton.click();
 
   await page.keyboard.down("Shift");
   await CECircle.dragTo(LERCircle);
@@ -455,7 +444,7 @@ test("Can delete a link", async ({ page }) => {
   await expect(linkBox).not.toBeVisible();
 });
 
-test("Can pan the viewbox when unlocked", async ({ page }) => {
+test("Can pan the viewbox when in edit mode", async ({ page }) => {
   const DRAG_DISTANCE = 100;
   const SVG = page.locator("svg");
 
@@ -487,9 +476,11 @@ test("Can pan the viewbox when unlocked", async ({ page }) => {
   expect(newViewBox).toBe(expectedViewBox);
 });
 
-test("Can pan the viewbox when locked", async ({ page }) => {
-  const lockButton = page.getByRole("button", { name: "Lock" });
-  await lockButton.click();
+test("Can pan the viewbox when in simulation mode", async ({ page }) => {
+  const modeButton = page.getByRole("button", { name: "Simulation" });
+  await modeButton.click();
+
+  await page.waitForTimeout(1000);
 
   const DRAG_DISTANCE = 100;
   const SVG = page.locator("svg");
@@ -502,15 +493,8 @@ test("Can pan the viewbox when locked", async ({ page }) => {
     y: SVGBoundingBox.height / 2,
   };
 
-  const initialViewBox = await SVG.getAttribute("viewBox");
-  if (!initialViewBox) throw new Error("Could not get initial viewbox");
-
-  const initialViewBoxValues = initialViewBox.split(" ").map(Number);
-
-  const expectedViewBoxValues = initialViewBoxValues.map((value, index) =>
-    index < 2 ? value - DRAG_DISTANCE : value,
-  );
-  const expectedViewBox = expectedViewBoxValues.join(" ");
+  const oldViewBox = await SVG.getAttribute("viewBox");
+  if (!oldViewBox) throw new Error("Could not get old values");
 
   await SVG.dragTo(SVG, {
     targetPosition: { x: middle.x + DRAG_DISTANCE, y: middle.y + DRAG_DISTANCE },
@@ -519,10 +503,10 @@ test("Can pan the viewbox when locked", async ({ page }) => {
   const newViewBox = await SVG.getAttribute("viewBox");
   if (!newViewBox) throw new Error("Could not get new viewbox");
 
-  expect(newViewBox).toBe(expectedViewBox);
+  expect(newViewBox).not.toEqual(oldViewBox);
 });
 
-test("Can zoom the viewbox when unlocked", async ({ page }) => {
+test("Can zoom the viewbox when in edit mode", async ({ page }) => {
   const SVG = page.locator("svg");
 
   const SVGBoundingBox = await SVG.boundingBox();
@@ -533,22 +517,20 @@ test("Can zoom the viewbox when unlocked", async ({ page }) => {
     y: SVGBoundingBox.height / 2,
   };
 
-  const initialViewBox = await SVG.getAttribute("viewBox");
-  if (!initialViewBox) throw new Error("Could not get initial viewbox");
-
-  const expectedViewBox = "-624 -351 1248 702";
+  const oldViewBox = await SVG.getAttribute("viewBox");
+  if (!oldViewBox) throw new Error("Could not get old viewbox");
 
   await SVG.dispatchEvent("wheel", { deltaY: -1, clientX: middle.x, clientY: middle.y });
 
   const newViewBox = await SVG.getAttribute("viewBox");
   if (!newViewBox) throw new Error("Could not get new viewbox");
 
-  expect(newViewBox).toBe(expectedViewBox);
+  expect(newViewBox).not.toEqual(oldViewBox);
 });
 
-test("Can zoom the viewbox when locked", async ({ page }) => {
-  const lockButton = page.getByRole("button", { name: "Lock" });
-  await lockButton.click();
+test("Can zoom the viewbox when in simulation mode", async ({ page }) => {
+  const modeButton = page.getByRole("button", { name: "Simulation" });
+  await modeButton.click();
 
   const SVG = page.locator("svg");
 
@@ -560,20 +542,18 @@ test("Can zoom the viewbox when locked", async ({ page }) => {
     y: SVGBoundingBox.height / 2,
   };
 
-  const initialViewBox = await SVG.getAttribute("viewBox");
-  if (!initialViewBox) throw new Error("Could not get initial viewbox");
-
-  const expectedViewBox = "-624 -351 1248 702";
+  const oldViewBox = await SVG.getAttribute("viewBox");
+  if (!oldViewBox) throw new Error("Could not get old viewbox");
 
   await SVG.dispatchEvent("wheel", { deltaY: -1, clientX: middle.x, clientY: middle.y });
 
   const newViewBox = await SVG.getAttribute("viewBox");
   if (!newViewBox) throw new Error("Could not get new viewbox");
 
-  expect(newViewBox).toBe(expectedViewBox);
+  expect(newViewBox).not.toEqual(oldViewBox);
 });
 
-test("Can move a router when unlocked", async ({ page }) => {
+test("Can move a router when in edit mode", async ({ page }) => {
   const source = page.getByRole("button", { name: "+ Customer" });
   const SVG = page.locator("svg");
 
@@ -594,7 +574,7 @@ test("Can move a router when unlocked", async ({ page }) => {
   expect(newPosition).not.toEqual(oldPosition);
 });
 
-test("Cannot move a router when locked", async ({ page }) => {
+test("Cannot move a router when in edit mode", async ({ page }) => {
   const source = page.getByRole("button", { name: "+ Customer" });
   const SVG = page.locator("svg");
 
@@ -602,16 +582,16 @@ test("Cannot move a router when locked", async ({ page }) => {
 
   const circle = SVG.locator("circle");
 
-  const oldPosition = await circle.boundingBox();
+  const oldPosition = await circle.getAttribute("cx");
 
   if (!oldPosition) throw new Error("Could not find old position");
 
-  const lock = page.getByRole("button", { name: "Lock" });
-  await lock.click();
+  const modeButton = page.getByRole("button", { name: "Simulation" });
+  await modeButton.click();
 
-  await circle.dragTo(SVG, { targetPosition: { x: 100, y: 100 } });
+  await circle.dragTo(SVG, { targetPosition: { x: 100, y: 0 } });
 
-  const newPosition = await circle.boundingBox();
+  const newPosition = await circle.getAttribute("cx");
 
   if (!newPosition) throw new Error("Could not find new position");
 

@@ -221,7 +221,7 @@
 <style>
   table {
     border-collapse: collapse;
-    min-width: 500px;
+    min-width: 300px;
   }
 
   th,

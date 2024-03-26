@@ -63,7 +63,6 @@ export default class LER extends Router {
       if (!newLabel) return;
 
       packet.label = newLabel;
-      packet.node = { x: this.node.x, y: this.node.y };
 
       const nextRouter = network.getRouter(parseInt(nextHop));
       if (!nextRouter) return;
@@ -76,7 +75,6 @@ export default class LER extends Router {
       const newLabel = this.LIB.get(packet.label)?.outgoingLabel;
       if (!newLabel) return;
       packet.label = newLabel;
-      packet.node = { x: this.node.x, y: this.node.y };
 
       // LDP needs to communicate firsthop to source CE, so it can start by sending to the correct LER
       const nextRouter = network.routers.find(

@@ -3,7 +3,6 @@
   import { locked } from "$lib/stores/locked";
   import ToolboxRouter from "$lib/components/ToolboxRouter.svelte";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
-  import CE from "$lib/classes/MPLS/CE";
 
   const ToolboxRouters = [
     { text: "+ Customer", type: "CE", color: "#7FC8F8" },
@@ -20,14 +19,6 @@
           return;
         }
         if (confirm("Are you sure you want to clear the network?")) network.clear();
-      },
-    },
-    {
-      text: "Test",
-      callback: () => {
-        // TODO: Remove this test
-        const CERouters = $network.routers.filter((router): router is CE => router instanceof CE);
-        network.addPacket(CERouters[0], CERouters[1]);
       },
     },
   ];

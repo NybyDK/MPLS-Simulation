@@ -10,6 +10,7 @@
 
 <style>
   button {
+    background-color: #666666;
     color: black;
     border: 2px solid black;
     padding: 5px;

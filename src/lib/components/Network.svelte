@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { network } from "$lib/stores/network";
+  import { config } from "$lib/stores/config";
   import ViewBox from "$lib/components/ViewBox.svelte";
   import ControlPanel from "$lib/components/ControlPanel.svelte";
   import Packet from "$lib/components/Packet.svelte";
@@ -10,6 +12,12 @@
   import ViewBoxControls from "$lib/components/ViewBoxControls.svelte";
 
   let zoom: (zoomFactor: number, mouse: { x: number; y: number }) => void;
+
+  onMount(() => {
+    window.addEventListener("visibilitychanged", () => {
+      $config.running = !document.hidden;
+    });
+  });
 </script>
 
 <div id="mpls">

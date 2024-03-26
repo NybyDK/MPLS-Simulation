@@ -18,7 +18,7 @@
 <Dialog
   bind:dialog
   on:close={() => {
-    network.fastUpdate();
+    network.notify();
   }}
 >
   {#if link}
