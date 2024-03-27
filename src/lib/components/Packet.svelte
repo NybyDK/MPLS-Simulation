@@ -17,7 +17,7 @@
       (packet.node.x - packet.nextHop.node.x) ** 2 + (packet.node.y - packet.nextHop.node.y) ** 2,
     );
 
-    // 1000 ms for every 250 km, TODO: make this configurable
+    // 1000 ms for every 250 km
     transitionDuration = Math.round((distance / 250) * 1000);
   }
 
