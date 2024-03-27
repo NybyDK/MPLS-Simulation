@@ -17,7 +17,7 @@
       (packet.node.x - packet.nextHop.node.x) ** 2 + (packet.node.y - packet.nextHop.node.y) ** 2,
     );
 
-    // Base speed of 1000 ms for every 250 km
+    // Base speed of 250 km in 1000 ms
     transitionDuration = Math.round((distance / 250) * 1000);
   }
 
