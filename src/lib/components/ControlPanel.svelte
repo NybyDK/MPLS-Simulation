@@ -18,7 +18,6 @@
         network.clearPackets();
       },
     },
-
     {
       text: "Test",
       callback: () => {
