@@ -4,9 +4,9 @@
   export let router: Router;
 
   const colorMap = {
-    CE: "lightgreen",
-    LER: "cyan",
-    LSR: "hotpink",
+    CE: "#7FC8F8",
+    LER: "#FFE45E",
+    LSR: "#FF6392",
   };
 </script>
 
