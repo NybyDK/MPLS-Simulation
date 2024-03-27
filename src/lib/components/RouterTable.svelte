@@ -57,7 +57,7 @@
 
     const path = paths.findShortestPath(router, destinationRouter);
 
-    let incomingLabel: number = Math.floor(Math.random() * (2 ** 20 - 1 - 16 + 1) + 16);
+    let incomingLabel = Math.floor(Math.random() * (2 ** 20 - 1 - 16 + 1) + 16);
     let firstLER = true;
 
     for (let i = path.length - 1; i > 0; i--) {
