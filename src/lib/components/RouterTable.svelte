@@ -65,8 +65,8 @@
       const previousRouter = path[i - 1];
 
       const outgoingLabel =
-        incomingLabel ?? Math.floor(Math.random() * ((currentRouter.id + 1) * 1000));
-      incomingLabel = Math.floor(Math.random() * ((previousRouter.id + 1) * 1000));
+        incomingLabel ?? Math.floor(Math.random() * (2 ** 20 - 1 - 16 + 1) + 16);
+      incomingLabel = Math.floor(Math.random() * (2 ** 20 - 1 - 16 + 1) + 16);
 
       if (previousRouter instanceof LER && firstLER) {
         previousRouter.receiveLIBEntry(incomingLabel, -1, target);
