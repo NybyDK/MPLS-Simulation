@@ -1,0 +1,1 @@
+*{font-family:Roboto,sans-serif;box-sizing:border-box;padding:0;margin:0}body{display:flex;flex-direction:column;height:100vh;width:100vw}button:not(:disabled){cursor:pointer}line{stroke:#000}@media (prefers-color-scheme: dark){body{color-scheme:dark;background-color:#222}p{color:#fff}line{stroke:#fff}}
