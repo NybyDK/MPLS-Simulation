@@ -62,13 +62,13 @@ export class NetworkStore implements Writable<NetworkState> {
     const link = new Link(`${input.source.id}-${input.target.id}`, input.source, input.target);
 
     this._links.push(link);
-    this.fastUpdate();
+    this.notify();
   }
 
   deleteLink(id: string) {
     this._links = this._links.filter((link) => link.id !== id);
 
-    this.fastUpdate();
+    this.notify();
   }
 
   private doesLinkExist(input: { source: Router; target: Router }) {
@@ -96,7 +96,7 @@ export class NetworkStore implements Writable<NetworkState> {
   private addRouter(router: Router) {
     this._routers.push(router);
     this.routerMap.set(router.id, router);
-    this.fastUpdate();
+    this.notify();
   }
 
   deleteRouter(id: number) {
@@ -108,7 +108,7 @@ export class NetworkStore implements Writable<NetworkState> {
     this._links = this._links.filter((link) => link.source.id !== id && link.target.id !== id);
     this.routerMap.delete(id);
 
-    this.fastUpdate();
+    this.notify();
   }
 
   getRouter(id: number) {
@@ -131,12 +131,18 @@ export class NetworkStore implements Writable<NetworkState> {
       y: source.node.y,
     });
     this._packets.push(packet);
-    this.fastUpdate();
+    this.notify();
   }
 
   deletePacket(id: number) {
     this._packets = this._packets.filter((packet) => packet.id !== id);
-    this.fastUpdate();
+    this.notify();
+  }
+
+  clearPackets() {
+    this._packets = [];
+    this.packetCounter = 0;
+    this.notify();
   }
 
   clear() {
@@ -146,10 +152,10 @@ export class NetworkStore implements Writable<NetworkState> {
     this.routerMap.clear();
     this.routerCounter = 0;
     this.packetCounter = 0;
-    this.fastUpdate();
+    this.notify();
   }
 
-  fastUpdate() {
+  notify() {
     this.store.set(this.networkState);
   }
 }

@@ -1,15 +1,17 @@
 <script lang="ts">
+  import ToolboxButton from "$lib/components/ToolboxButton.svelte";
   import Dialog from "$lib/components/Dialog.svelte";
 
   let dialog: HTMLDialogElement;
 </script>
 
 <div>
-  <button
-    on:click={() => {
+  <ToolboxButton
+    text="Help"
+    callback={() => {
       dialog.showModal();
-    }}>Help</button
-  >
+    }}
+  />
 </div>
 
 <Dialog bind:dialog>
@@ -20,19 +22,3 @@
   <br />
   <p>Press Esc to close this popup.</p>
 </Dialog>
-
-<style>
-  button {
-    border: 2px solid black;
-    padding: 5px;
-    margin: 2.5px;
-    user-select: none;
-    font-size: 16px;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    button {
-      border: 2px solid white;
-    }
-  }
-</style>
