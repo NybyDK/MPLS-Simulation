@@ -1,4 +1,4 @@
-## MPLS Flow Simulator
+## MPLS Simulation
 
 MPLS Network Simulations without any Simulations so far
 

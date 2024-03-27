@@ -75,20 +75,38 @@ export class NetworkStore implements Writable<NetworkState> {
     return this._links.some((link) => link.source === input.source && link.target === input.target);
   }
 
-  createCE(node: { label: string; x: number; y: number }) {
-    const router = new CE(this.routerCounter++, node);
+  createCE(x: number, y: number) {
+    const id = this.routerCounter++;
+
+    const router = new CE(id, {
+      label: `CE ${id}`,
+      x,
+      y,
+    });
 
     this.addRouter(router);
   }
 
-  createLER(node: { label: string; x: number; y: number }) {
-    const router = new LER(this.routerCounter++, node);
+  createLER(x: number, y: number) {
+    const id = this.routerCounter++;
+
+    const router = new LER(id, {
+      label: `LER ${id}`,
+      x,
+      y,
+    });
 
     this.addRouter(router);
   }
 
-  createLSR(node: { label: string; x: number; y: number }) {
-    const router = new LSR(this.routerCounter++, node);
+  createLSR(x: number, y: number) {
+    const id = this.routerCounter++;
+
+    const router = new LSR(id, {
+      label: `LSR ${id}`,
+      x,
+      y,
+    });
 
     this.addRouter(router);
   }
