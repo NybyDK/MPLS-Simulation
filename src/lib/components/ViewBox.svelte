@@ -223,25 +223,13 @@
 
     switch (data) {
       case "CE":
-        network.createCE({
-          label: "CE",
-          x: scaledX(event.clientX),
-          y: scaledY(event.clientY),
-        });
+        network.createCE(scaledX(event.clientX), scaledY(event.clientY));
         break;
       case "LER":
-        network.createLER({
-          label: "LER",
-          x: scaledX(event.clientX),
-          y: scaledY(event.clientY),
-        });
+        network.createLER(scaledX(event.clientX), scaledY(event.clientY));
         break;
       case "LSR":
-        network.createLSR({
-          label: "LSR",
-          x: scaledX(event.clientX),
-          y: scaledY(event.clientY),
-        });
+        network.createLSR(scaledX(event.clientX), scaledY(event.clientY));
         break;
     }
   }

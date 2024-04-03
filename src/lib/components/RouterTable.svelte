@@ -8,6 +8,9 @@
 
   export let router: Router;
 
+  const max = 2 ** 20 - 1; //Two to the power of twenty minus one
+  const min = 16;
+
   function addAndUpdate(addCallback: () => void) {
     return () => {
       addCallback();
@@ -41,7 +44,7 @@
     router.updateLIBLabel(oldLabel, newLabel);
   }
 
-  function handleOnChangeFlows(event: Event) {
+  function handleOnChangeDestination(event: Event) {
     if (!(event.target instanceof HTMLInputElement)) return;
     if (!(router instanceof CE)) return;
 
@@ -57,7 +60,7 @@
 
     const path = paths.findShortestPath(router, destinationRouter);
 
-    let incomingLabel = Math.floor(Math.random() * (2 ** 20 - 1 - 16 + 1) + 16);
+    let incomingLabel = generateLabel();
     let firstLER = true;
 
     for (let i = path.length - 1; i > 0; i--) {
@@ -65,7 +68,7 @@
       const previousRouter = path[i - 1];
 
       const outgoingLabel = incomingLabel;
-      incomingLabel = Math.floor(Math.random() * (2 ** 20 - 1 - 16 + 1) + 16);
+      incomingLabel = generateLabel();
 
       if (previousRouter instanceof LER && firstLER) {
         previousRouter.receiveLIBEntry(incomingLabel, -1, target);
@@ -76,6 +79,24 @@
         previousRouter.receiveLIBEntry(incomingLabel, outgoingLabel, currentRouter.id.toString());
       }
     }
+  }
+
+  function isLabelUsed(label: number) {
+    if (router instanceof LSR || router instanceof LER) {
+      return router.LIB.has(label);
+    }
+
+    return false;
+  }
+
+  function generateLabel() {
+    let label: number;
+
+    do {
+      label = Math.floor(Math.random() * (max - min + 1) + min);
+    } while (isLabelUsed(label));
+
+    return label;
   }
 </script>
 
@@ -93,7 +114,7 @@
             bind:value={destination}
             placeholder="Address"
             on:change={(event) => {
-              handleOnChangeFlows(event);
+              handleOnChangeDestination(event);
             }}
           />
         </td>
