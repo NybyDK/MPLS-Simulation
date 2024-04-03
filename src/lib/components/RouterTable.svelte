@@ -8,7 +8,7 @@
 
   export let router: Router;
 
-  const max = 2 ** 20 - 1;
+  const max = 2 ** 20 - 1; //Two to the power of twenty minus one
   const min = 16;
 
   function addAndUpdate(addCallback: () => void) {
