@@ -12,13 +12,13 @@
 
 <style>
   :global(*) {
+    font-family: "Roboto", sans-serif;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
   }
 
   :global(body) {
-    font-family: Roboto, sans-serif;
     display: flex;
     flex-direction: column;
     height: 100vh;

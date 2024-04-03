@@ -2,7 +2,7 @@ import Router from "$lib/classes/MPLS/Router";
 import type Packet from "$lib/classes/MPLS/Packet";
 
 export default class CE extends Router {
-  address = `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
+  address = `CE-IP-${this.id}`;
   destinations: string[] = [];
 
   addEmptyDestination = () => {
