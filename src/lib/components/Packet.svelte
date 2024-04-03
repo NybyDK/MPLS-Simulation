@@ -74,6 +74,6 @@
 
 <style>
   circle {
-    fill: #6495ed;
+    fill: #6495ed; /*light blue*/
   }
 </style>
