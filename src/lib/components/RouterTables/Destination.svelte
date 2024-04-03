@@ -1,8 +1,8 @@
 <script lang="ts">
   import { network } from "$lib/stores/network";
   import { paths } from "$lib/stores/paths";
+  import type CE from "$lib/classes/MPLS/CE";
   import LDP from "$lib/classes/MPLS/LDP";
-  import CE from "$lib/classes/MPLS/CE";
 
   export let router: CE;
 
@@ -16,12 +16,11 @@
   function handleOnChangeDestination(event: Event, destination: string) {
     if (!(event.target instanceof HTMLInputElement)) return;
 
-    const target = event.target.value;
+    const target = event.target.value.toUpperCase();
 
     router.updateAddress(destination, target);
 
-    const CERouters = $network.routers.filter((router): router is CE => router instanceof CE);
-    const destinationRouter = CERouters.find((router) => router.address === target);
+    const destinationRouter = network.getRouterByAddress(target);
 
     if (!destinationRouter) {
       alert("Destination router not found.");
@@ -84,24 +83,3 @@
   {/each}
 </table>
 <button on:click={addAndUpdate(router.addEmptyEntry)}>+</button>
-<!-- <p>First Hop Table:</p>
-<table>
-  <tr>
-    <th>Destination</th>
-  </tr>
-  {#each router.firstHop as [destination, nextHop]}
-    <tr>
-      <td><input type="text" bind:value={destination} /></td>
-      <td><input type="text" bind:value={nextHop} /></td>
-      <button
-        on:click={() => {
-          router.deleteFirstHop(destination);
-          router = router;
-        }}
-      >
-        -
-      </button>
-    </tr>
-  {/each}
-</table>
-<button on:click={addAndUpdate(router.addEmptyHop)}>+</button> -->
