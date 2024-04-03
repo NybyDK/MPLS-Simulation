@@ -3,7 +3,7 @@ import LER from "$lib/classes/MPLS/LER";
 import LSR from "$lib/classes/MPLS/LSR";
 import CE from "$lib/classes/MPLS/CE";
 
-const min = 16;
+const min = 16; // First 16 are reserved
 const max = 2 ** 20 - 1; // Two to the power of twenty and then minus one
 
 export default function LDP(path: Router[], destination: string) {
