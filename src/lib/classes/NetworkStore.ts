@@ -67,33 +67,51 @@ export class NetworkStore implements Writable<NetworkState> {
     }
 
     this._links.push(link);
-    this.fastUpdate();
+    this.notify();
   }
 
   deleteLink(id: string) {
     this._links = this._links.filter((link) => link.id !== id);
 
-    this.fastUpdate();
+    this.notify();
   }
 
   private doesLinkExist(input: { source: Router; target: Router }) {
     return this._links.some((link) => link.source === input.source && link.target === input.target);
   }
 
-  createCE(node: { label: string; x: number; y: number }) {
-    const router = new CE(this.routerCounter++, node);
+  createCE(x: number, y: number) {
+    const id = this.routerCounter++;
+
+    const router = new CE(id, {
+      label: `CE ${id}`,
+      x,
+      y,
+    });
 
     this.addRouter(router);
   }
 
-  createLER(node: { label: string; x: number; y: number }) {
-    const router = new LER(this.routerCounter++, node);
+  createLER(x: number, y: number) {
+    const id = this.routerCounter++;
+
+    const router = new LER(id, {
+      label: `LER ${id}`,
+      x,
+      y,
+    });
 
     this.addRouter(router);
   }
 
-  createLSR(node: { label: string; x: number; y: number }) {
-    const router = new LSR(this.routerCounter++, node);
+  createLSR(x: number, y: number) {
+    const id = this.routerCounter++;
+
+    const router = new LSR(id, {
+      label: `LSR ${id}`,
+      x,
+      y,
+    });
 
     this.addRouter(router);
   }
@@ -101,7 +119,7 @@ export class NetworkStore implements Writable<NetworkState> {
   private addRouter(router: Router) {
     this._routers.push(router);
     this.routerMap.set(router.id, router);
-    this.fastUpdate();
+    this.notify();
   }
 
   deleteRouter(id: number) {
@@ -113,7 +131,7 @@ export class NetworkStore implements Writable<NetworkState> {
     this._links = this._links.filter((link) => link.source.id !== id && link.target.id !== id);
     this.routerMap.delete(id);
 
-    this.fastUpdate();
+    this.notify();
   }
 
   getRouter(id: number) {
@@ -136,12 +154,18 @@ export class NetworkStore implements Writable<NetworkState> {
       y: source.node.y,
     });
     this._packets.push(packet);
-    this.fastUpdate();
+    this.notify();
   }
 
   deletePacket(id: number) {
     this._packets = this._packets.filter((packet) => packet.id !== id);
-    this.fastUpdate();
+    this.notify();
+  }
+
+  clearPackets() {
+    this._packets = [];
+    this.packetCounter = 0;
+    this.notify();
   }
 
   clear() {
@@ -151,59 +175,10 @@ export class NetworkStore implements Writable<NetworkState> {
     this.routerMap.clear();
     this.routerCounter = 0;
     this.packetCounter = 0;
-    this.fastUpdate();
+    this.notify();
   }
 
-  constructor() {
-    this.loadDefaultNetwork();
-  }
-
-  loadDefaultNetwork() {
-    if (!validateDefaultNetwork.success) throw new Error("unable to parse default");
-    for (const routerData of validateDefaultNetwork.data._routers) {
-      switch (routerData.node.label) {
-        case "LER":
-          this.createLER({
-            label: routerData.node.label,
-            x: routerData.node.x,
-            y: routerData.node.y,
-          });
-          break;
-        case "LSR":
-          this.createLSR({
-            label: routerData.node.label,
-            x: routerData.node.x,
-            y: routerData.node.y,
-          });
-          break;
-        case "CE":
-          this.createCE({
-            label: routerData.node.label,
-            x: routerData.node.x,
-            y: routerData.node.y,
-          });
-          break;
-        default:
-          break;
-      }
-    }
-    if (validateDefaultNetwork.data._links) {
-      for (const linkData of validateDefaultNetwork.data._links) {
-        const sourceRouter = this.getRouter(linkData.source.id);
-        const targetRouter = this.getRouter(linkData.target.id);
-
-        if (sourceRouter && targetRouter) {
-          this.addLink({
-            source: sourceRouter,
-            target: targetRouter,
-            bandwidth: linkData.bandwidth,
-          });
-        }
-      }
-    }
-  }
-
-  fastUpdate() {
+  notify() {
     this.store.set(this.networkState);
   }
 }
