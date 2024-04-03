@@ -51,40 +51,49 @@ export default class LER extends Router {
     this.LIB.set(incomingLabel, { outgoingLabel, nextHop });
   };
 
-  // TODO: Instead of early return, do fallback to normal routing lookup, and if that fails too, packet.drop();
   receivePacket(packet: Packet): void {
-    const destination = packet.destination;
-
+    // Extract destination address from the packet
+    const destination = packet.destination.address;
+  
+    // If the packet's label is -1, indicating it's not labeled
     if (packet.label === -1) {
-      const nextHop = this.FIB.get(destination.address)?.nextHop;
-      if (!nextHop) return;
-
-      const newLabel = this.FIB.get(destination.address)?.label;
-      if (!newLabel) return;
-
-      packet.label = newLabel;
-
-      const nextRouter = network.getRouter(parseInt(nextHop));
-      if (!nextRouter) return;
-
-      packet.nextHop = nextRouter;
+      // Attempt to retrieve next hop information from the Forwarding Information Base (FIB)
+      const nextHop = this.FIB.get(destination)?.nextHop;
+      if (nextHop) { // If next hop is found, attempt to retrieve label information from FIB
+        const newLabel = this.FIB.get(destination)?.label;
+        if (newLabel) { // update packet's label and node information
+          packet.label = newLabel;
+          packet.node = { x: this.node.x, y: this.node.y };
+  
+          // Retrieve next router based on next hop information
+          const nextRouter = network.getRouter(parseInt(nextHop));
+          if (nextRouter) { // If next router is found, assign it as the next hop for the packet
+            packet.nextHop = nextRouter;
+          }
+        }
+      }
     } else {
+      // else the packet must be labelled and we retrieve hop information from the LIB
       const nextHop = this.LIB.get(packet.label)?.nextHop;
-      if (!nextHop) return;
-
-      const newLabel = this.LIB.get(packet.label)?.outgoingLabel;
-      if (!newLabel) return;
-      packet.label = newLabel;
-
-      // LDP needs to communicate firsthop to source CE, so it can start by sending to the correct LER
-      const nextRouter = network.routers.find(
-        (router) => router instanceof CE && router.address === nextHop,
-      );
-      if (!nextRouter) return;
-
-      packet.nextHop = nextRouter;
+      if (nextHop) { // If next hop is found, retrieve outgoing label information from LIB
+        const newLabel = this.LIB.get(packet.label)?.outgoingLabel;
+        if (newLabel) { // If outgoing info = found, update packet's label and node information
+          packet.label = newLabel;
+          packet.node = { x: this.node.x, y: this.node.y };
+  
+          // LDP needs to communicate first hop to source CE, so it can start by sending to the correct LER
+          // Find the next router which is a CE and matches the next hop address
+          const nextRouter = network.routers.find(
+            (router) => router instanceof CE && router.address === nextHop,
+          );
+          if (nextRouter) {  // If next router is found, assign it as the next hop for the packet
+            packet.nextHop = nextRouter;
+          }
+        }
+      }
     }
-
+  
+    // Check if packet's TTL is below 0, if so, it will be dropped
     packet.decrementTTL();
   }
 
