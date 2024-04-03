@@ -34,7 +34,7 @@ export default class LSR extends Router {
     const newLabel = this.LIB.get(packet.label)?.outgoingLabel;
   
     // If either next hop or outgoing label is missing, fallback to normal routing
-    if (!nextHop || !newLabel) {      
+    if (!nextHop || !newLabel) {       
       const destination = packet.destination.address;
   
       // Attempt to retrieve next hop information from FIB
@@ -58,7 +58,7 @@ export default class LSR extends Router {
           }
         }
       }
-    } else { // If next hop and outgoing label are both present, we finna MPLS (OG kode)
+    } else { // If next hop and outgoing label are both present, we finna MPLS (OG code)
       packet.label = newLabel;
   
       // Retrieve the next router based on the next hop information
