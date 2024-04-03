@@ -4,7 +4,7 @@ import LSR from "$lib/classes/MPLS/LSR";
 import CE from "$lib/classes/MPLS/CE";
 
 const min = 16;
-const max = 2 ** 20 - 1;
+const max = 2 ** 20 - 1; // Two to the power of twenty and then minus one
 
 export default function LDP(path: Router[], destination: string) {
   const destinationLERIndex = path.length - 2;
