@@ -257,7 +257,7 @@
   on:drop={handleDrop}
   role="button"
   tabindex="-1"
-  style={`cursor: ${$locked ? "default" : cursorStyles[interactionState]};`}
+  style:cursor={cursorStyles[interactionState]}
 >
   {#if !$locked && interactionState === InteractionState.CONNECTING && selectedRouter}
     <line
