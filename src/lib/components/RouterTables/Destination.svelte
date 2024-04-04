@@ -20,7 +20,7 @@
 
     router.updateAddress(destination, target);
 
-    const destinationRouter = network.getRouterByAddress(target);
+    const destinationRouter = network.getCERouter(target);
 
     if (!destinationRouter) {
       alert("Destination router not found.");

@@ -7,11 +7,24 @@ const min = 16; // First 16 are reserved
 const max = 2 ** 20 - 1; // Two to the power of twenty and then minus one
 
 export default function LDP(path: Router[], destination: string) {
+  const sourceCE = path[0];
+
+  if (!(sourceCE instanceof CE)) {
+    alert("The path does not start with a CE");
+    return;
+  }
+
+  if (sourceCE.firstHop.has(destination)) {
+    alert("The destination is already in the CE's first hop");
+    return;
+  }
+
   const destinationLERIndex = path.length - 2;
   const destinationLER = path[destinationLERIndex];
 
   if (!(destinationLER instanceof LER)) {
-    throw new Error("Destination CE is not connected directly to a LER");
+    alert("Destination CE is not connected directly to a LER");
+    return;
   }
 
   let incomingLabel = generateLabel(path[destinationLERIndex]);
@@ -30,12 +43,6 @@ export default function LDP(path: Router[], destination: string) {
     } else if (previousRouter instanceof LSR) {
       previousRouter.LIB.receiveEntry(incomingLabel, outgoingLabel, currentRouter.id.toString());
     }
-  }
-
-  const sourceCE = path[0];
-
-  if (!(sourceCE instanceof CE)) {
-    throw new Error("The path does not start with a CE");
   }
 
   sourceCE.firstHop.set(destination, path[1].id);

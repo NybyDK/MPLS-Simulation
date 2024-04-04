@@ -8,6 +8,6 @@
 
 {#each CERouters as source}
   {#each [...source.firstHop] as [destination]}
-    <LSPElement {source} destination={network.getSureRouterByAddress(destination)} />
+    <LSPElement {source} destination={network.getSureCERouter(destination)} />
   {/each}
 {/each}
