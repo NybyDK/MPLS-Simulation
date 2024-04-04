@@ -68,7 +68,6 @@ export class NetworkStore implements Writable<NetworkState> {
 
   deleteLink(id: string) {
     this._links = this._links.filter((link) => link.id !== id);
-
     this.notify();
   }
 
@@ -116,6 +115,7 @@ export class NetworkStore implements Writable<NetworkState> {
     this._routers.push(router);
     this.routerMap.set(router.id, router);
     if (router instanceof CE) this.CEMap.set(router.address, router);
+
     this.notify();
   }
 
@@ -127,9 +127,7 @@ export class NetworkStore implements Writable<NetworkState> {
     this._routers = this._routers.filter((router) => router.id !== id);
     this._links = this._links.filter((link) => link.source.id !== id && link.target.id !== id);
     this.routerMap.delete(id);
-
     if (router instanceof CE) this.CEMap.delete(router.address);
-
     this.notify();
   }
 
