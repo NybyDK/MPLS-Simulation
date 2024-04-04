@@ -14,7 +14,8 @@
   function calculateTransitionDuration() {
     if (!packet.nextHop) {
       packet.drop();
-      throw new Error("Packet has no next hop.");
+      alert("Packet has no next hop.");
+      return;
     }
 
     // TODO: In the future, nextHop will be a link, not a router, and then we can use the link's distance here, as it is already calculated in the Link class
@@ -29,7 +30,8 @@
   function animateToNextHop() {
     if (!packet.nextHop) {
       packet.drop();
-      throw new Error("Packet has no next hop.");
+      alert("Packet has no next hop.");
+      return;
     }
 
     calculateTransitionDuration();
@@ -57,7 +59,8 @@
   function handleAnimationFinish() {
     if (!packet.nextHop) {
       packet.drop();
-      throw new Error("Packet has no next hop.");
+      alert("Packet has no next hop.");
+      return;
     }
 
     packet.node = packet.nextHop.node;

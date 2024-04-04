@@ -14,10 +14,10 @@ export default class Packet {
     public node: { x: number; y: number },
   ) {
     const nextHopRouterID = source.firstHop.get(destination.address);
-    if (nextHopRouterID === undefined) return; // an error occurred
+    if (!nextHopRouterID) return; // an error occurred
 
     const nextHopRouter = network.getRouter(nextHopRouterID);
-    if (nextHopRouter === undefined) return; // an error occurred
+    if (!nextHopRouter) return; // an error occurred
 
     this.nextHop = nextHopRouter;
   }

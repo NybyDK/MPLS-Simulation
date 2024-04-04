@@ -17,11 +17,13 @@ export default class LIB {
   updateLabel = (oldLabel: number, newLabel: number) => {
     const oldValue = this.map.get(oldLabel);
     if (!oldValue) {
-      throw new Error(`Unable to update old LIB label '${oldLabel}' to '${newLabel}'.`);
+      alert(`Unable to update old LIB label '${oldLabel}' to '${newLabel}'.`);
+      return;
     }
 
     if (this.map.get(newLabel)) {
-      throw new Error(`Label entry '${newLabel}' already exists.`);
+      alert(`Label entry '${newLabel}' already exists.`);
+      return;
     }
 
     this.map.set(newLabel, oldValue);
