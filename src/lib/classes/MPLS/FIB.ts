@@ -17,11 +17,13 @@ export default class FIB {
   updateAddress = (oldAddress: string, newAddress: string) => {
     const oldValue = this.map.get(oldAddress);
     if (!oldValue) {
-      throw new Error(`Unable to update old FIB address '${oldAddress}' to '${newAddress}'.`);
+      alert(`Unable to update old FIB address '${oldAddress}' to '${newAddress}'.`);
+      return;
     }
 
     if (this.map.get(newAddress)) {
-      throw new Error(`Address '${newAddress}' already exists in FIB.`);
+      alert(`Address '${newAddress}' already exists in FIB.`);
+      return;
     }
 
     this.map.set(newAddress, oldValue);
