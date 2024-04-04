@@ -24,7 +24,7 @@ export class NetworkStore implements Writable<NetworkState> {
   private _links: Link[] = [];
   private _packets: Packet[] = [];
   private routerMap = new Map<number, Router>();
-  private routerCEMap = new Map<string, CE>();
+  private CEMap = new Map<string, CE>();
   private routerCounter = 0;
   private packetCounter = 0;
 
@@ -115,7 +115,7 @@ export class NetworkStore implements Writable<NetworkState> {
   private addRouter(router: Router) {
     this._routers.push(router);
     this.routerMap.set(router.id, router);
-    if (router instanceof CE) this.routerCEMap.set(router.address, router);
+    if (router instanceof CE) this.CEMap.set(router.address, router);
     this.notify();
   }
 
@@ -128,7 +128,7 @@ export class NetworkStore implements Writable<NetworkState> {
     this._links = this._links.filter((link) => link.source.id !== id && link.target.id !== id);
     this.routerMap.delete(id);
 
-    if (router instanceof CE) this.routerCEMap.delete(router.address);
+    if (router instanceof CE) this.CEMap.delete(router.address);
 
     this.notify();
   }
@@ -146,7 +146,7 @@ export class NetworkStore implements Writable<NetworkState> {
   }
 
   getCERouter(address: string): CE | undefined {
-    return this.routerCEMap.get(address);
+    return this.CEMap.get(address);
   }
 
   getSureCERouter(address: string): CE {
@@ -182,7 +182,7 @@ export class NetworkStore implements Writable<NetworkState> {
     this._links = [];
     this._packets = [];
     this.routerMap.clear();
-    this.routerCEMap.clear();
+    this.CEMap.clear();
     this.routerCounter = 0;
     this.packetCounter = 0;
     this.notify();
