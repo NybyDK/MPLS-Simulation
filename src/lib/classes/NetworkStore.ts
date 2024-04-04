@@ -24,6 +24,7 @@ export class NetworkStore implements Writable<NetworkState> {
   private _links: Link[] = [];
   private _packets: Packet[] = [];
   private routerMap = new Map<number, Router>();
+  private routerCEMap = new Map<string, CE>();
   private routerCounter = 0;
   private packetCounter = 0;
 
@@ -114,6 +115,7 @@ export class NetworkStore implements Writable<NetworkState> {
   private addRouter(router: Router) {
     this._routers.push(router);
     this.routerMap.set(router.id, router);
+    if (router instanceof CE) this.routerCEMap.set(router.address, router);
     this.notify();
   }
 
@@ -125,6 +127,8 @@ export class NetworkStore implements Writable<NetworkState> {
     this._routers = this._routers.filter((router) => router.id !== id);
     this._links = this._links.filter((link) => link.source.id !== id && link.target.id !== id);
     this.routerMap.delete(id);
+
+    if (router instanceof CE) this.routerCEMap.delete(router.address);
 
     this.notify();
   }
@@ -141,13 +145,12 @@ export class NetworkStore implements Writable<NetworkState> {
     return router;
   }
 
-  getRouterByAddress(address: string): CE | undefined {
-    const CERouters = this._routers.filter((router): router is CE => router instanceof CE);
-    return CERouters.find((router) => router.address === address);
+  getCERouter(address: string): CE | undefined {
+    return this.routerCEMap.get(address);
   }
 
-  getSureRouterByAddress(address: string): CE {
-    const router = this.getRouterByAddress(address);
+  getSureCERouter(address: string): CE {
+    const router = this.getCERouter(address);
 
     if (!router) throw new Error(`Router with address ${address} not found`);
 
@@ -179,6 +182,7 @@ export class NetworkStore implements Writable<NetworkState> {
     this._links = [];
     this._packets = [];
     this.routerMap.clear();
+    this.routerCEMap.clear();
     this.routerCounter = 0;
     this.packetCounter = 0;
     this.notify();

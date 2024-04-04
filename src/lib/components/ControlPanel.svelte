@@ -26,7 +26,7 @@
       callback: () => {
         for (const source of CERouters) {
           for (const [destination] of source.firstHop) {
-            network.addPacket(source, network.getSureRouterByAddress(destination));
+            network.addPacket(source, network.getSureCERouter(destination));
           }
         }
       },
