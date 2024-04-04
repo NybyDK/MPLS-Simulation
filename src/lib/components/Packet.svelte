@@ -12,7 +12,12 @@
   $: if (animation) animation.playbackRate = $config.speedMultiplier;
 
   function calculateTransitionDuration() {
-    // TOOD: In the future, nextHop will be a link, not a router, and then we can use the link's distance here, as it is already calculated in the Link class
+    if (!packet.nextHop) {
+      packet.drop();
+      throw new Error("Packet has no next hop.");
+    }
+
+    // TODO: In the future, nextHop will be a link, not a router, and then we can use the link's distance here, as it is already calculated in the Link class
     const distance = Math.sqrt(
       (packet.node.x - packet.nextHop.node.x) ** 2 + (packet.node.y - packet.nextHop.node.y) ** 2,
     );
@@ -22,6 +27,11 @@
   }
 
   function animateToNextHop() {
+    if (!packet.nextHop) {
+      packet.drop();
+      throw new Error("Packet has no next hop.");
+    }
+
     calculateTransitionDuration();
 
     if (!packetElement) return;
@@ -45,6 +55,11 @@
   }
 
   function handleAnimationFinish() {
+    if (!packet.nextHop) {
+      packet.drop();
+      throw new Error("Packet has no next hop.");
+    }
+
     packet.node = packet.nextHop.node;
 
     packet.nextHop.receivePacket(packet);
@@ -59,6 +74,6 @@
 
 <style>
   circle {
-    fill: red;
+    fill: #6495ed; /*light blue*/
   }
 </style>

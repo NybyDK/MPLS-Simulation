@@ -28,8 +28,9 @@
   text={$locked ? "Edit" : "Simulation"}
   callback={() => {
     $locked = !$locked;
+    network.clearPackets();
   }}
-  style={`width: 100px; background-color: ${$locked ? "#3CB371 " : "#6495ED "};`}
+  style={`width: 100px; background-color: ${$locked ? "#3CB371" : "#6495ED"};`}
 />
 {#if !$locked}
   {#each ToolboxRouters as router}
