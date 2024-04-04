@@ -39,9 +39,9 @@
     y: 0,
   };
 
-  const cursorStyles = {
+  $: cursorStyles = {
     [InteractionState.NONE]: "move",
-    [InteractionState.DRAGGING]: "grabbing",
+    [InteractionState.DRAGGING]: $locked ? "default" : "grabbing",
     [InteractionState.PANNING]: "grabbing",
     [InteractionState.CONNECTING]: $locked ? "default" : "crosshair",
     [InteractionState.DESTINATION]: "crosshair",
@@ -94,7 +94,7 @@
 
       if (event.shiftKey) {
         interactionState = InteractionState.CONNECTING;
-      } else if (event.ctrlKey) {
+      } else if (event.ctrlKey && selectedRouter instanceof CE) {
         interactionState = InteractionState.DESTINATION;
       } else {
         initialMouse.x = selectedRouter.node.x;
@@ -136,6 +136,8 @@
           LDP(path, target.address.toUpperCase());
 
           network.notify();
+        } else {
+          alert("Destination must be a CE");
         }
       }
     }
