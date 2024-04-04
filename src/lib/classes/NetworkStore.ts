@@ -136,9 +136,20 @@ export class NetworkStore implements Writable<NetworkState> {
   getSureRouter(id: number) {
     const router = this.getRouter(id);
 
-    if (!router) {
-      throw new Error(`Router with id ${id} not found`);
-    }
+    if (!router) throw new Error(`Router with id ${id} not found`);
+
+    return router;
+  }
+
+  getRouterByAddress(address: string): CE | undefined {
+    const CERouters = this._routers.filter((router): router is CE => router instanceof CE);
+    return CERouters.find((router) => router.address === address);
+  }
+
+  getSureRouterByAddress(address: string): CE {
+    const router = this.getRouterByAddress(address);
+
+    if (!router) throw new Error(`Router with address ${address} not found`);
 
     return router;
   }
