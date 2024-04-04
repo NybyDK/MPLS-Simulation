@@ -15,7 +15,8 @@
     DRAGGING,
     PANNING,
     CONNECTING,
-    DESTINATION,
+    MASS_CONNECTING,
+    ADDING_DESTINATION,
   }
 
   const viewBox = {
@@ -44,7 +45,8 @@
     [InteractionState.DRAGGING]: $locked ? "default" : "grabbing",
     [InteractionState.PANNING]: "grabbing",
     [InteractionState.CONNECTING]: $locked ? "default" : "crosshair",
-    [InteractionState.DESTINATION]: "crosshair",
+    [InteractionState.MASS_CONNECTING]: $locked ? "default" : "crosshair",
+    [InteractionState.ADDING_DESTINATION]: "crosshair",
   };
 
   let SVG: SVGElement | null = null;
@@ -94,8 +96,10 @@
 
       if (event.shiftKey) {
         interactionState = InteractionState.CONNECTING;
+      } else if (event.altKey) {
+        interactionState = InteractionState.MASS_CONNECTING;
       } else if (event.ctrlKey && selectedRouter instanceof CE) {
-        interactionState = InteractionState.DESTINATION;
+        interactionState = InteractionState.ADDING_DESTINATION;
       } else {
         initialMouse.x = selectedRouter.node.x;
         initialMouse.y = selectedRouter.node.y;
@@ -124,7 +128,7 @@
         if (target) {
           network.addLink({ source: selectedRouter, target });
         }
-      } else if (interactionState === InteractionState.DESTINATION) {
+      } else if (interactionState === InteractionState.ADDING_DESTINATION) {
         const element = document.elementFromPoint(event.clientX, event.clientY);
 
         const targetId = element?.tagName === "circle" ? element.id : null;
@@ -169,11 +173,24 @@
       viewBox.x -= delta.x;
       viewBox.y -= delta.y;
     } else if (
-      (!$locked && interactionState === InteractionState.CONNECTING) ||
-      interactionState === InteractionState.DESTINATION
+      !$locked &&
+      [InteractionState.CONNECTING, InteractionState.ADDING_DESTINATION].includes(interactionState)
     ) {
       mouse.x = event.clientX;
       mouse.y = event.clientY;
+    } else if (!$locked && interactionState === InteractionState.MASS_CONNECTING) {
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
+
+      const element = document.elementFromPoint(event.clientX, event.clientY);
+      if (!element) return;
+
+      const nextRouter = network.getRouter(parseInt(element.id));
+
+      if (element.tagName === "circle" && nextRouter && selectedRouter) {
+        network.addLink({ source: selectedRouter, target: nextRouter });
+        selectedRouter = nextRouter;
+      }
     }
   }
 
@@ -286,14 +303,18 @@
   tabindex="-1"
   style:cursor={cursorStyles[interactionState]}
 >
-  {#if ((!$locked && interactionState === InteractionState.CONNECTING) || interactionState === InteractionState.DESTINATION) && selectedRouter}
+  {#if ((!$locked && interactionState === InteractionState.CONNECTING) || [InteractionState.MASS_CONNECTING, InteractionState.ADDING_DESTINATION].includes(interactionState)) && selectedRouter}
     <line
       class="preview"
       x1={selectedRouter.node.x}
       y1={selectedRouter.node.y}
       x2={scaledX(mouse.x)}
       y2={scaledY(mouse.y)}
-      stroke={interactionState === InteractionState.CONNECTING ? "green" : "blue"}
+      stroke={[InteractionState.CONNECTING, InteractionState.MASS_CONNECTING].includes(
+        interactionState,
+      )
+        ? "green"
+        : "blue"}
     />
   {/if}
   <slot />
