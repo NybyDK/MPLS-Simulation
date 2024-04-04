@@ -42,10 +42,10 @@
 
   $: cursorStyles = {
     [InteractionState.NONE]: "move",
-    [InteractionState.DRAGGING]: $locked ? "default" : "grabbing",
+    [InteractionState.DRAGGING]: $locked ? "not-allowed" : "grabbing",
     [InteractionState.PANNING]: "grabbing",
-    [InteractionState.CONNECTING]: $locked ? "default" : "crosshair",
-    [InteractionState.MASS_CONNECTING]: $locked ? "default" : "crosshair",
+    [InteractionState.CONNECTING]: $locked ? "not-allowed" : "crosshair",
+    [InteractionState.MASS_CONNECTING]: $locked ? "not-allowed" : "crosshair",
     [InteractionState.ADDING_DESTINATION]: "crosshair",
   };
 
@@ -173,8 +173,8 @@
       viewBox.x -= delta.x;
       viewBox.y -= delta.y;
     } else if (
-      !$locked &&
-      [InteractionState.CONNECTING, InteractionState.ADDING_DESTINATION].includes(interactionState)
+      (!$locked && interactionState === InteractionState.CONNECTING) ||
+      interactionState === InteractionState.ADDING_DESTINATION
     ) {
       mouse.x = event.clientX;
       mouse.y = event.clientY;
