@@ -162,8 +162,8 @@
     };
 
     if (!$locked && interactionState === InteractionState.DRAGGING && selectedRouter) {
-      selectedRouter.node.x = initialMouse.x + delta.x;
-      selectedRouter.node.y = initialMouse.y + delta.y;
+      selectedRouter.node.x = Math.round(initialMouse.x + delta.x);
+      selectedRouter.node.y = Math.round(initialMouse.y + delta.y);
 
       network.notify();
     } else if (interactionState === InteractionState.PANNING) {
@@ -264,6 +264,8 @@
     event.preventDefault();
 
     const data = event.dataTransfer?.getData("text/plain");
+
+    if (!data) return;
 
     switch (data) {
       case "CE":

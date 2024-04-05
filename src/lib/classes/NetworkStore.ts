@@ -104,8 +104,8 @@ export class NetworkStore implements Writable<NetworkState> {
 
     const router = new LSR(id, {
       label: `LSR ${id}`,
-      x,
-      y,
+      x: Math.round(x),
+      y: Math.round(y),
     });
 
     this.addRouter(router);
