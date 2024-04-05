@@ -16,7 +16,7 @@ export default class CE extends Router {
 
   updateAddress = (oldAddress: string, newAddress: string) => {
     const oldValue = this.firstHop.get(oldAddress);
-    if (!oldValue) {
+    if (oldValue === undefined) {
       alert(`Unable to update old first hop Address '${oldAddress}' to '${newAddress}'.`);
       return;
     }

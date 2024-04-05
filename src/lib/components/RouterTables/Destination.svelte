@@ -19,8 +19,6 @@
 
     const target = event.target.value.toUpperCase();
 
-    router.updateAddress(destination, target);
-
     const destinationRouter = network.getCERouter(target);
 
     if (!destinationRouter) {
@@ -29,6 +27,9 @@
     }
 
     const path = paths.findShortestPath(router, destinationRouter);
+
+    // Sounds counter-intuitive, but LDP sets an entry, and it cannot exist before because it returns if it already exists
+    router.deleteEntry(destination);
 
     LDP(path, target);
 

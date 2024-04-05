@@ -16,7 +16,7 @@ export default class FIB {
 
   updateAddress = (oldAddress: string, newAddress: string) => {
     const oldValue = this.map.get(oldAddress);
-    if (!oldValue) {
+    if (oldValue === undefined) {
       alert(`Unable to update old FIB address '${oldAddress}' to '${newAddress}'.`);
       return;
     }
