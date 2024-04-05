@@ -11,6 +11,7 @@
   import Destination from "$lib/components/RouterTables/Destination.svelte";
   import LIB from "$lib/components/RouterTables/LIB.svelte";
   import FIB from "$lib/components/RouterTables/FIB.svelte";
+  import SmallButton from "$lib/components/RouterTables/SmallButton.svelte";
 
   export let router: Router | null;
   export let dialog: HTMLDialogElement;
@@ -34,58 +35,105 @@
   }}
 >
   {#if router}
-    <label>
-      Label:
-      <input type="text" bind:value={router.node.label} />
-    </label>
-    <p>ID: {router.id}</p>
-    <p>Type: {router.type}</p>
-    <label>
-      Position:
-      <input type="number" disabled={$locked} bind:value={router.node.x} />
-      <input type="number" disabled={$locked} bind:value={router.node.y} />
-    </label>
+    <div
+      on:input={() => {
+        network.notify();
+      }}
+    >
+      <div>
+        <label>
+          Label:
+          <input type="text" bind:value={router.node.label} />
+        </label>
+      </div>
+      <label>
+        Position:
+        <input type="number" disabled={$locked} bind:value={router.node.x} />
+        <input type="number" disabled={$locked} bind:value={router.node.y} />
+      </label>
+      <p>ID: {router.id}</p>
+    </div>
     {#if router instanceof CE}
-      <p>Address: {router.address}</p>
-      <Destination bind:router />
+      <p style:display={"inline"}>Address:</p>
+      <button
+        on:click={async () => {
+          if (router instanceof CE) await navigator.clipboard.writeText(router.address);
+        }}>{router.address}</button
+      >
+      <div class="margin-top">
+        <Destination bind:router />
+      </div>
     {/if}
     {#if router instanceof LER}
-      <LIB bind:router />
-      <FIB bind:router />
+      <div class="margin-top">
+        <FIB bind:router />
+      </div>
     {/if}
-    {#if router instanceof LSR}
-      <LIB bind:router />
+    {#if router instanceof LER || router instanceof LSR}
+      <div class="margin-top">
+        <LIB bind:router />
+      </div>
     {/if}
-    <button on:click={handleDelete}>Delete Router</button>
+    <div class="margin-top">
+      <SmallButton text="Delete Router" callback={handleDelete} />
+    </div>
   {:else}
     <p>You somehow double-clicked on a router that can't be found?</p>
   {/if}
 </Dialog>
 
 <style>
+  input {
+    width: 75px;
+  }
+
+  button {
+    padding: 0 10px;
+  }
+
   :global(table) {
     border-collapse: collapse;
-    min-width: 500px;
+    table-layout: fixed;
+    width: 500px;
   }
 
   :global(th),
   :global(td) {
-    border: 1px solid black;
+    outline: 1px solid black;
+  }
+
+  :global(td) {
+    background-color: #cccccc;
+  }
+
+  :global(th:last-child) {
+    width: 30px;
   }
 
   @media (prefers-color-scheme: dark) {
     :global(th),
     :global(td) {
-      border: 1px solid white;
+      outline: 1px solid white;
     }
+
+    :global(td) {
+      background-color: #333333;
+    }
+  }
+
+  :global(table input::-webkit-inner-spin-button) {
+    appearance: none;
   }
 
   :global(table input) {
     width: 100%;
     text-align: center;
+    outline: none;
+    border: none;
+    background: none;
   }
 
-  :global(button) {
-    display: block;
+  .margin-top {
+    margin-top: 10px;
   }
 </style>
