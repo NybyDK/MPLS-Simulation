@@ -185,11 +185,11 @@
       const element = document.elementFromPoint(event.clientX, event.clientY);
       if (!element) return;
 
-      const nextRouter = network.getRouter(parseInt(element.id));
+      const target = network.getRouter(parseInt(element.id));
 
-      if (element.tagName === "circle" && nextRouter && selectedRouter) {
-        network.addLink({ source: selectedRouter, target: nextRouter });
-        selectedRouter = nextRouter;
+      if (element.tagName === "circle" && target && selectedRouter) {
+        network.addLink({ source: selectedRouter, target });
+        selectedRouter = target;
       }
     }
   }
