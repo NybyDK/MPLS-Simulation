@@ -10,7 +10,7 @@
   import Toolbox from "$lib/components/Toolbox.svelte";
   import HelpButton from "$lib/components/HelpButton.svelte";
   import ViewBoxControls from "$lib/components/ViewBoxControls.svelte";
-
+ 
   let zoom: (zoomFactor: number, mouse: { x: number; y: number }) => void;
 
   onMount(() => {
