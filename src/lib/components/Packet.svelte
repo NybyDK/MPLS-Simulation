@@ -73,10 +73,14 @@
   requestAnimationFrame(animateToNextHop);
 </script>
 
-<circle bind:this={packetElement} r="5" />
+<circle class:labeled={packet.label !== -1} bind:this={packetElement} r="5" />
 
 <style>
   circle {
+    fill: #da443f; /*weird red*/
+  }
+
+  .labeled {
     fill: #6495ed; /*light blue*/
   }
 </style>
