@@ -9,7 +9,6 @@ export default class LER extends Router {
   FIB = new FIB();
   LIB = new LIB();
 
-  // TODO: Instead of early return, do fallback to normal routing lookup, and if that fails too, packet.drop();
   receivePacket(packet: Packet): void {
     const destination = packet.destination.address;
 
@@ -42,7 +41,30 @@ export default class LER extends Router {
         }
       }
     }
-    //Fallback routing should be called here, and implemented below, or somewhere else, and called in LSR as well
+    this.backupIPv4Routing(packet);
+    //Fallback routing should be called here, and implemented below, or somewhere else, and called in LSR as well, as all routers are created equal in IPv4
+  }
+
+  //In case the MPLS routing fails, we'll fallback to IPv4 routing, just like in LSR :)
+  backupIPv4Routing(packet: Packet) {
+    // const nextHop = this.IPv4Routing.lookup(packet.destination);
+    // if (nextHop) {
+    //   const nextRouter = network.getRouter(nextHop);
+    //   if (nextRouter) {
+    //     packet.nextHop = nextRouter;
+    //     packet.decrementTTL();
+    return;
+    //   }
+    // }
+
+    //Jeg tænker der burde være noget router.forEach(function (addresses){const nextRouter})
+
+    // If IPv4 routing also fails, drop the packet
+    packet.drop();
+  }
+
+  populateIPv4RoutingTable() {
+    //Someting something foreach(function (addresses){const, nextRouter} where we give the address of he next router, to a destination, to each router on the patch, most likely using Dijkstras to find the path, shit that was a long comment, throw me in jail daddy)
   }
 
   get type(): "LER" {
