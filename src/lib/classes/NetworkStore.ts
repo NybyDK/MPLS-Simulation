@@ -6,7 +6,7 @@ import Packet from "$lib/classes/MPLS/Packet";
 import LER from "$lib/classes/MPLS/LER";
 import LSR from "$lib/classes/MPLS/LSR";
 import CE from "$lib/classes/MPLS/CE";
-import { validateDefaultNetwork } from "$lib/classes/schema";
+import { loadDefaultNetwork } from "./Loader/NetworkLoader";
 
 const allowedLinks = {
   CE: ["LER"],
@@ -176,6 +176,10 @@ export class NetworkStore implements Writable<NetworkState> {
     this.routerCounter = 0;
     this.packetCounter = 0;
     this.notify();
+  }
+
+  constructor() {
+    loadDefaultNetwork(this);
   }
 
   notify() {
