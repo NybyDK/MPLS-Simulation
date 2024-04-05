@@ -1,5 +1,5 @@
 import { z } from "zod";
-import DefaultNetwork from "$lib/data/network.json";
+import DefaultNetwork from "$lib/data/DefaultNetwork.json";
 
 const NodeSchema = z.object({
   label: z.string(),
@@ -25,7 +25,6 @@ const firstHopSchema = z.record(z.number());
 
 const CESchema = z.object({
   address: z.string(),
-  destinations: z.array(z.string()),
   firstHop: firstHopSchema,
 });
 
@@ -43,22 +42,19 @@ const RouterSchema = z
     type: z.union([z.literal("CE"), z.literal("LER"), z.literal("LSR")]),
     id: z.number(),
     node: NodeSchema,
-    address: z.string(),
-    destinations: z.array(z.string()),
   })
   .and(z.union([CESchema, LERSchema, LSRSchema]));
 
-const Link = z.object({
+const LinkSchema = z.object({
   id: z.string(),
-  source: RouterSchema,
-  target: RouterSchema,
+  source: z.number(),
+  target: z.number(),
   bandwidth: z.number(),
 });
 
 const DefaultNetworkSchema = z.object({
-  store: z.object({}).optional(),
-  _routers: z.array(RouterSchema),
-  _links: z.array(Link),
+  routers: z.array(RouterSchema),
+  links: z.array(LinkSchema),
 });
 
 export const validateDefaultNetwork = DefaultNetworkSchema.safeParse(DefaultNetwork);
