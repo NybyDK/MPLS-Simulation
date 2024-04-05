@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { network } from "$lib/stores/network";
   import { config } from "$lib/stores/config";
+  import loadDefaultNetwork from "$lib/classes/Loader/NetworkLoader";
   import ViewBox from "$lib/components/ViewBox.svelte";
   import ControlPanel from "$lib/components/ControlPanel.svelte";
   import Packet from "$lib/components/Packet.svelte";
@@ -10,13 +11,15 @@
   import Toolbox from "$lib/components/Toolbox.svelte";
   import HelpButton from "$lib/components/HelpButton.svelte";
   import ViewBoxControls from "$lib/components/ViewBoxControls.svelte";
- 
+
   let zoom: (zoomFactor: number, mouse: { x: number; y: number }) => void;
 
   onMount(() => {
     window.addEventListener("visibilitychanged", () => {
       $config.running = !document.hidden;
     });
+
+    loadDefaultNetwork();
   });
 </script>
 

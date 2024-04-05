@@ -1,7 +1,7 @@
-import type { NetworkStore } from "../NetworkStore";
-import { validateDefaultNetwork } from "./NetworkSchemas";
+import { network } from "$lib/stores/network";
+import { validateDefaultNetwork } from "$lib/classes/Loader/NetworkSchemas";
 
-export function loadDefaultNetwork(network: NetworkStore) {
+export default function loadDefaultNetwork() {
   if (!validateDefaultNetwork.success) {
     throw validateDefaultNetwork.error;
   }
