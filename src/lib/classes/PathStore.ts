@@ -68,7 +68,7 @@ function dijkstra(source: Router, destination: Router) {
       }
     }
 
-    if (currentRouter === null || currentRouter.id === destination.id) {
+    if (!currentRouter || currentRouter.id === destination.id) {
       destinationReached = true;
       continue;
     }

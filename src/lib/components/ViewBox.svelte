@@ -1,17 +1,22 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { network } from "$lib/stores/network";
+  import { paths } from "$lib/stores/paths";
   import { locked } from "$lib/stores/locked";
   import type Link from "$lib/classes/MPLS/Link";
   import type Router from "$lib/classes/MPLS/Router";
   import RouterSettings from "$lib/components/RouterSettings.svelte";
   import LinkSettings from "$lib/components/LinkSettings.svelte";
+  import LDP from "$lib/classes/MPLS/LDP";
+  import CE from "$lib/classes/MPLS/CE";
 
   enum InteractionState {
     NONE,
     DRAGGING,
     PANNING,
     CONNECTING,
+    MASS_CONNECTING,
+    ADDING_DESTINATION,
   }
 
   const viewBox = {
@@ -35,11 +40,13 @@
     y: 0,
   };
 
-  const cursorStyles = {
+  $: cursorStyles = {
     [InteractionState.NONE]: "move",
-    [InteractionState.DRAGGING]: "grabbing",
+    [InteractionState.DRAGGING]: $locked ? "not-allowed" : "grabbing",
     [InteractionState.PANNING]: "grabbing",
-    [InteractionState.CONNECTING]: "crosshair",
+    [InteractionState.CONNECTING]: $locked ? "not-allowed" : "crosshair",
+    [InteractionState.MASS_CONNECTING]: $locked ? "not-allowed" : "crosshair",
+    [InteractionState.ADDING_DESTINATION]: "crosshair",
   };
 
   let SVG: SVGElement | null = null;
@@ -89,6 +96,10 @@
 
       if (event.shiftKey) {
         interactionState = InteractionState.CONNECTING;
+      } else if (event.altKey) {
+        interactionState = InteractionState.MASS_CONNECTING;
+      } else if (event.ctrlKey && selectedRouter instanceof CE) {
+        interactionState = InteractionState.ADDING_DESTINATION;
       } else {
         initialMouse.x = selectedRouter.node.x;
         initialMouse.y = selectedRouter.node.y;
@@ -107,14 +118,31 @@
 
     event.preventDefault();
 
-    if (!$locked && interactionState === InteractionState.CONNECTING && selectedRouter) {
-      const element = document.elementFromPoint(event.clientX, event.clientY);
+    if (selectedRouter) {
+      if (!$locked && interactionState === InteractionState.CONNECTING) {
+        const element = document.elementFromPoint(event.clientX, event.clientY);
 
-      const targetId = element?.tagName === "circle" ? element.id : null;
-      const target = network.getRouter(parseInt(targetId ?? ""));
+        const targetId = element?.tagName === "circle" ? element.id : null;
+        const target = network.getRouter(parseInt(targetId ?? ""));
 
-      if (target) {
-        network.addLink({ source: selectedRouter, target });
+        if (target) {
+          network.addLink({ source: selectedRouter, target });
+        }
+      } else if (interactionState === InteractionState.ADDING_DESTINATION) {
+        const element = document.elementFromPoint(event.clientX, event.clientY);
+
+        const targetId = element?.tagName === "circle" ? element.id : null;
+        const target = network.getRouter(parseInt(targetId ?? ""));
+
+        if (target instanceof CE) {
+          const path = paths.findShortestPath(selectedRouter, target);
+
+          LDP(path, target.address.toUpperCase());
+
+          network.notify();
+        } else {
+          alert("Destination must be a CE");
+        }
       }
     }
 
@@ -144,9 +172,25 @@
 
       viewBox.x -= delta.x;
       viewBox.y -= delta.y;
-    } else if (!$locked && interactionState === InteractionState.CONNECTING) {
+    } else if (
+      (!$locked && interactionState === InteractionState.CONNECTING) ||
+      interactionState === InteractionState.ADDING_DESTINATION
+    ) {
       mouse.x = event.clientX;
       mouse.y = event.clientY;
+    } else if (!$locked && interactionState === InteractionState.MASS_CONNECTING) {
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
+
+      const element = document.elementFromPoint(event.clientX, event.clientY);
+      if (!element) return;
+
+      const target = network.getRouter(parseInt(element.id));
+
+      if (element.tagName === "circle" && target && selectedRouter) {
+        network.addLink({ source: selectedRouter, target });
+        selectedRouter = target;
+      }
     }
   }
 
@@ -257,14 +301,20 @@
   on:drop={handleDrop}
   role="button"
   tabindex="-1"
-  style={`cursor: ${$locked ? "default" : cursorStyles[interactionState]};`}
+  style:cursor={cursorStyles[interactionState]}
 >
-  {#if !$locked && interactionState === InteractionState.CONNECTING && selectedRouter}
+  {#if ((!$locked && interactionState === InteractionState.CONNECTING) || [InteractionState.MASS_CONNECTING, InteractionState.ADDING_DESTINATION].includes(interactionState)) && selectedRouter}
     <line
+      class="preview"
       x1={selectedRouter.node.x}
       y1={selectedRouter.node.y}
       x2={scaledX(mouse.x)}
       y2={scaledY(mouse.y)}
+      stroke={[InteractionState.CONNECTING, InteractionState.MASS_CONNECTING].includes(
+        interactionState,
+      )
+        ? "green"
+        : "blue"}
     />
   {/if}
   <slot />

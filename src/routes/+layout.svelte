@@ -29,7 +29,7 @@
     cursor: pointer;
   }
 
-  :global(line) {
+  :global(line:not(.preview)) {
     stroke: black;
   }
 
@@ -43,7 +43,7 @@
       color: white;
     }
 
-    :global(line) {
+    :global(line:not(.preview)) {
       stroke: white;
     }
   }

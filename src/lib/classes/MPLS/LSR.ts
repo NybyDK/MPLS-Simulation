@@ -1,31 +1,10 @@
 import { network } from "$lib/stores/network";
 import Router from "$lib/classes/MPLS/Router";
 import type Packet from "$lib/classes/MPLS/Packet";
+import LIB from "$lib/classes/MPLS/LIB";
 
 export default class LSR extends Router {
-  // Maps incoming label to outgoing label and next hop
-  LIB: Map<number, { outgoingLabel: number; nextHop: string }> = new Map();
-
-  addEmptyLIBEntry = () => {
-    this.LIB.set(0, { outgoingLabel: 0, nextHop: "0" });
-  };
-
-  updateLIBLabel = (oldLabel: number, newLabel: number) => {
-    const oldValue = this.LIB.get(oldLabel);
-    if (!oldValue)
-      throw new Error(`Unable to update old LIB label '${oldLabel}' to '${newLabel}'.`);
-
-    this.LIB.set(newLabel, oldValue);
-    this.LIB.delete(oldLabel);
-  };
-
-  deleteLIBEntry = (label: number) => {
-    this.LIB.delete(label);
-  };
-
-  receiveLIBEntry = (incomingLabel: number, outgoingLabel: number, nextHop: string) => {
-    this.LIB.set(incomingLabel, { outgoingLabel, nextHop });
-  };
+  LIB = new LIB();
 
   // TODO: Instead of early return, do fallback to normal routing lookup, and if that fails too, packet.drop();
   receivePacket(packet: Packet): void {

@@ -2,8 +2,11 @@
   import { network } from "$lib/stores/network";
   import { locked } from "$lib/stores/locked";
   import { config } from "$lib/stores/config";
-  import ToolboxButton from "./ToolboxButton.svelte";
+  import ToolboxButton from "$lib/components/ToolboxButton.svelte";
+  import LSPList from "$lib/components/LSPList.svelte";
   import CE from "$lib/classes/MPLS/CE";
+
+  $: CERouters = $network.routers.filter((router): router is CE => router instanceof CE);
 
   $: buttons = [
     {
@@ -19,11 +22,13 @@
       },
     },
     {
-      text: "Test",
+      text: "Play All",
       callback: () => {
-        // TODO: Remove this test
-        const CERouters = $network.routers.filter((router): router is CE => router instanceof CE);
-        network.addPacket(CERouters[0], CERouters[1]);
+        for (const source of CERouters) {
+          for (const [destination] of source.firstHop) {
+            network.addPacket(source, network.getSureCERouter(destination));
+          }
+        }
       },
     },
   ];
@@ -70,17 +75,17 @@
   <div bind:this={resizeBar} on:pointerdown={handleResizePointerDown} id="resize-bar"></div>
 </div>
 <div id="control-panel" style={`width: ${panelWidth}px; transition: ${transition};`}>
-  <div id="inside-test">
+  <div id="control-panel-content">
     <div id="control-panel-buttons">
       {#each buttons as button}
         <ToolboxButton {...button} style={`padding: 10px 20px`} />
       {/each}
     </div>
-
     <div id="slider">
       <p>Speed Multiplier: {$config.speedMultiplier}</p>
       <input type="range" min="0.1" max="2" step="0.1" bind:value={$config.speedMultiplier} />
     </div>
+    <LSPList />
   </div>
 </div>
 
@@ -97,14 +102,14 @@
     background-color: black;
   }
 
-  #inside-test {
-    min-width: 300px;
-  }
-
   #control-panel {
     display: flex;
     flex-direction: column;
     background-color: #999999;
+  }
+
+  #control-panel-content {
+    min-width: 300px;
   }
 
   #control-panel-buttons {
