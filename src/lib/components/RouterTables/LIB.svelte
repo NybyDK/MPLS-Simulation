@@ -1,6 +1,7 @@
 <script lang="ts">
   import type LSR from "$lib/classes/MPLS/LSR";
   import type LER from "$lib/classes/MPLS/LER";
+  import SmallButton from "$lib/components/RouterTables/SmallButton.svelte";
 
   export let router: LSR | LER;
 
@@ -20,34 +21,47 @@
   }
 </script>
 
+<p>LIB:</p>
 <table>
-  <tr>
-    <th>Incoming</th>
-    <th>Outgoing</th>
-    <th>Next hop</th>
-  </tr>
-  {#each [...router.LIB.map] as [incomingLabel, value]}
+  <thead>
     <tr>
-      <td>
-        <input
-          type="number"
-          value={incomingLabel}
-          on:change={(event) => {
-            handleOnChange(event, incomingLabel);
+      <th>Incoming</th>
+      <th>Outgoing</th>
+      <th>Next hop</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {#each [...router.LIB.map] as [incomingLabel, value]}
+      <tr>
+        <td>
+          <input
+            type="number"
+            value={incomingLabel}
+            on:change={(event) => {
+              handleOnChange(event, incomingLabel);
+            }}
+          />
+        </td>
+        <td><input type="number" bind:value={value.outgoingLabel} /></td>
+        <td><input type="text" bind:value={value.nextHop} /></td>
+        <SmallButton
+          text="-"
+          callback={() => {
+            router.LIB.deleteEntry(incomingLabel);
+            router = router;
           }}
         />
-      </td>
-      <td><input type="number" bind:value={value.outgoingLabel} /></td>
-      <td><input type="text" bind:value={value.nextHop} /></td>
-      <button
-        on:click={() => {
-          router.LIB.deleteEntry(incomingLabel);
-          router = router;
-        }}
-      >
-        -
-      </button>
-    </tr>
-  {/each}
-  <button on:click={addAndUpdate(router.LIB.addEmptyEntry)}>+</button>
+      </tr>
+    {/each}
+  </tbody>
 </table>
+<div>
+  <SmallButton text="+" callback={addAndUpdate(router.LIB.addEmptyEntry)} />
+</div>
+
+<style>
+  div {
+    margin-top: 5px;
+  }
+</style>
