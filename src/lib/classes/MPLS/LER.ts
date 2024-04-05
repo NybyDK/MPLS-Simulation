@@ -11,39 +11,37 @@ export default class LER extends Router {
 
   // TODO: Instead of early return, do fallback to normal routing lookup, and if that fails too, packet.drop();
   receivePacket(packet: Packet): void {
-    const destination = packet.destination.address;
+    const destination = packet.destination;
 
     if (packet.label === -1) {
-      const nextHop = this.FIB.get(destination)?.nextHop;
-      if (!nextHop) return;
+      const nextHop = this.FIB.get(destination.address)?.nextHop;
+      const newLabel = this.FIB.get(destination.address)?.label;
 
-      const newLabel = this.FIB.get(destination)?.label;
-      if (!newLabel) return;
-
-      packet.label = newLabel;
-
-      const nextRouter = network.getRouter(parseInt(nextHop));
-      if (!nextRouter) return;
-
-      packet.nextHop = nextRouter;
+      if (nextHop && newLabel) {
+        packet.label = newLabel;
+        const nextRouter = network.getRouter(parseInt(nextHop));
+        if (nextRouter) {
+          packet.nextHop = nextRouter;
+          packet.decrementTTL();
+          return;
+        }
+      }
     } else {
       const nextHop = this.LIB.get(packet.label)?.nextHop;
-      if (!nextHop) return;
-
       const newLabel = this.LIB.get(packet.label)?.outgoingLabel;
-      if (!newLabel) return;
-      packet.label = newLabel;
 
-      // LDP needs to communicate firstHop to source CE, so it can start by sending to the correct LER
-      const nextRouter = network.routers.find(
-        (router) => router instanceof CE && router.address === nextHop,
-      );
-      if (!nextRouter) return;
-
-      packet.nextHop = nextRouter;
+      if (nextHop && newLabel) {
+        packet.label = newLabel;
+        const nextRouter = network.routers.find(
+          (router) => router instanceof CE && router.address === nextHop,
+        );
+        if (nextRouter) {
+          packet.nextHop = nextRouter;
+          packet.decrementTTL();
+          return;
+        }
+      }
     }
-
-    packet.decrementTTL();
   }
 
   get type(): "LER" {
