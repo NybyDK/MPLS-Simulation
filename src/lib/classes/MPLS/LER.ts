@@ -11,11 +11,11 @@ export default class LER extends Router {
 
   // TODO: Instead of early return, do fallback to normal routing lookup, and if that fails too, packet.drop();
   receivePacket(packet: Packet): void {
-    const destination = packet.destination;
+    const destination = packet.destination.address;
 
     if (packet.label === -1) {
-      const nextHop = this.FIB.get(destination.address)?.nextHop;
-      const newLabel = this.FIB.get(destination.address)?.label;
+      const nextHop = this.FIB.get(destination)?.nextHop;
+      const newLabel = this.FIB.get(destination)?.label;
 
       if (nextHop && newLabel) {
         packet.label = newLabel;
@@ -42,6 +42,7 @@ export default class LER extends Router {
         }
       }
     }
+    //Fallback routing should be called here, and implemented below, or somewhere else, and called in LSR as well
   }
 
   get type(): "LER" {
