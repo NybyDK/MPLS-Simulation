@@ -169,6 +169,19 @@ export class NetworkStore implements Writable<NetworkState> {
     this.notify();
   }
 
+  clearTables() {
+    for (const router of this._routers) {
+      router.clearTables();
+    }
+
+    this.notify();
+  }
+
+  clearLinks() {
+    this._links = [];
+    this.notify();
+  }
+
   clearPackets() {
     this._packets = [];
     this.packetCounter = 0;

@@ -1,4 +1,7 @@
 {
-  "cSpell.words": ["MPLS"],
+  "cSpell.words": [
+    "MPLS",
+    "visibilitychanged"
+  ],
   "eslint.validate": ["svelte"]
 }

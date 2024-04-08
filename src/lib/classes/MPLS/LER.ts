@@ -10,7 +10,7 @@ export default class LER extends Router {
   LIB = new LIB();
 
   // TODO: Instead of early return, do fallback to normal routing lookup, and if that fails too, packet.drop();
-  receivePacket(packet: Packet): void {
+  receivePacket(packet: Packet) {
     const destination = packet.destination;
 
     if (packet.label === -1) {
@@ -44,6 +44,11 @@ export default class LER extends Router {
     }
 
     packet.decrementTTL();
+  }
+
+  clearTables() {
+    this.FIB.map.clear();
+    this.LIB.map.clear();
   }
 
   get type(): "LER" {

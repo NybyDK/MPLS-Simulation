@@ -15,13 +15,33 @@
 
   $: ToolboxButtons = [
     {
-      text: "Clear",
+      text: "Clear Network",
       callback: () => {
         if ($locked) {
           alert("Network is locked.");
           return;
         }
         if (confirm("Are you sure you want to clear the network?")) network.clear();
+      },
+    },
+    {
+      text: "Clear Links",
+      callback: () => {
+        if ($locked) {
+          alert("Network is locked.");
+          return;
+        }
+        if (confirm("Are you sure you want to clear the links?")) network.clearLinks();
+      },
+    },
+    {
+      text: "Clear Tables",
+      callback: () => {
+        if ($locked) {
+          alert("Network is locked.");
+          return;
+        }
+        if (confirm("Are you sure you want to clear the routing tables?")) network.clearTables();
       },
     },
     {

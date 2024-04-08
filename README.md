@@ -1,3 +1,9 @@
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/NybyDK/MPLS-Simulation/.github%2Fworkflows%2Fgithub-pages.yml?style=for-the-badge&label=GH%20Pages&labelColor=%230f0f0f)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/NybyDK/MPLS-Simulation/.github%2Fworkflows%2Flint.yml?style=for-the-badge&label=Lint&labelColor=%230f0f0f)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/NybyDK/MPLS-Simulation/.github%2Fworkflows%2Ftest-integration.yml?style=for-the-badge&label=Integration&labelColor=%230f0f0f)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/NybyDK/MPLS-Simulation/.github%2Fworkflows%2Ftest-unit.yml?style=for-the-badge&label=Unit&labelColor=%230f0f0f)
+
+
 ## MPLS Simulation
 
 MPLS Network Simulations without any Simulations so far

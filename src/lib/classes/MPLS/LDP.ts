@@ -14,10 +14,16 @@ export default function LDP(path: Router[], destination: string) {
     return;
   }
 
-  if (sourceCE.firstHop.has(destination)) {
-    alert("The destination is already in the CE's first hop");
+  const sourceLER = path[1];
+
+  if (!(sourceLER instanceof LER)) {
+    alert("The source CE is not directly connected to LER");
     return;
   }
+
+  sourceCE.firstHop.set(destination, sourceLER.id);
+
+  if (sourceLER.FIB.get(destination)) return;
 
   const destinationLERIndex = path.length - 2;
   const destinationLER = path[destinationLERIndex];
@@ -44,8 +50,6 @@ export default function LDP(path: Router[], destination: string) {
       previousRouter.LIB.receiveEntry(incomingLabel, outgoingLabel, currentRouter.id.toString());
     }
   }
-
-  sourceCE.firstHop.set(destination, path[1].id);
 }
 
 function isLabelUsed(router: Router, label: number) {

@@ -18,7 +18,6 @@
       return;
     }
 
-    // TODO: In the future, nextHop will be a link, not a router, and then we can use the link's distance here, as it is already calculated in the Link class
     const distance = Math.sqrt(
       (packet.node.x - packet.nextHop.node.x) ** 2 + (packet.node.y - packet.nextHop.node.y) ** 2,
     );

@@ -8,5 +8,7 @@ export default abstract class Router {
 
   abstract receivePacket(packet: Packet): void;
 
+  abstract clearTables(): void;
+
   abstract get type(): "LER" | "LSR" | "CE";
 }
