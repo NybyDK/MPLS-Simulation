@@ -80,8 +80,8 @@ export class NetworkStore implements Writable<NetworkState> {
 
     const router = new CE(id, {
       label: `CE ${id}`,
-      x,
-      y,
+      x: Math.round(x),
+      y: Math.round(y),
     });
 
     this.addRouter(router);
@@ -92,8 +92,8 @@ export class NetworkStore implements Writable<NetworkState> {
 
     const router = new LER(id, {
       label: `LER ${id}`,
-      x,
-      y,
+      x: Math.round(x),
+      y: Math.round(y),
     });
 
     this.addRouter(router);
