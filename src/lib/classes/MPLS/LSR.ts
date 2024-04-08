@@ -7,7 +7,7 @@ export default class LSR extends Router {
   LIB = new LIB();
 
   // TODO: Instead of early return, do fallback to normal routing lookup, and if that fails too, packet.drop();
-  receivePacket(packet: Packet): void {
+  receivePacket(packet: Packet) {
     const nextHop = this.LIB.get(packet.label)?.nextHop;
     if (!nextHop) return;
 
@@ -20,6 +20,10 @@ export default class LSR extends Router {
     packet.nextHop = nextRouter;
 
     packet.decrementTTL();
+  }
+
+  clearTables() {
+    this.LIB.map.clear();
   }
 
   get type(): "LSR" {

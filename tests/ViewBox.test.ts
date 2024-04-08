@@ -10,7 +10,7 @@ test.beforeEach(async ({ page }) => {
     void dialog.accept();
   });
 
-  const clear = page.getByRole("button", { name: "Clear" });
+  const clear = page.getByRole("button", { name: "Clear Network" });
   await clear.click();
 });
 

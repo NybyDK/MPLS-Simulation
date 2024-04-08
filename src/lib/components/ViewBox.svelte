@@ -15,7 +15,6 @@
     DRAGGING,
     PANNING,
     CONNECTING,
-    MASS_CONNECTING,
     ADDING_DESTINATION,
   }
 
@@ -45,7 +44,6 @@
     [InteractionState.DRAGGING]: $locked ? "not-allowed" : "grabbing",
     [InteractionState.PANNING]: "grabbing",
     [InteractionState.CONNECTING]: $locked ? "not-allowed" : "crosshair",
-    [InteractionState.MASS_CONNECTING]: $locked ? "not-allowed" : "crosshair",
     [InteractionState.ADDING_DESTINATION]: "crosshair",
   };
 
@@ -96,9 +94,7 @@
 
       if (event.shiftKey) {
         interactionState = InteractionState.CONNECTING;
-      } else if (event.altKey) {
-        interactionState = InteractionState.MASS_CONNECTING;
-      } else if (event.ctrlKey && selectedRouter instanceof CE) {
+      } else if (event.altKey && selectedRouter instanceof CE) {
         interactionState = InteractionState.ADDING_DESTINATION;
       } else {
         initialMouse.x = selectedRouter.node.x;
@@ -119,16 +115,7 @@
     event.preventDefault();
 
     if (selectedRouter) {
-      if (!$locked && interactionState === InteractionState.CONNECTING) {
-        const element = document.elementFromPoint(event.clientX, event.clientY);
-
-        const targetId = element?.tagName === "circle" ? element.id : null;
-        const target = network.getRouter(parseInt(targetId ?? ""));
-
-        if (target) {
-          network.addLink({ source: selectedRouter, target });
-        }
-      } else if (interactionState === InteractionState.ADDING_DESTINATION) {
+      if (interactionState === InteractionState.ADDING_DESTINATION) {
         const element = document.elementFromPoint(event.clientX, event.clientY);
 
         const targetId = element?.tagName === "circle" ? element.id : null;
@@ -172,13 +159,10 @@
 
       viewBox.x -= delta.x;
       viewBox.y -= delta.y;
-    } else if (
-      (!$locked && interactionState === InteractionState.CONNECTING) ||
-      interactionState === InteractionState.ADDING_DESTINATION
-    ) {
+    } else if (interactionState === InteractionState.ADDING_DESTINATION) {
       mouse.x = event.clientX;
       mouse.y = event.clientY;
-    } else if (!$locked && interactionState === InteractionState.MASS_CONNECTING) {
+    } else if (!$locked && interactionState === InteractionState.CONNECTING) {
       mouse.x = event.clientX;
       mouse.y = event.clientY;
 
@@ -305,18 +289,14 @@
   tabindex="-1"
   style:cursor={cursorStyles[interactionState]}
 >
-  {#if ((!$locked && interactionState === InteractionState.CONNECTING) || [InteractionState.MASS_CONNECTING, InteractionState.ADDING_DESTINATION].includes(interactionState)) && selectedRouter}
+  {#if ((!$locked && interactionState === InteractionState.CONNECTING) || interactionState === InteractionState.ADDING_DESTINATION) && selectedRouter}
     <line
       class="preview"
       x1={selectedRouter.node.x}
       y1={selectedRouter.node.y}
       x2={scaledX(mouse.x)}
       y2={scaledY(mouse.y)}
-      stroke={[InteractionState.CONNECTING, InteractionState.MASS_CONNECTING].includes(
-        interactionState,
-      )
-        ? "green"
-        : "blue"}
+      stroke={interactionState === InteractionState.CONNECTING ? "green" : "blue"}
     />
   {/if}
   <slot />
