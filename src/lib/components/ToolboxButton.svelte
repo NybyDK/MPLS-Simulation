@@ -10,6 +10,7 @@
 
 <style>
   button {
+    display: block;
     background-color: #666666;
     color: black;
     border: 2px solid black;
@@ -19,6 +20,10 @@
     user-select: none;
     transition: background-color 250ms ease;
     min-width: 35px;
+  }
+
+  button:hover {
+    background-color: #888888;
   }
 
   @media (prefers-color-scheme: dark) {

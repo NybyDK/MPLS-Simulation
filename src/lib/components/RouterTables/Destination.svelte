@@ -3,6 +3,7 @@
   import { paths } from "$lib/stores/paths";
   import type CE from "$lib/classes/MPLS/CE";
   import LDP from "$lib/classes/MPLS/LDP";
+  import SmallButton from "$lib/components/RouterTables/SmallButton.svelte";
 
   export let router: CE;
 
@@ -18,8 +19,6 @@
 
     const target = event.target.value.toUpperCase();
 
-    router.updateAddress(destination, target);
-
     const destinationRouter = network.getCERouter(target);
 
     if (!destinationRouter) {
@@ -28,6 +27,9 @@
     }
 
     const path = paths.findShortestPath(router, destinationRouter);
+
+    // Sounds counter-intuitive, but LDP sets an entry, and it cannot exist before because it returns if it already exists
+    router.deleteEntry(destination);
 
     LDP(path, target);
 
@@ -45,41 +47,53 @@
 
 <p>Destinations:</p>
 <table>
-  <tr>
-    <th>Destination</th>
-    <th>First hop</th>
-  </tr>
-  {#each [...router.firstHop] as [destination, link]}
+  <thead>
     <tr>
-      <td>
-        <input
-          type="text"
-          value={destination}
-          placeholder="Address"
-          on:change={(event) => {
-            handleOnChangeDestination(event, destination);
-          }}
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          value={link}
-          placeholder="Link"
-          on:change={(event) => {
-            handleOnChangeLink(event, destination);
-          }}
-        />
-      </td>
-      <button
-        on:click={() => {
-          router.deleteEntry(destination);
-          router = router;
-        }}
-      >
-        -
-      </button>
+      <th>Destination</th>
+      <th>First hop</th>
+      <th></th>
     </tr>
-  {/each}
+  </thead>
+  <tbody>
+    {#each [...router.firstHop] as [destination, link]}
+      <tr>
+        <td>
+          <input
+            type="text"
+            value={destination}
+            placeholder="Address"
+            on:change={(event) => {
+              handleOnChangeDestination(event, destination);
+            }}
+          />
+        </td>
+        <td>
+          <input
+            type="text"
+            value={link}
+            placeholder="Link"
+            on:change={(event) => {
+              handleOnChangeLink(event, destination);
+            }}
+          />
+        </td>
+        <SmallButton
+          text="-"
+          callback={() => {
+            router.firstHop.delete(destination);
+            router = router;
+          }}
+        />
+      </tr>
+    {/each}
+  </tbody>
 </table>
-<button on:click={addAndUpdate(router.addEmptyEntry)}>+</button>
+<div>
+  <SmallButton text="+" callback={addAndUpdate(router.addEmptyEntry)} />
+</div>
+
+<style>
+  div {
+    margin-top: 5px;
+  }
+</style>

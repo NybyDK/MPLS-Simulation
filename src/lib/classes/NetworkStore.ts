@@ -25,8 +25,8 @@ export class NetworkStore implements Writable<NetworkState> {
   private _packets: Packet[] = [];
   private routerMap = new Map<number, Router>();
   private CEMap = new Map<string, CE>();
-  private routerCounter = 0;
-  private packetCounter = 0;
+  private routerCounter = 1;
+  private packetCounter = 1;
 
   get routers() {
     return this._routers;
@@ -108,8 +108,8 @@ export class NetworkStore implements Writable<NetworkState> {
 
     const router = new LSR(id, {
       label: `LSR ${id}`,
-      x,
-      y,
+      x: Math.round(x),
+      y: Math.round(y),
     });
 
     this.addRouter(router);
@@ -185,8 +185,8 @@ export class NetworkStore implements Writable<NetworkState> {
     this._packets = [];
     this.routerMap.clear();
     this.CEMap.clear();
-    this.routerCounter = 0;
-    this.packetCounter = 0;
+    this.routerCounter = 1;
+    this.packetCounter = 1;
     this.notify();
   }
 
