@@ -19,12 +19,27 @@ export default class LSR extends Router {
         return;
       }
     }
-    //this.backupIPv4Routing(packet);
-    // If MPLS routing fails, we'll fallback to IPv4 routing, just like in LER :)
-    // afaik, all routers must then have addresses, only CE routers currently have so
-    // Then the routing table must keep track of routes, and which routers said route include
-    // Said routers must then know which router is the next on in the order to forward to it.
-    //backupIPv4Routing(packet);
+    this.backupIPv4Routing(packet);
+  }
+
+  backupIPv4Routing(packet: Packet): void {
+    //My current issue, is that I don't really know how to make all routers along  path know the next jump, based on the destination of a packet
+    // Check routing table to find next hop for the destination
+    // Then assign the next hop router to packet.nextHop and decrement TTL
+    const destination = packet.destination.address;
+    const nextHop = this.FIB.get(destination);
+
+    if (nextHop) {
+      const nextRouter = network.getRouter(parseInt(nextHop));
+      if (nextRouter) {
+        packet.nextHop = nextRouter;
+        packet.decrementTTL();
+        return;
+      }
+    }
+
+    // If IPv4 routing fails or next hop is not found, drop the packet
+    packet.drop();
   }
 
   get type(): "LSR" {

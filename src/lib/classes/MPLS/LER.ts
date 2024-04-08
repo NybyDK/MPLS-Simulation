@@ -47,15 +47,15 @@ export default class LER extends Router {
 
   //In case the MPLS routing fails, we'll fallback to IPv4 routing, just like in LSR :)
   backupIPv4Routing(packet: Packet) {
-    // const nextHop = this.IPv4Routing.lookup(packet.destination);
-    // if (nextHop) {
-    //   const nextRouter = network.getRouter(nextHop);
-    //   if (nextRouter) {
-    //     packet.nextHop = nextRouter;
-    //     packet.decrementTTL();
-    return;
-    //   }
-    // }
+    const nextHop = this.IPv4Routing.lookup(packet.destination);
+    if (nextHop) {
+      const nextRouter = network.getRouter(nextHop);
+      if (nextRouter) {
+        packet.nextHop = nextRouter;
+        packet.decrementTTL();
+        return;
+      }
+    }
 
     //Jeg tænker der burde være noget router.forEach(function (addresses){const nextRouter})
 

@@ -186,6 +186,10 @@ export class NetworkStore implements Writable<NetworkState> {
     this.notify();
   }
 
+  /*clearlinks(){}
+    this._links = [];
+    this.notify()
+  */
   notify() {
     this.store.set(this.networkState);
   }
