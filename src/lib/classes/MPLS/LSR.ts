@@ -1,4 +1,4 @@
-import { network } from "$lib/stores/network";
+import network from "$lib/stores/network";
 import Router from "$lib/classes/MPLS/Router";
 import type Packet from "$lib/classes/MPLS/Packet";
 import LIB from "$lib/classes/MPLS/LIB";

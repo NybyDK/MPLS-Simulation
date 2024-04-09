@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
-  import { locked } from "$lib/stores/locked";
-  import { config } from "$lib/stores/config";
+  import network from "$lib/stores/network";
+  import locked from "$lib/stores/locked";
+  import config from "$lib/stores/config";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
   import LSPList from "$lib/components/LSPList.svelte";
   import CE from "$lib/classes/MPLS/CE";

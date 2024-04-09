@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
-  import { locked } from "$lib/stores/locked";
+  import network from "$lib/stores/network";
+  import locked from "$lib/stores/locked";
   import ToolboxRouter from "$lib/components/ToolboxRouter.svelte";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
   import CE from "$lib/classes/MPLS/CE";

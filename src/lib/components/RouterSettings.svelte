@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
-  import { locked } from "$lib/stores/locked";
+  import network from "$lib/stores/network";
+  import locked from "$lib/stores/locked";
 
   import type Router from "$lib/classes/MPLS/Router";
   import CE from "$lib/classes/MPLS/CE";

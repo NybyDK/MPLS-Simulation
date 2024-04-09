@@ -1,5 +1,5 @@
 import { writable, type Writable } from "svelte/store";
-import { network } from "$lib/stores/network";
+import network from "$lib/stores/network";
 import type Router from "$lib/classes/MPLS/Router";
 
 export class PathStore implements Writable<Map<number, Map<number, Router[]>>> {

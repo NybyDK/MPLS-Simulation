@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
-  import { locked } from "$lib/stores/locked";
+  import network from "$lib/stores/network";
+  import locked from "$lib/stores/locked";
   import type Link from "$lib/classes/MPLS/Link";
   import Dialog from "$lib/components/Dialog.svelte";
   import SmallButton from "$lib/components/RouterTables/SmallButton.svelte";

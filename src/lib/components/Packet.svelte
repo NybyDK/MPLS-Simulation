@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { config } from "$lib/stores/config";
+  import config from "$lib/stores/config";
   import type Packet from "$lib/classes/MPLS/Packet";
 
   export let packet: Packet;

@@ -1,7 +1,7 @@
-import { network } from "$lib/stores/network";
+import network from "$lib/stores/network";
 import CE from "$lib/classes/MPLS/CE";
 import type Router from "$lib/classes/MPLS/Router";
-import { dijkstra } from "../PathStore";
+import paths from "$lib/stores/paths";
 
 export default class Packet {
   private ttl: number = 32;
@@ -33,12 +33,12 @@ export default class Packet {
     this.decrementTTL();
     if (this.fallbackRoute) return this.setFallbackNextHop();
 
-    this.fallbackRoute = dijkstra(currentRouter, this.destination);
+    this.fallbackRoute = paths.findShortestPath(currentRouter, this.destination);
     const destinationRouter = this.fallbackRoute[this.fallbackRoute.length - 1];
 
+    if (!(destinationRouter instanceof CE)) return this.drop("The destination is not a CE.");
     this.fallbackRoute.shift();
 
-    if (!(destinationRouter instanceof CE)) return this.drop("The destination is not a CE.");
     this.setFallbackNextHop();
   }
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
+  import network from "$lib/stores/network";
   import type CE from "$lib/classes/MPLS/CE";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
 
