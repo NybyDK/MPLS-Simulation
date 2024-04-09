@@ -114,22 +114,30 @@
 
     event.preventDefault();
 
-    if (selectedRouter) {
+    earlyReturn: if (selectedRouter) {
       if (interactionState === InteractionState.ADDING_DESTINATION) {
         const element = document.elementFromPoint(event.clientX, event.clientY);
 
         const targetId = element?.tagName === "circle" ? element.id : null;
         const target = network.getRouter(parseInt(targetId ?? ""));
 
-        if (target instanceof CE) {
-          const path = paths.findShortestPath(selectedRouter, target);
+        if (!target || selectedRouter === target) break earlyReturn;
 
-          LDP(path, target.address.toUpperCase());
-
-          network.notify();
-        } else {
+        if (!(target instanceof CE)) {
           alert("Destination must be a CE");
+          break earlyReturn;
         }
+
+        const path = paths.findShortestPath(selectedRouter, target);
+
+        if (path.length <= 1) {
+          alert("No path found");
+          break earlyReturn;
+        }
+
+        LDP(path, target.address);
+
+        network.notify();
       }
     }
 

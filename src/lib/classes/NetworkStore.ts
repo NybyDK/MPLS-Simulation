@@ -1,4 +1,5 @@
-import { writable, type Writable } from "svelte/store";
+import { get, writable, type Writable } from "svelte/store";
+import { config } from "$lib/stores/config";
 import type { NetworkState } from "$lib/interfaces/network";
 import type Router from "$lib/classes/MPLS/Router";
 import Link from "$lib/classes/MPLS/Link";
@@ -27,6 +28,15 @@ export class NetworkStore implements Writable<NetworkState> {
   private CEMap = new Map<string, CE>();
   private routerCounter = 1;
   private packetCounter = 1;
+  private maxPackets = get(config).maxPackets;
+
+  constructor() {
+    config.subscribe((value) => {
+      this.maxPackets = value.maxPackets;
+      this._packets = this._packets.slice(0, this.maxPackets);
+      this.notify();
+    });
+  }
 
   get routers() {
     return this._routers;
@@ -156,6 +166,8 @@ export class NetworkStore implements Writable<NetworkState> {
   }
 
   addPacket(source: CE, destination: CE) {
+    if (this._packets.length >= this.maxPackets) return;
+
     const packet = new Packet(this.packetCounter++, source, destination, {
       x: source.node.x,
       y: source.node.y,

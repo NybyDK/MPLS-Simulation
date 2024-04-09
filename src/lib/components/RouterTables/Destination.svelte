@@ -41,6 +41,11 @@
 
     const path = paths.findShortestPath(router, destinationRouter);
 
+    if (path.length <= 1) {
+      alert("No path found");
+      return;
+    }
+
     LDP(path, target);
 
     router = router;
