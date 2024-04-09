@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
+  import network from "$lib/stores/network";
   import CE from "$lib/classes/MPLS/CE";
   import LSPElement from "$lib/components/LSPElement.svelte";
 

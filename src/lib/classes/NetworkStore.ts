@@ -81,7 +81,7 @@ export class NetworkStore implements Writable<NetworkState> {
     this.notify();
   }
 
-  private doesLinkExist(input: { source: Router; target: Router }) {
+  doesLinkExist(input: { source: Router; target: Router }) {
     return this._links.some((link) => link.source === input.source && link.target === input.target);
   }
 

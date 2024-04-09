@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
-  import { paths } from "$lib/stores/paths";
+  import network from "$lib/stores/network";
+  import paths from "$lib/stores/paths";
   import type CE from "$lib/classes/MPLS/CE";
   import LDP from "$lib/classes/MPLS/LDP";
   import SmallButton from "$lib/components/RouterTables/SmallButton.svelte";
