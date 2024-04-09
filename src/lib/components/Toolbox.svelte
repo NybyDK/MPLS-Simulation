@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
-  import { locked } from "$lib/stores/locked";
+  import network from "$lib/stores/network";
+  import locked from "$lib/stores/locked";
   import ToolboxRouter from "$lib/components/ToolboxRouter.svelte";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
   import CE from "$lib/classes/MPLS/CE";
@@ -13,7 +13,7 @@
     { text: "+ Switch", type: "LSR", color: "#FF6392" },
   ];
 
-  $: ToolboxButtons = [
+  $: ToolboxEditButtons = [
     {
       text: "Clear Network",
       callback: () => {
@@ -34,6 +34,10 @@
         if (confirm("Are you sure you want to clear the links?")) network.clearLinks();
       },
     },
+    ...ToolboxSimulationButtons,
+  ];
+
+  $: ToolboxSimulationButtons = [
     {
       text: "Clear Tables",
       callback: () => {
@@ -108,7 +112,11 @@
   {#each ToolboxRouters as router}
     <ToolboxRouter {...router} />
   {/each}
-  {#each ToolboxButtons as button}
+  {#each ToolboxEditButtons as button}
+    <ToolboxButton {...button} />
+  {/each}
+{:else}
+  {#each ToolboxSimulationButtons as button}
     <ToolboxButton {...button} />
   {/each}
 {/if}

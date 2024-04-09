@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { locked } from "$lib/stores/locked";
+  import locked from "$lib/stores/locked";
 
   export let text: string;
   export let type: string;

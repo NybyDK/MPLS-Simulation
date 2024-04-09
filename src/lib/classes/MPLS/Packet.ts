@@ -1,11 +1,13 @@
-import { network } from "$lib/stores/network";
-import type CE from "$lib/classes/MPLS/CE";
+import network from "$lib/stores/network";
+import CE from "$lib/classes/MPLS/CE";
 import type Router from "$lib/classes/MPLS/Router";
+import paths from "$lib/stores/paths";
 
 export default class Packet {
   private ttl: number = 32;
   public label: number = -1;
-  public nextHop: Router | undefined;
+  public fallbackRoute: Router[] | undefined = undefined;
+  public nextHop!: Router;
 
   constructor(
     public readonly id: number,
@@ -14,10 +16,16 @@ export default class Packet {
     public node: { x: number; y: number },
   ) {
     const nextHopRouterID = source.firstHop.get(destination.address);
-    if (!nextHopRouterID) return; // an error occurred
+    if (!nextHopRouterID) {
+      this.drop("No next hop router id found.");
+      return;
+    }
 
     const nextHopRouter = network.getRouter(nextHopRouterID);
-    if (!nextHopRouter) return; // an error occurred
+    if (!nextHopRouter) {
+      this.drop("No next hop router found.");
+      return;
+    }
 
     this.nextHop = nextHopRouter;
   }
@@ -26,7 +34,40 @@ export default class Packet {
     if (--this.ttl <= 0) this.drop();
   }
 
-  drop() {
+  fallback(currentRouter: Router) {
+    this.label = -1;
+    this.decrementTTL();
+    if (this.fallbackRoute) return this.setFallbackNextHop();
+
+    this.fallbackRoute = paths.findShortestPath(currentRouter, this.destination);
+    const destinationRouter = this.fallbackRoute[this.fallbackRoute.length - 1];
+
+    if (!(destinationRouter instanceof CE)) return this.drop("The destination is not a CE.");
+    this.fallbackRoute.shift();
+
+    this.setFallbackNextHop();
+  }
+
+  validateNextHop(currentRouter: Router): boolean {
+    if (
+      network.doesLinkExist({ source: currentRouter, target: this.nextHop }) ||
+      network.doesLinkExist({ source: this.nextHop, target: currentRouter })
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  setFallbackNextHop() {
+    const nextHop = this.fallbackRoute?.shift();
+
+    if (this.fallbackRoute && nextHop) this.nextHop = nextHop;
+    else this.drop("Unable to set fallback IP routing next hop");
+  }
+
+  drop(reason = "Unknown") {
+    // eslint-disable-next-line no-console
+    console.warn("Packet dropped: ", reason);
     network.deletePacket(this.id);
   }
 }

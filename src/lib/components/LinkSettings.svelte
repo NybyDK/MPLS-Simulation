@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
-  import { locked } from "$lib/stores/locked";
+  import network from "$lib/stores/network";
+  import locked from "$lib/stores/locked";
   import type Link from "$lib/classes/MPLS/Link";
   import Dialog from "$lib/components/Dialog.svelte";
   import SmallButton from "$lib/components/RouterTables/SmallButton.svelte";
@@ -9,9 +9,12 @@
   export let dialog: HTMLDialogElement;
 
   function handleClickDeleteButton() {
-    if (!$locked && link && confirm("Are you sure you want to delete this link?")) {
+    if (!$locked && link) {
+      if (!confirm("Are you sure you want to delete this link?")) return;
       network.deleteLink(link.id);
       dialog.close();
+    } else {
+      alert("You can't delete a link while the network is locked.");
     }
   }
 </script>

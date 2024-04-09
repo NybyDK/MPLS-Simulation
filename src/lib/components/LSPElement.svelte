@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
+  import network from "$lib/stores/network";
   import type CE from "$lib/classes/MPLS/CE";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
 
@@ -11,6 +11,7 @@
   }
 
   function deleteDestination() {
+    if (!confirm("Are you sure you want to delete this LSP?")) return;
     source.deleteEntry(destination.address);
     network.notify();
   }

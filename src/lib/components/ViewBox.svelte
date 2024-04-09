@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { network } from "$lib/stores/network";
-  import { paths } from "$lib/stores/paths";
-  import { locked } from "$lib/stores/locked";
+  import network from "$lib/stores/network";
+  import paths from "$lib/stores/paths";
+  import locked from "$lib/stores/locked";
   import type Link from "$lib/classes/MPLS/Link";
   import type Router from "$lib/classes/MPLS/Router";
   import RouterSettings from "$lib/components/RouterSettings.svelte";
