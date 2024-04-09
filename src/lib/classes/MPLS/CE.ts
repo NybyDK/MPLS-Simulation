@@ -30,7 +30,7 @@ export default class CE extends Router {
   };
 
   receivePacket(packet: Packet) {
-    packet.drop();
+    packet.drop("CE received packet. Dropping.");
   }
 
   clearTables() {

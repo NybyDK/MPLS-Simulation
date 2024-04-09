@@ -1,10 +1,12 @@
 import { network } from "$lib/stores/network";
-import type CE from "$lib/classes/MPLS/CE";
+import CE from "$lib/classes/MPLS/CE";
 import type Router from "$lib/classes/MPLS/Router";
+import { dijkstra } from "../PathStore";
 
 export default class Packet {
   private ttl: number = 32;
   public label: number = -1;
+  public fallbackRoute: Router[] | undefined = undefined;
   public nextHop: Router | undefined;
 
   constructor(
@@ -26,7 +28,30 @@ export default class Packet {
     if (--this.ttl <= 0) this.drop();
   }
 
-  drop() {
+  fallback(currentRouter: Router) {
+    this.label = -1;
+    this.decrementTTL();
+    if (this.fallbackRoute) return this.setFallbackNextHop();
+
+    this.fallbackRoute = dijkstra(currentRouter, this.destination);
+    const destinationRouter = this.fallbackRoute[this.fallbackRoute.length - 1];
+
+    this.fallbackRoute.shift();
+
+    if (!(destinationRouter instanceof CE)) return this.drop("The destination is not a CE.");
+    this.setFallbackNextHop();
+  }
+
+  setFallbackNextHop() {
+    const nextHop = this.fallbackRoute?.shift();
+
+    if (this.fallbackRoute) this.nextHop = nextHop;
+    else this.drop("unable to set fallback ip routing next hop");
+  }
+
+  drop(reason = "unknown") {
+    // eslint-disable-next-line no-console
+    console.warn("packet dropped: ", reason);
     network.deletePacket(this.id);
   }
 }

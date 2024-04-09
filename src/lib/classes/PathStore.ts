@@ -46,7 +46,7 @@ export class PathStore implements Writable<Map<number, Map<number, Router[]>>> {
   }
 }
 
-function dijkstra(source: Router, destination: Router) {
+export function dijkstra(source: Router, destination: Router) {
   const routers = network.routers;
   const numRouters: number = routers.length;
   const distances: number[] = new Array<number>(numRouters).fill(Infinity);

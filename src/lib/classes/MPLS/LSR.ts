@@ -6,17 +6,18 @@ import LIB from "$lib/classes/MPLS/LIB";
 export default class LSR extends Router {
   LIB = new LIB();
 
-  // TODO: Instead of early return, do fallback to normal routing lookup, and if that fails too, packet.drop();
   receivePacket(packet: Packet) {
+    if (packet.label === -1 && packet.fallbackRoute) return packet.fallback(this);
     const nextHop = this.LIB.get(packet.label)?.nextHop;
-    if (!nextHop) return;
+    if (!nextHop) return packet.fallback(this);
 
     const newLabel = this.LIB.get(packet.label)?.outgoingLabel;
-    if (!newLabel) return;
+    if (!newLabel) return packet.fallback(this);
     packet.label = newLabel;
 
     const nextRouter = network.getRouter(parseInt(nextHop));
-    if (!nextRouter) return;
+    if (!nextRouter) return packet.fallback(this);
+
     packet.nextHop = nextRouter;
 
     packet.decrementTTL();
