@@ -1,5 +1,5 @@
 import { get, writable, type Writable } from "svelte/store";
-import { config } from "$lib/stores/config";
+import config from "$lib/stores/config";
 import type { NetworkState } from "$lib/interfaces/network";
 import type Router from "$lib/classes/MPLS/Router";
 import Link from "$lib/classes/MPLS/Link";
