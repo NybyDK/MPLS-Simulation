@@ -12,12 +12,6 @@
   $: if (animation) animation.playbackRate = $config.speedMultiplier;
 
   function calculateTransitionDuration() {
-    if (!packet.nextHop) {
-      packet.drop();
-      alert("Packet has no next hop.");
-      return;
-    }
-
     const distance = Math.sqrt(
       (packet.node.x - packet.nextHop.node.x) ** 2 + (packet.node.y - packet.nextHop.node.y) ** 2,
     );
@@ -27,12 +21,6 @@
   }
 
   function animateToNextHop() {
-    if (!packet.nextHop) {
-      packet.drop();
-      alert("Packet has no next hop.");
-      return;
-    }
-
     calculateTransitionDuration();
 
     if (!packetElement) return;
@@ -56,17 +44,17 @@
   }
 
   function handleAnimationFinish() {
-    if (!packet.nextHop) {
-      packet.drop();
-      alert("Packet has no next hop.");
-      return;
-    }
-
     packet.node = packet.nextHop.node;
 
+    const currentRouter = packet.nextHop;
+    if (currentRouter === packet.destination) return currentRouter.receivePacket(packet);
     packet.nextHop.receivePacket(packet);
+    if (packet.validateNextHop(currentRouter)) return animateToNextHop();
 
-    animateToNextHop();
+    if (packet.fallbackRoute) return;
+
+    packet.fallback(currentRouter);
+    if (packet.validateNextHop(currentRouter)) animateToNextHop();
   }
 
   requestAnimationFrame(animateToNextHop);

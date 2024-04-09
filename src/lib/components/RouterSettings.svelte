@@ -18,10 +18,9 @@
 
   function handleDelete() {
     if (!$locked && router) {
-      if (confirm("Are you sure you want to delete this router?")) {
-        network.deleteRouter(router.id);
-        dialog.close();
-      }
+      if (!confirm("Are you sure you want to delete this router?")) return;
+      network.deleteRouter(router.id);
+      dialog.close();
     } else {
       alert("You can't delete a router while the network is locked.");
     }

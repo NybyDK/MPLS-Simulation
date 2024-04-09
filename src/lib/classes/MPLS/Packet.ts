@@ -7,7 +7,7 @@ export default class Packet {
   private ttl: number = 32;
   public label: number = -1;
   public fallbackRoute: Router[] | undefined = undefined;
-  public nextHop: Router | undefined;
+  public nextHop!: Router;
 
   constructor(
     public readonly id: number,
@@ -16,10 +16,16 @@ export default class Packet {
     public node: { x: number; y: number },
   ) {
     const nextHopRouterID = source.firstHop.get(destination.address);
-    if (!nextHopRouterID) return; // an error occurred
+    if (!nextHopRouterID) {
+      this.drop("No next hop router id found.");
+      return;
+    }
 
     const nextHopRouter = network.getRouter(nextHopRouterID);
-    if (!nextHopRouter) return; // an error occurred
+    if (!nextHopRouter) {
+      this.drop("No next hop router found.");
+      return;
+    }
 
     this.nextHop = nextHopRouter;
   }
@@ -42,16 +48,26 @@ export default class Packet {
     this.setFallbackNextHop();
   }
 
+  validateNextHop(currentRouter: Router): boolean {
+    if (
+      network.doesLinkExist({ source: currentRouter, target: this.nextHop }) ||
+      network.doesLinkExist({ source: this.nextHop, target: currentRouter })
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   setFallbackNextHop() {
     const nextHop = this.fallbackRoute?.shift();
 
-    if (this.fallbackRoute) this.nextHop = nextHop;
-    else this.drop("unable to set fallback ip routing next hop");
+    if (this.fallbackRoute && nextHop) this.nextHop = nextHop;
+    else this.drop("Unable to set fallback IP routing next hop");
   }
 
-  drop(reason = "unknown") {
+  drop(reason = "Unknown") {
     // eslint-disable-next-line no-console
-    console.warn("packet dropped: ", reason);
+    console.warn("Packet dropped: ", reason);
     network.deletePacket(this.id);
   }
 }

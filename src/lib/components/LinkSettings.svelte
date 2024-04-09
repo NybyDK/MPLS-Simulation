@@ -9,9 +9,12 @@
   export let dialog: HTMLDialogElement;
 
   function handleClickDeleteButton() {
-    if (!$locked && link && confirm("Are you sure you want to delete this link?")) {
+    if (!$locked && link) {
+      if (!confirm("Are you sure you want to delete this link?")) return;
       network.deleteLink(link.id);
       dialog.close();
+    } else {
+      alert("You can't delete a link while the network is locked.");
     }
   }
 </script>

@@ -7,7 +7,7 @@ export default class LSR extends Router {
   LIB = new LIB();
 
   receivePacket(packet: Packet) {
-    if (packet.label === -1 && packet.fallbackRoute) return packet.fallback(this);
+    if (packet.fallbackRoute) return packet.fallback(this);
     const nextHop = this.LIB.get(packet.label)?.nextHop;
     if (!nextHop) return packet.fallback(this);
 

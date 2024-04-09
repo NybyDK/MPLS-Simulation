@@ -11,6 +11,7 @@
   }
 
   function deleteDestination() {
+    if (!confirm("Are you sure you want to delete this LSP?")) return;
     source.deleteEntry(destination.address);
     network.notify();
   }
