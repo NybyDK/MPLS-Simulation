@@ -44,6 +44,7 @@
           />
         </td>
         <td><input type="number" bind:value={value.outgoingLabel} /></td>
+        <!-- TODO: FIX: Can be NaN -->
         <td><input type="text" bind:value={value.nextHop} /></td>
         <SmallButton
           text="-"
