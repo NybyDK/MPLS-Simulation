@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
-  import { locked } from "$lib/stores/locked";
+  import network from "$lib/stores/network";
+  import locked from "$lib/stores/locked";
   import ToolboxRouter from "$lib/components/ToolboxRouter.svelte";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
   import CE from "$lib/classes/MPLS/CE";
@@ -13,15 +13,39 @@
     { text: "+ Switch", type: "LSR", color: "#FF6392" },
   ];
 
-  $: ToolboxButtons = [
+  $: ToolboxEditButtons = [
     {
-      text: "Clear",
+      text: "Clear Network",
       callback: () => {
         if ($locked) {
           alert("Network is locked.");
           return;
         }
         if (confirm("Are you sure you want to clear the network?")) network.clear();
+      },
+    },
+    {
+      text: "Clear Links",
+      callback: () => {
+        if ($locked) {
+          alert("Network is locked.");
+          return;
+        }
+        if (confirm("Are you sure you want to clear the links?")) network.clearLinks();
+      },
+    },
+    ...ToolboxSimulationButtons,
+  ];
+
+  $: ToolboxSimulationButtons = [
+    {
+      text: "Clear Tables",
+      callback: () => {
+        if ($locked) {
+          alert("Network is locked.");
+          return;
+        }
+        if (confirm("Are you sure you want to clear the routing tables?")) network.clearTables();
       },
     },
     {
@@ -88,7 +112,11 @@
   {#each ToolboxRouters as router}
     <ToolboxRouter {...router} />
   {/each}
-  {#each ToolboxButtons as button}
+  {#each ToolboxEditButtons as button}
+    <ToolboxButton {...button} />
+  {/each}
+{:else}
+  {#each ToolboxSimulationButtons as button}
     <ToolboxButton {...button} />
   {/each}
 {/if}

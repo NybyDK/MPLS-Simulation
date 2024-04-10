@@ -1,4 +1,10 @@
 <svelte:head>
+  <meta property="og:title" content="MPLS Simulation" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nybydk.github.io/MPLS-Simulation/" />
+  <meta property="og:image" content="https://nybydk.github.io/MPLS-Simulation/favicon.png" />
+  <meta property="og:description" content="haha this is website is a lot of the funs :D" />
+  <meta name="theme-color" content="hotpink" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link

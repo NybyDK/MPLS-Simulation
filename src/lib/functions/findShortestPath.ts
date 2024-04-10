@@ -1,52 +1,9 @@
-import { writable, type Writable } from "svelte/store";
-import { network } from "$lib/stores/network";
+import network from "$lib/stores/network";
 import type Router from "$lib/classes/MPLS/Router";
+import type CE from "$lib/classes/MPLS/CE";
+import LER from "$lib/classes/MPLS/LER";
 
-export class PathStore implements Writable<Map<number, Map<number, Router[]>>> {
-  private store = writable<Map<number, Map<number, Router[]>>>();
-
-  set = this.store.set;
-  update = this.store.update;
-  subscribe = this.store.subscribe;
-
-  private _map: Map<number, Map<number, Router[]>> = new Map();
-
-  public getPath(sourceId: number, targetId: number) {
-    const sourceMap = this._map.get(sourceId);
-    if (!sourceMap) return undefined;
-    return sourceMap.get(targetId);
-  }
-
-  public findShortestPath(source: Router, target: Router) {
-    return dijkstra(source, target);
-  }
-
-  public findShortestPaths() {
-    const paths: Map<number, Map<number, Router[]>> = new Map();
-
-    const CERouters = network.routers.filter((router) => router.type === "CE");
-
-    for (const source of CERouters) {
-      const mapToDestination: Map<number, Router[]> = new Map();
-      for (const destination of CERouters) {
-        if (source === destination) continue;
-
-        const path = dijkstra(source, destination);
-        mapToDestination.set(destination.id, path);
-      }
-
-      paths.set(source.id, mapToDestination);
-    }
-
-    this._map = paths;
-  }
-
-  notify() {
-    this.store.set(this._map);
-  }
-}
-
-function dijkstra(source: Router, destination: Router) {
+export default function findShortestPath(source: Router, destination: CE) {
   const routers = network.routers;
   const numRouters: number = routers.length;
   const distances: number[] = new Array<number>(numRouters).fill(Infinity);
@@ -55,15 +12,32 @@ function dijkstra(source: Router, destination: Router) {
 
   distances[routers.indexOf(source)] = 0;
   let destinationReached = false;
+  let firstLER = false;
 
   while (!destinationReached) {
     let currentRouter: Router | null = null;
     let minDistance: number = Infinity;
 
     // Find the unvisited router with the smallest distance
-    for (let i = 0; i < numRouters; i++) {
+    for (const [i, router] of routers.entries()) {
       if (!visited[i] && distances[i] < minDistance) {
-        currentRouter = routers[i];
+        // But skip LERs that are in the middle of the LSP, we only use LERs for ingress and egress
+        if (router instanceof LER) {
+          if (!firstLER) {
+            firstLER = true;
+          } else {
+            const LERConnectsToDestination = network.links.some(
+              (link) =>
+                (link.source === router && link.target === destination) ||
+                (link.target === router && link.source === destination),
+            );
+            if (!LERConnectsToDestination) {
+              continue;
+            }
+          }
+        }
+
+        currentRouter = router;
         minDistance = distances[i];
       }
     }

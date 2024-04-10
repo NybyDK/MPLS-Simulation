@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
-  import { paths } from "$lib/stores/paths";
+  import network from "$lib/stores/network";
+  import findShortestPath from "$lib/functions/findShortestPath";
   import type CE from "$lib/classes/MPLS/CE";
   import LDP from "$lib/classes/MPLS/LDP";
   import SmallButton from "$lib/components/RouterTables/SmallButton.svelte";
@@ -26,10 +26,25 @@
       return;
     }
 
-    const path = paths.findShortestPath(router, destinationRouter);
+    router.updateAddress(destination, target);
 
-    // Sounds counter-intuitive, but LDP sets an entry, and it cannot exist before because it returns if it already exists
-    router.deleteEntry(destination);
+    router = router;
+  }
+
+  function handleLDPClick(target: string) {
+    const destinationRouter = network.getCERouter(target);
+
+    if (!destinationRouter) {
+      alert("Destination router not found.");
+      return;
+    }
+
+    const path = findShortestPath(router, destinationRouter);
+
+    if (path.length <= 1) {
+      alert("No path found");
+      return;
+    }
 
     LDP(path, target);
 
@@ -51,6 +66,7 @@
     <tr>
       <th>Destination</th>
       <th>First hop</th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -77,13 +93,23 @@
             }}
           />
         </td>
-        <SmallButton
-          text="-"
-          callback={() => {
-            router.firstHop.delete(destination);
-            router = router;
-          }}
-        />
+        <td>
+          <SmallButton
+            text="LDP"
+            callback={() => {
+              handleLDPClick(destination);
+            }}
+          />
+        </td>
+        <td>
+          <SmallButton
+            text="-"
+            callback={() => {
+              router.firstHop.delete(destination);
+              router = router;
+            }}
+          />
+        </td>
       </tr>
     {/each}
   </tbody>
@@ -95,5 +121,9 @@
 <style>
   div {
     margin-top: 5px;
+  }
+
+  th:nth-last-child(2) {
+    width: 44px;
   }
 </style>

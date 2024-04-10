@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
-  import { locked } from "$lib/stores/locked";
+  import network from "$lib/stores/network";
+  import locked from "$lib/stores/locked";
 
   import type Router from "$lib/classes/MPLS/Router";
   import CE from "$lib/classes/MPLS/CE";
@@ -18,10 +18,9 @@
 
   function handleDelete() {
     if (!$locked && router) {
-      if (confirm("Are you sure you want to delete this router?")) {
-        network.deleteRouter(router.id);
-        dialog.close();
-      }
+      if (!confirm("Are you sure you want to delete this router?")) return;
+      network.deleteRouter(router.id);
+      dialog.close();
     } else {
       alert("You can't delete a router while the network is locked.");
     }

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { config } from "$lib/stores/config";
+  import config from "$lib/stores/config";
   import type Packet from "$lib/classes/MPLS/Packet";
 
   export let packet: Packet;
@@ -12,13 +12,6 @@
   $: if (animation) animation.playbackRate = $config.speedMultiplier;
 
   function calculateTransitionDuration() {
-    if (!packet.nextHop) {
-      packet.drop();
-      alert("Packet has no next hop.");
-      return;
-    }
-
-    // TODO: In the future, nextHop will be a link, not a router, and then we can use the link's distance here, as it is already calculated in the Link class
     const distance = Math.sqrt(
       (packet.node.x - packet.nextHop.node.x) ** 2 + (packet.node.y - packet.nextHop.node.y) ** 2,
     );
@@ -28,12 +21,6 @@
   }
 
   function animateToNextHop() {
-    if (!packet.nextHop) {
-      packet.drop();
-      alert("Packet has no next hop.");
-      return;
-    }
-
     calculateTransitionDuration();
 
     if (!packetElement) return;
@@ -57,17 +44,17 @@
   }
 
   function handleAnimationFinish() {
-    if (!packet.nextHop) {
-      packet.drop();
-      alert("Packet has no next hop.");
-      return;
-    }
-
     packet.node = packet.nextHop.node;
 
+    const currentRouter = packet.nextHop;
+    if (currentRouter === packet.destination) return currentRouter.receivePacket(packet);
     packet.nextHop.receivePacket(packet);
+    if (packet.validateNextHop(currentRouter)) return animateToNextHop();
 
-    animateToNextHop();
+    if (packet.fallbackRoute) return;
+
+    packet.fallback(currentRouter);
+    if (packet.validateNextHop(currentRouter)) animateToNextHop();
   }
 
   requestAnimationFrame(animateToNextHop);

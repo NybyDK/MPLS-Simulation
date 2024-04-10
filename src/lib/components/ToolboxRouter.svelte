@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { locked } from "$lib/stores/locked";
+  import locked from "$lib/stores/locked";
 
   export let text: string;
   export let type: string;
@@ -33,6 +33,7 @@
     margin: 2.5px;
     user-select: none;
     cursor: grab;
+    transition: opacity 200ms;
   }
 
   div:focus {

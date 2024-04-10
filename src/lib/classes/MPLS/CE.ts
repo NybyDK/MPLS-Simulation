@@ -29,8 +29,12 @@ export default class CE extends Router {
     this.firstHop.delete(address);
   };
 
-  receivePacket(packet: Packet): void {
-    packet.drop();
+  receivePacket(packet: Packet) {
+    packet.drop("CE received packet. Dropping.");
+  }
+
+  clearTables() {
+    this.firstHop.clear();
   }
 
   get type(): "CE" {
