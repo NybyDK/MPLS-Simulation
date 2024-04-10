@@ -1,4 +1,4 @@
-import { network } from "$lib/stores/network";
+import network from "$lib/stores/network";
 import { validateDefaultNetwork } from "$lib/classes/Loader/NetworkSchemas";
 
 export default function loadDefaultNetwork() {
