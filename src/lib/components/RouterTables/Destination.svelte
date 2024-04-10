@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
-  import { paths } from "$lib/stores/paths";
+  import network from "$lib/stores/network";
+  import findShortestPath from "$lib/functions/findShortestPath";
   import type CE from "$lib/classes/MPLS/CE";
   import LDP from "$lib/classes/MPLS/LDP";
+  import SmallButton from "$lib/components/RouterTables/SmallButton.svelte";
 
   export let router: CE;
 
@@ -18,8 +19,6 @@
 
     const target = event.target.value.toUpperCase();
 
-    router.updateAddress(destination, target);
-
     const destinationRouter = network.getCERouter(target);
 
     if (!destinationRouter) {
@@ -27,7 +26,25 @@
       return;
     }
 
-    const path = paths.findShortestPath(router, destinationRouter);
+    router.updateAddress(destination, target);
+
+    router = router;
+  }
+
+  function handleLDPClick(target: string) {
+    const destinationRouter = network.getCERouter(target);
+
+    if (!destinationRouter) {
+      alert("Destination router not found.");
+      return;
+    }
+
+    const path = findShortestPath(router, destinationRouter);
+
+    if (path.length <= 1) {
+      alert("No path found");
+      return;
+    }
 
     LDP(path, target);
 
@@ -45,41 +62,68 @@
 
 <p>Destinations:</p>
 <table>
-  <tr>
-    <th>Destination</th>
-    <th>First hop</th>
-  </tr>
-  {#each [...router.firstHop] as [destination, link]}
+  <thead>
     <tr>
-      <td>
-        <input
-          type="text"
-          value={destination}
-          placeholder="Address"
-          on:change={(event) => {
-            handleOnChangeDestination(event, destination);
-          }}
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          value={link}
-          placeholder="Link"
-          on:change={(event) => {
-            handleOnChangeLink(event, destination);
-          }}
-        />
-      </td>
-      <button
-        on:click={() => {
-          router.deleteEntry(destination);
-          router = router;
-        }}
-      >
-        -
-      </button>
+      <th>Destination</th>
+      <th>First hop</th>
+      <th></th>
+      <th></th>
     </tr>
-  {/each}
+  </thead>
+  <tbody>
+    {#each [...router.firstHop] as [destination, link]}
+      <tr>
+        <td>
+          <input
+            type="text"
+            value={destination}
+            placeholder="Address"
+            on:change={(event) => {
+              handleOnChangeDestination(event, destination);
+            }}
+          />
+        </td>
+        <td>
+          <input
+            type="text"
+            value={link}
+            placeholder="Link"
+            on:change={(event) => {
+              handleOnChangeLink(event, destination);
+            }}
+          />
+        </td>
+        <td>
+          <SmallButton
+            text="LDP"
+            callback={() => {
+              handleLDPClick(destination);
+            }}
+          />
+        </td>
+        <td>
+          <SmallButton
+            text="-"
+            callback={() => {
+              router.firstHop.delete(destination);
+              router = router;
+            }}
+          />
+        </td>
+      </tr>
+    {/each}
+  </tbody>
 </table>
-<button on:click={addAndUpdate(router.addEmptyEntry)}>+</button>
+<div>
+  <SmallButton text="+" callback={addAndUpdate(router.addEmptyEntry)} />
+</div>
+
+<style>
+  div {
+    margin-top: 5px;
+  }
+
+  th:nth-last-child(2) {
+    width: 44px;
+  }
+</style>

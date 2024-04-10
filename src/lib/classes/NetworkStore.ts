@@ -1,4 +1,5 @@
-import { writable, type Writable } from "svelte/store";
+import { get, writable, type Writable } from "svelte/store";
+import config from "$lib/stores/config";
 import type { NetworkState } from "$lib/interfaces/network";
 import type Router from "$lib/classes/MPLS/Router";
 import Link from "$lib/classes/MPLS/Link";
@@ -25,8 +26,17 @@ export class NetworkStore implements Writable<NetworkState> {
   private _packets: Packet[] = [];
   private routerMap = new Map<number, Router>();
   private CEMap = new Map<string, CE>();
-  private routerCounter = 0;
-  private packetCounter = 0;
+  private routerCounter = 1;
+  private packetCounter = 1;
+  private maxPackets = get(config).maxPackets;
+
+  constructor() {
+    config.subscribe((value) => {
+      this.maxPackets = value.maxPackets;
+      this._packets = this._packets.slice(0, this.maxPackets);
+      this.notify();
+    });
+  }
 
   get routers() {
     return this._routers;
@@ -75,7 +85,7 @@ export class NetworkStore implements Writable<NetworkState> {
     this.notify();
   }
 
-  private doesLinkExist(input: { source: Router; target: Router }) {
+  doesLinkExist(input: { source: Router; target: Router }) {
     return this._links.some((link) => link.source === input.source && link.target === input.target);
   }
 
@@ -84,8 +94,8 @@ export class NetworkStore implements Writable<NetworkState> {
 
     const router = new CE(id, {
       label: `CE ${id}`,
-      x,
-      y,
+      x: Math.round(x),
+      y: Math.round(y),
     });
 
     this.addRouter(router);
@@ -96,8 +106,8 @@ export class NetworkStore implements Writable<NetworkState> {
 
     const router = new LER(id, {
       label: `LER ${id}`,
-      x,
-      y,
+      x: Math.round(x),
+      y: Math.round(y),
     });
 
     this.addRouter(router);
@@ -108,8 +118,8 @@ export class NetworkStore implements Writable<NetworkState> {
 
     const router = new LSR(id, {
       label: `LSR ${id}`,
-      x,
-      y,
+      x: Math.round(x),
+      y: Math.round(y),
     });
 
     this.addRouter(router);
@@ -160,6 +170,8 @@ export class NetworkStore implements Writable<NetworkState> {
   }
 
   addPacket(source: CE, destination: CE) {
+    if (this._packets.length >= this.maxPackets) return;
+
     const packet = new Packet(this.packetCounter++, source, destination, {
       x: source.node.x,
       y: source.node.y,
@@ -170,6 +182,19 @@ export class NetworkStore implements Writable<NetworkState> {
 
   deletePacket(id: number) {
     this._packets = this._packets.filter((packet) => packet.id !== id);
+    this.notify();
+  }
+
+  clearTables() {
+    for (const router of this._routers) {
+      router.clearTables();
+    }
+
+    this.notify();
+  }
+
+  clearLinks() {
+    this._links = [];
     this.notify();
   }
 
@@ -185,8 +210,8 @@ export class NetworkStore implements Writable<NetworkState> {
     this._packets = [];
     this.routerMap.clear();
     this.CEMap.clear();
-    this.routerCounter = 0;
-    this.packetCounter = 0;
+    this.routerCounter = 1;
+    this.packetCounter = 1;
     this.notify();
   }
 

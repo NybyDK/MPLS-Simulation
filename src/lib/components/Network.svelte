@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { network } from "$lib/stores/network";
-  import { config } from "$lib/stores/config";
   import loadDefaultNetwork from "$lib/classes/Loader/NetworkLoader";
+  import network from "$lib/stores/network";
+  import config from "$lib/stores/config";
   import ViewBox from "$lib/components/ViewBox.svelte";
   import ControlPanel from "$lib/components/ControlPanel.svelte";
   import Packet from "$lib/components/Packet.svelte";

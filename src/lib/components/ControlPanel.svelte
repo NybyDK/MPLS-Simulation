@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { network } from "$lib/stores/network";
-  import { locked } from "$lib/stores/locked";
-  import { config } from "$lib/stores/config";
+  import network from "$lib/stores/network";
+  import locked from "$lib/stores/locked";
+  import config from "$lib/stores/config";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
   import LSPList from "$lib/components/LSPList.svelte";
   import CE from "$lib/classes/MPLS/CE";
@@ -36,7 +36,7 @@
   let resizeBar: HTMLElement;
   let transition = "width 250ms";
 
-  $: panelWidth = $locked ? 300 : 0;
+  $: panelWidth = $locked ? 350 : 0;
 
   function handleResizePointerDown(event: PointerEvent) {
     if (!$locked) return;
@@ -56,8 +56,8 @@
       panelWidth = 0;
     }
 
-    if (panelWidth >= window.innerWidth - 20) {
-      panelWidth = window.innerWidth - 20;
+    if (panelWidth >= window.innerWidth - 350) {
+      panelWidth = window.innerWidth - 350;
     }
   }
 
@@ -76,14 +76,22 @@
 </div>
 <div id="control-panel" style={`width: ${panelWidth}px; transition: ${transition};`}>
   <div id="control-panel-content">
+    <p id="packet-controls-title">Packet Controls</p>
+    <p id="packet-controls-count">Count: {$network.packets.length}</p>
     <div id="control-panel-buttons">
       {#each buttons as button}
         <ToolboxButton {...button} style={`padding: 10px 20px`} />
       {/each}
     </div>
-    <div id="slider">
-      <p>Speed Multiplier: {$config.speedMultiplier}</p>
-      <input type="range" min="0.1" max="2" step="0.1" bind:value={$config.speedMultiplier} />
+    <div class="sliders">
+      <div class="slider">
+        <p>Speed Multiplier: {$config.speedMultiplier.toFixed(1)}</p>
+        <input type="range" min="0.1" max="2" step="0.001" bind:value={$config.speedMultiplier} />
+      </div>
+      <div class="slider">
+        <p>Max Packets: {$config.maxPackets}</p>
+        <input type="range" min="1" max="500" step="1" bind:value={$config.maxPackets} />
+      </div>
     </div>
     <LSPList />
   </div>
@@ -109,23 +117,45 @@
   }
 
   #control-panel-content {
-    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 350px;
+  }
+
+  #packet-controls-title {
+    padding-top: 20px;
+  }
+
+  #packet-controls-title,
+  #packet-controls-count {
+    text-align: center;
   }
 
   #control-panel-buttons {
     min-width: fit-content;
-    padding-top: 20px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    overflow: hidden;
   }
 
-  #slider {
+  .sliders {
+    padding: 20px 0;
+  }
+
+  .slider {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 20px;
+    align-items: center;
+  }
+
+  .slider:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  .slider input {
+    width: 275px;
   }
 
   @media (prefers-color-scheme: dark) {

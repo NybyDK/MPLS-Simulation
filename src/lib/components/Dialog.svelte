@@ -8,6 +8,7 @@
 
 <style>
   dialog {
+    max-height: 500px;
     padding: 10px;
     margin: auto;
   }
