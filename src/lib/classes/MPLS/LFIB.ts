@@ -1,4 +1,4 @@
-export default class LIB {
+export default class LFIB {
   // Maps incoming label to outgoing label and next hop
   map: Map<number, { outgoingLabel: number; nextHop: string }> = new Map();
 
@@ -17,7 +17,7 @@ export default class LIB {
   updateLabel = (oldLabel: number, newLabel: number) => {
     const oldValue = this.map.get(oldLabel);
     if (!oldValue) {
-      alert(`Unable to update old LIB label '${oldLabel}' to '${newLabel}'.`);
+      alert(`Unable to update old LFIB label '${oldLabel}' to '${newLabel}'.`);
       return;
     }
 

@@ -54,7 +54,7 @@
                 ...router,
                 type: router.type,
                 FIB: Object.fromEntries(router.FIB.map),
-                LIB: Object.fromEntries(router.LIB.map),
+                LFIB: Object.fromEntries(router.LFIB.map),
               };
             }
 
@@ -62,7 +62,7 @@
               return {
                 ...router,
                 type: router.type,
-                LIB: Object.fromEntries(router.LIB.map),
+                LFIB: Object.fromEntries(router.LFIB.map),
               };
             }
           }),

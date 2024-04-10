@@ -9,7 +9,7 @@
 
   import Dialog from "$lib/components/Dialog.svelte";
   import Destination from "$lib/components/RouterTables/Destination.svelte";
-  import LIB from "$lib/components/RouterTables/LIB.svelte";
+  import LFIB from "$lib/components/RouterTables/LFIB.svelte";
   import FIB from "$lib/components/RouterTables/FIB.svelte";
   import SmallButton from "$lib/components/RouterTables/SmallButton.svelte";
 
@@ -76,7 +76,7 @@
     {/if}
     {#if router instanceof LER || router instanceof LSR}
       <div class="margin-top">
-        <LIB bind:router />
+        <LFIB bind:router />
       </div>
     {/if}
     <div class="margin-top">
