@@ -1,17 +1,17 @@
 import network from "$lib/stores/network";
 import Router from "$lib/classes/MPLS/Router";
 import type Packet from "$lib/classes/MPLS/Packet";
-import LIB from "$lib/classes/MPLS/LIB";
+import LFIB from "$lib/classes/MPLS/LFIB";
 
 export default class LSR extends Router {
-  LIB = new LIB();
+  LFIB = new LFIB();
 
   receivePacket(packet: Packet) {
     if (packet.fallbackRoute) return packet.fallback(this);
-    const nextHop = this.LIB.get(packet.label)?.nextHop;
+    const nextHop = this.LFIB.get(packet.label)?.nextHop;
     if (!nextHop) return packet.fallback(this);
 
-    const newLabel = this.LIB.get(packet.label)?.outgoingLabel;
+    const newLabel = this.LFIB.get(packet.label)?.outgoingLabel;
     if (!newLabel) return packet.fallback(this);
     packet.label = newLabel;
 
@@ -24,7 +24,7 @@ export default class LSR extends Router {
   }
 
   clearTables() {
-    this.LIB.map.clear();
+    this.LFIB.map.clear();
   }
 
   get type(): "LSR" {

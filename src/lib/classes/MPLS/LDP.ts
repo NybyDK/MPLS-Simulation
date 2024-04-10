@@ -35,7 +35,7 @@ export default function LDP(path: Router[], destination: string) {
 
   let incomingLabel = generateLabel(path[destinationLERIndex]);
 
-  destinationLER.LIB.receiveEntry(incomingLabel, -1, destination);
+  destinationLER.LFIB.receiveEntry(incomingLabel, -1, destination);
 
   for (let i = path.length - 2; i > 0; i--) {
     const currentRouter = path[i];
@@ -47,14 +47,14 @@ export default function LDP(path: Router[], destination: string) {
     if (previousRouter instanceof LER) {
       previousRouter.FIB.receiveEntry(destination, outgoingLabel, currentRouter.id.toString());
     } else if (previousRouter instanceof LSR) {
-      previousRouter.LIB.receiveEntry(incomingLabel, outgoingLabel, currentRouter.id.toString());
+      previousRouter.LFIB.receiveEntry(incomingLabel, outgoingLabel, currentRouter.id.toString());
     }
   }
 }
 
 function isLabelUsed(router: Router, label: number) {
   if (router instanceof LSR || router instanceof LER) {
-    return router.LIB.map.has(label);
+    return router.LFIB.map.has(label);
   }
 
   return false;

@@ -17,11 +17,11 @@
 
     const newLabel = parseInt(event.target.value);
 
-    router.LIB.updateLabel(oldLabel, newLabel);
+    router.LFIB.updateLabel(oldLabel, newLabel);
   }
 </script>
 
-<p>LIB:</p>
+<p>LFIB:</p>
 <table>
   <thead>
     <tr>
@@ -32,7 +32,7 @@
     </tr>
   </thead>
   <tbody>
-    {#each [...router.LIB.map] as [incomingLabel, value]}
+    {#each [...router.LFIB.map] as [incomingLabel, value]}
       <tr>
         <td>
           <input
@@ -48,7 +48,7 @@
         <SmallButton
           text="-"
           callback={() => {
-            router.LIB.deleteEntry(incomingLabel);
+            router.LFIB.deleteEntry(incomingLabel);
             router = router;
           }}
         />
@@ -57,7 +57,7 @@
   </tbody>
 </table>
 <div>
-  <SmallButton text="+" callback={addAndUpdate(router.LIB.addEmptyEntry)} />
+  <SmallButton text="+" callback={addAndUpdate(router.LFIB.addEmptyEntry)} />
 </div>
 
 <style>
