@@ -1,6 +1,6 @@
 <script lang="ts">
   import network from "$lib/stores/network";
-  import paths from "$lib/stores/paths";
+  import findShortestPath from "$lib/functions/findShortestPath";
   import type CE from "$lib/classes/MPLS/CE";
   import LDP from "$lib/classes/MPLS/LDP";
   import SmallButton from "$lib/components/RouterTables/SmallButton.svelte";
@@ -39,7 +39,12 @@
       return;
     }
 
-    const path = paths.findShortestPath(router, destinationRouter);
+    const path = findShortestPath(router, destinationRouter);
+
+    if (path.length <= 1) {
+      alert("No path found");
+      return;
+    }
 
     LDP(path, target);
 

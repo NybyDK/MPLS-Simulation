@@ -17,7 +17,7 @@ export default function LDP(path: Router[], destination: string) {
   const sourceLER = path[1];
 
   if (!(sourceLER instanceof LER)) {
-    alert("The source CE is not directly connected to LER");
+    alert("The source CE is not directly connected to an LER");
     return;
   }
 
