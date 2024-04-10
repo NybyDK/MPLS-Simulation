@@ -1,7 +1,7 @@
 import network from "$lib/stores/network";
 import CE from "$lib/classes/MPLS/CE";
 import type Router from "$lib/classes/MPLS/Router";
-import paths from "$lib/stores/paths";
+import findShortestPath from "$lib/functions/findShortestPath";
 
 export default class Packet {
   private ttl: number = 32;
@@ -39,7 +39,7 @@ export default class Packet {
     this.decrementTTL();
     if (this.fallbackRoute) return this.setFallbackNextHop();
 
-    this.fallbackRoute = paths.findShortestPath(currentRouter, this.destination);
+    this.fallbackRoute = findShortestPath(currentRouter, this.destination);
     const destinationRouter = this.fallbackRoute[this.fallbackRoute.length - 1];
 
     if (!(destinationRouter instanceof CE)) return this.drop("The destination is not a CE.");

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import network from "$lib/stores/network";
-  import paths from "$lib/stores/paths";
+  import findShortestPath from "$lib/functions/findShortestPath";
   import locked from "$lib/stores/locked";
   import type Link from "$lib/classes/MPLS/Link";
   import type Router from "$lib/classes/MPLS/Router";
@@ -128,7 +128,7 @@
           break earlyReturn;
         }
 
-        const path = paths.findShortestPath(selectedRouter, target);
+        const path = findShortestPath(selectedRouter, target);
 
         if (path.length <= 1) {
           alert("No path found");

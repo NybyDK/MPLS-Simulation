@@ -1,34 +1,9 @@
-import { writable, type Writable } from "svelte/store";
 import network from "$lib/stores/network";
 import type Router from "$lib/classes/MPLS/Router";
 import type CE from "$lib/classes/MPLS/CE";
 import LER from "$lib/classes/MPLS/LER";
 
-export class PathStore implements Writable<Map<number, Map<number, Router[]>>> {
-  private store = writable<Map<number, Map<number, Router[]>>>();
-
-  set = this.store.set;
-  update = this.store.update;
-  subscribe = this.store.subscribe;
-
-  private _map: Map<number, Map<number, Router[]>> = new Map();
-
-  public getPath(sourceId: number, targetId: number) {
-    const sourceMap = this._map.get(sourceId);
-    if (!sourceMap) return undefined;
-    return sourceMap.get(targetId);
-  }
-
-  public findShortestPath(source: Router, target: CE) {
-    return dijkstra(source, target);
-  }
-
-  notify() {
-    this.store.set(this._map);
-  }
-}
-
-function dijkstra(source: Router, destination: CE) {
+export default function findShortestPath(source: Router, destination: CE) {
   const routers = network.routers;
   const numRouters: number = routers.length;
   const distances: number[] = new Array<number>(numRouters).fill(Infinity);
