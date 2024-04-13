@@ -10,12 +10,12 @@
   };
 </script>
 
-<circle
-  id={router.id.toString()}
-  cx={router.node.x}
-  cy={router.node.y}
-  r="20"
-  fill={colorMap[router.type]}
+<image
+  xlink:href={static/[router.type]Router.svg}
+  x={router.node.x - 20} 
+  y={router.node.y - 20}
+  width="40" 
+  height="40" 
 />
 <text x={router.node.x} y={router.node.y} dominant-baseline="central" font-size="smaller">
   {router.node.label}
@@ -28,7 +28,7 @@
     text-anchor: middle;
   }
 
-  circle {
+  image {
     cursor: pointer;
   }
 </style>
