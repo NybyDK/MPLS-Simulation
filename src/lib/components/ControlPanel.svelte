@@ -94,7 +94,7 @@
       </div>
       <div class="input-box">
         <label>
-          <p>Fallback to normal ip routing?</p>
+          <p>Fallback to normal IP routing?</p>
           <input type="checkbox" bind:checked={$config.enableFallback} />
         </label>
       </div>
