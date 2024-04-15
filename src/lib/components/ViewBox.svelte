@@ -69,8 +69,10 @@
       mouse.x = -1000000;
       mouse.y = -1000000;
       interactionState = InteractionState.ADDING_ROUTERS;
+      SVG?.addEventListener("pointermove", handleRouterPreviewMove);
     } else {
       interactionState = InteractionState.NONE;
+      SVG?.removeEventListener("pointermove", handleRouterPreviewMove);
     }
   });
 
@@ -341,7 +343,6 @@
   bind:this={SVG}
   viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
   on:pointerdown={handlePointerDown}
-  on:pointermove={handleRouterPreviewMove}
   on:pointerup={handlePointerUp}
   on:wheel={handleWheel}
   on:dblclick={handleDoubleClick}
