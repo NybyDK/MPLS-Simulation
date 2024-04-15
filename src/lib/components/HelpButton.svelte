@@ -16,6 +16,10 @@
 
 <Dialog bind:dialog>
   <p>Drag and drop routers to add them to the network.</p>
+  <p>
+    Instead of drag and drop, you can also click and hold shift while continuously clicking to add
+    many routers.
+  </p>
   <p>Hold the shift key and drag routers to make links.</p>
   <p>Hold the ctrl key and drag CE's to add destinations.</p>
   <p>Double click a router or link to configure it.</p>

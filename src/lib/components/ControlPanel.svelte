@@ -83,14 +83,20 @@
         <ToolboxButton {...button} style={`padding: 10px 20px`} />
       {/each}
     </div>
-    <div class="sliders">
-      <div class="slider">
+    <div class="inputs">
+      <div class="input-box">
         <p>Speed Multiplier: {$config.speedMultiplier.toFixed(1)}</p>
         <input type="range" min="0.1" max="2" step="0.001" bind:value={$config.speedMultiplier} />
       </div>
-      <div class="slider">
+      <div class="input-box">
         <p>Max Packets: {$config.maxPackets}</p>
         <input type="range" min="1" max="500" step="1" bind:value={$config.maxPackets} />
+      </div>
+      <div class="input-box">
+        <label>
+          <p>Fallback to normal IP routing?</p>
+          <input type="checkbox" bind:checked={$config.enableFallback} />
+        </label>
       </div>
     </div>
     <LSPList />
@@ -139,23 +145,36 @@
     flex-wrap: wrap;
   }
 
-  .sliders {
+  .inputs {
     padding: 20px 0;
   }
 
-  .slider {
+  .input-box {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 
-  .slider:not(:last-child) {
+  .input-box:not(:last-child) {
     margin-bottom: 10px;
   }
 
-  .slider input {
+  .input-box input[type="range"] {
     width: 275px;
+  }
+
+  label {
+    display: flex;
+  }
+
+  input[type="checkbox"] {
+    margin-left: 10px;
+  }
+
+  p {
+    text-align: center;
+    display: inline-block;
   }
 
   @media (prefers-color-scheme: dark) {
