@@ -21,6 +21,11 @@
 
     const destinationRouter = network.getCERouter(target);
 
+    if (router.address === target) {
+      alert("Destination router cannot be the same as the source router.");
+      return;
+    }
+
     if (!destinationRouter) {
       alert("Destination router not found.");
       return;

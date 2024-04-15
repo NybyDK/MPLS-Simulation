@@ -33,7 +33,7 @@ export class NetworkStore implements Writable<NetworkState> {
   constructor() {
     config.subscribe((value) => {
       this.maxPackets = value.maxPackets;
-      this._packets = this._packets.slice(0, this.maxPackets);
+      this._packets = this._packets.slice(-this.maxPackets);
       this.notify();
     });
   }
