@@ -17,20 +17,12 @@
     {
       text: "Clear Network",
       callback: () => {
-        if ($locked) {
-          alert("Network is locked.");
-          return;
-        }
         if (confirm("Are you sure you want to clear the network?")) network.clear();
       },
     },
     {
       text: "Clear Links",
       callback: () => {
-        if ($locked) {
-          alert("Network is locked.");
-          return;
-        }
         if (confirm("Are you sure you want to clear the links?")) network.clearLinks();
       },
     },
@@ -41,10 +33,6 @@
     {
       text: "Clear Tables",
       callback: () => {
-        if ($locked) {
-          alert("Network is locked.");
-          return;
-        }
         if (confirm("Are you sure you want to clear the routing tables?")) network.clearTables();
       },
     },
@@ -66,7 +54,7 @@
                 ...router,
                 type: router.type,
                 FIB: Object.fromEntries(router.FIB.map),
-                LIB: Object.fromEntries(router.LIB.map),
+                LFIB: Object.fromEntries(router.LFIB.map),
               };
             }
 
@@ -74,7 +62,7 @@
               return {
                 ...router,
                 type: router.type,
-                LIB: Object.fromEntries(router.LIB.map),
+                LFIB: Object.fromEntries(router.LFIB.map),
               };
             }
           }),
