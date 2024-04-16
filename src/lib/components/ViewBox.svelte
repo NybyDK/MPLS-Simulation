@@ -41,6 +41,11 @@
     y: 0,
   };
 
+  const previewRouterMouse = {
+    x: 0,
+    y: 0,
+  };
+
   const colorMap = {
     CE: "#7FC8F8",
     LER: "#FFE45E",
@@ -66,13 +71,9 @@
 
   editorState.subscribe((value) => {
     if (value.placing && ["CE", "LER", "LSR"].includes(value.placing)) {
-      mouse.x = -1000000;
-      mouse.y = -1000000;
       interactionState = InteractionState.ADDING_ROUTERS;
-      SVG?.addEventListener("pointermove", handleRouterPreviewMove);
     } else {
       interactionState = InteractionState.NONE;
-      SVG?.removeEventListener("pointermove", handleRouterPreviewMove);
     }
   });
 
@@ -99,15 +100,29 @@
   }
 
   function handleRouterPreviewMove(event: PointerEvent) {
-    if ($editorState.placing) {
-      mouse.x = event.clientX;
-      mouse.y = event.clientY;
-    }
+    previewRouterMouse.x = event.clientX;
+    previewRouterMouse.y = event.clientY;
   }
 
   function handleKeyDown(event: KeyboardEvent) {
-    if (event.key === "Escape") {
-      $editorState.placing = null;
+    switch (event.code) {
+      case "Escape":
+        $editorState.placing = null;
+        break;
+      case "Space":
+        $locked = !$locked;
+        $editorState.placing = null;
+        network.clearPackets();
+        break;
+      case "Digit1":
+        $editorState.placing = "CE";
+        break;
+      case "Digit2":
+        $editorState.placing = "LER";
+        break;
+      case "Digit3":
+        $editorState.placing = "LSR";
+        break;
     }
   }
 
@@ -343,6 +358,7 @@
   bind:this={SVG}
   viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
   on:pointerdown={handlePointerDown}
+  on:pointermove={handleRouterPreviewMove}
   on:pointerup={handlePointerUp}
   on:wheel={handleWheel}
   on:dblclick={handleDoubleClick}
@@ -365,12 +381,17 @@
   <slot />
   {#if interactionState === InteractionState.ADDING_ROUTERS && $editorState.placing}
     <circle
-      cx={scaledX(mouse.x)}
-      cy={scaledY(mouse.y)}
+      cx={scaledX(previewRouterMouse.x)}
+      cy={scaledY(previewRouterMouse.y)}
       r="20"
       fill={colorMap[$editorState.placing]}
     />
-    <text x={scaledX(mouse.x)} y={scaledY(mouse.y)} dominant-baseline="central" font-size="smaller">
+    <text
+      x={scaledX(previewRouterMouse.x)}
+      y={scaledY(previewRouterMouse.y)}
+      dominant-baseline="central"
+      font-size="smaller"
+    >
       {$editorState.placing}
     </text>
   {/if}
