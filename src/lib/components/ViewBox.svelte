@@ -110,6 +110,7 @@
         $editorState.placing = null;
         break;
       case "Space":
+        event.preventDefault();
         $locked = !$locked;
         $editorState.placing = null;
         network.clearPackets();
