@@ -21,7 +21,7 @@
     many routers.
   </p><br>
   <p>
-    Pressing 1, 2 or 3 will repsectively select CE, LER or LSR, this works with the holding of shift to insert routers.
+    Pressing 1, 2 or 3 will respectively select CE, LER or LSR, this works with the holding of shift to insert routers.
   </p><br>
   <p>Hold the shift key and drag routers to make links.</p> <br>
   <p>Hold the ctrl key and drag CE's to add destinations.</p> <br>
