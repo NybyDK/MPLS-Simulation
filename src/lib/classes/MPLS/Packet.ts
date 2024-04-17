@@ -1,4 +1,6 @@
+import { get } from "svelte/store";
 import network from "$lib/stores/network";
+import config from "$lib/stores/config";
 import CE from "$lib/classes/MPLS/CE";
 import type Router from "$lib/classes/MPLS/Router";
 import findShortestPath from "$lib/functions/findShortestPath";
@@ -35,6 +37,8 @@ export default class Packet {
   }
 
   fallback(currentRouter: Router) {
+    if (!get(config).enableFallback) return this.drop("Fallback is disabled.");
+
     this.label = -1;
     this.decrementTTL();
     if (this.fallbackRoute) return this.setFallbackNextHop();
