@@ -1,7 +1,7 @@
 {
   "name": "MPLS Simulation",
   "short_name": "MPLS Sim",
-  "start_url": "/",
+  "start_url": "/MPLS-Simulation/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
