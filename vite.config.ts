@@ -6,4 +6,9 @@ export default defineConfig({
   test: {
     include: ["src/**/*.test.ts"],
   },
+  server: {
+    fs: {
+      strict: false, //Allows serving files outside of the workspace root
+    },
+  },
 });

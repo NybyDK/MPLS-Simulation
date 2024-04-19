@@ -46,12 +46,6 @@
     y: 0,
   };
 
-  const colorMap = {
-    CE: "#7FC8F8",
-    LER: "#FFE45E",
-    LSR: "#FF6392",
-  };
-
   $: cursorStyles = {
     [InteractionState.NONE]: "move",
     [InteractionState.DRAGGING]: $locked ? "not-allowed" : "grabbing",
@@ -189,7 +183,7 @@
       if (interactionState === InteractionState.ADDING_DESTINATION) {
         const element = document.elementFromPoint(event.clientX, event.clientY);
 
-        const targetId = element?.tagName === "circle" ? element.id : null;
+        const targetId = element?.tagName === "image" ? element.id : null;
         const target = network.getRouter(parseInt(targetId ?? ""));
 
         if (!target || selectedRouter === target) break earlyReturn;
@@ -250,7 +244,7 @@
 
       const target = network.getRouter(parseInt(element.id));
 
-      if (element.tagName === "circle" && target && selectedRouter) {
+      if (element.tagName === "image" && target && selectedRouter) {
         network.addLink({ source: selectedRouter, target });
         selectedRouter = target;
       }
@@ -296,7 +290,7 @@
 
     if (!element) return;
 
-    if (element.tagName === "circle") {
+    if (element.tagName === "image") {
       openRouterSettings(element.id);
     } else if (element.tagName === "rect") {
       openLinkSettings(element.id);
@@ -381,11 +375,9 @@
   {/if}
   <slot />
   {#if interactionState === InteractionState.ADDING_ROUTERS && $editorState.placing}
-    <circle
+    <image
       cx={scaledX(previewRouterMouse.x)}
       cy={scaledY(previewRouterMouse.y)}
-      r="20"
-      fill={colorMap[$editorState.placing]}
     />
     <text
       x={scaledX(previewRouterMouse.x)}
