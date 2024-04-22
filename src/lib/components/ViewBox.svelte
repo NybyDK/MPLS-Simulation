@@ -375,10 +375,7 @@
   {/if}
   <slot />
   {#if interactionState === InteractionState.ADDING_ROUTERS && $editorState.placing}
-    <image
-      cx={scaledX(previewRouterMouse.x)}
-      cy={scaledY(previewRouterMouse.y)}
-    />
+    <image cx={scaledX(previewRouterMouse.x)} cy={scaledY(previewRouterMouse.y)} />
     <text
       x={scaledX(previewRouterMouse.x)}
       y={scaledY(previewRouterMouse.y)}
