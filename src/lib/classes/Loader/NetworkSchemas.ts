@@ -1,5 +1,5 @@
 import { z } from "zod";
-import DefaultNetwork from "$lib/data/DefaultNetwork.json";
+import test from "$lib/data/test.json";
 
 const NodeSchema = z.object({
   label: z.string(),
@@ -7,7 +7,7 @@ const NodeSchema = z.object({
   y: z.number(),
 });
 
-const LIBSchema = z.record(
+const LFIBSchema = z.record(
   z.object({
     outgoingLabel: z.number(),
     nextHop: z.string(),
@@ -29,12 +29,12 @@ const CESchema = z.object({
 });
 
 const LERSchema = z.object({
-  LIB: LIBSchema,
+  LFIB: LFIBSchema,
   FIB: FIBSchema,
 });
 
 const LSRSchema = z.object({
-  LIB: LIBSchema,
+  LFIB: LFIBSchema,
 });
 
 const RouterSchema = z
@@ -42,6 +42,8 @@ const RouterSchema = z
     type: z.union([z.literal("CE"), z.literal("LER"), z.literal("LSR")]),
     id: z.number(),
     node: NodeSchema,
+    LFIB: z.optional(LFIBSchema),
+    FIB: z.optional(FIBSchema),
   })
   .and(z.union([CESchema, LERSchema, LSRSchema]));
 
@@ -57,4 +59,4 @@ const DefaultNetworkSchema = z.object({
   links: z.array(LinkSchema),
 });
 
-export const validateDefaultNetwork = DefaultNetworkSchema.safeParse(DefaultNetwork);
+export const validateDefaultNetwork = DefaultNetworkSchema.safeParse(test);
