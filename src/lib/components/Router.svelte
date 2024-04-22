@@ -5,23 +5,18 @@
 </script>
 
 
-<svg>
+
   <image
     id={router.id.toString()}
     x={router.node.x - 20}
     y={router.node.y - 20}
-    width="40"
-    height="40"
-    xlink:href={`/images/${router.type}Router.svg`}
+    width="45"
+    height="45"
+    href={`/${router.type}Router.svg`}
   />
-  <text x={router.node.x} y={router.node.y} dominant-baseline="central" font-size="smaller">
+  <text x={router.node.x+2} y={router.node.y+10} dominant-baseline="central" font-size="smaller">
     {router.node.label}
   </text>
-</svg>
-<text x={router.node.x} y={router.node.y} dominant-baseline="central" font-size="smaller">
-{router.node.label}
-</text>
-
 
 <style>
   text {
