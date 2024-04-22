@@ -1,13 +1,18 @@
 <script lang="ts">
   import network from "$lib/stores/network";
   import locked from "$lib/stores/locked";
+  import editorState from "$lib/stores/editorState";
   import ToolboxRouter from "$lib/components/ToolboxRouter.svelte";
   import ToolboxButton from "$lib/components/ToolboxButton.svelte";
   import CE from "$lib/classes/MPLS/CE";
   import LER from "$lib/classes/MPLS/LER";
   import LSR from "$lib/classes/MPLS/LSR";
 
-  const ToolboxRouters = [
+  const ToolboxRouters: {
+    text: string;
+    type: "CE" | "LER" | "LSR";
+    color: string;
+  }[] = [
     { text: "+ Customer", type: "CE", color: "#7FC8F8" },
     { text: "+ Edge", type: "LER", color: "#FFE45E" },
     { text: "+ Switch", type: "LSR", color: "#FF6392" },
@@ -92,6 +97,7 @@
   text={$locked ? "Edit" : "Simulation"}
   callback={() => {
     $locked = !$locked;
+    $editorState.placing = null;
     network.clearPackets();
   }}
   style={`width: 100px; background-color: ${$locked ? "#3CB371" : "#6495ED"};`}

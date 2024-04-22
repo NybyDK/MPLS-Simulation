@@ -39,6 +39,7 @@
   "type": "module",
   "dependencies": {
     "@sveltejs/adapter-static": "^3.0.1",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "workbox-precaching": "^7.0.0"
   }
 }

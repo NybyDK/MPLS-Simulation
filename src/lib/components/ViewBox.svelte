@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import network from "$lib/stores/network";
+  import editorState from "$lib/stores/editorState";
   import findShortestPath from "$lib/functions/findShortestPath";
   import locked from "$lib/stores/locked";
   import type Link from "$lib/classes/MPLS/Link";
@@ -16,6 +17,7 @@
     PANNING,
     CONNECTING,
     ADDING_DESTINATION,
+    ADDING_ROUTERS,
   }
 
   const viewBox = {
@@ -39,12 +41,24 @@
     y: 0,
   };
 
+  const previewRouterMouse = {
+    x: 0,
+    y: 0,
+  };
+
+  const colorMap = {
+    CE: "#7FC8F8",
+    LER: "#FFE45E",
+    LSR: "#FF6392",
+  };
+
   $: cursorStyles = {
     [InteractionState.NONE]: "move",
     [InteractionState.DRAGGING]: $locked ? "not-allowed" : "grabbing",
     [InteractionState.PANNING]: "grabbing",
     [InteractionState.CONNECTING]: $locked ? "not-allowed" : "crosshair",
     [InteractionState.ADDING_DESTINATION]: "crosshair",
+    [InteractionState.ADDING_ROUTERS]: "none",
   };
 
   let SVG: SVGElement | null = null;
@@ -54,6 +68,14 @@
   let routerSettingsDialog: HTMLDialogElement;
   let linkSettingsDialog: HTMLDialogElement;
   let loaded = false;
+
+  editorState.subscribe((value) => {
+    if (value.placing && ["CE", "LER", "LSR"].includes(value.placing)) {
+      interactionState = InteractionState.ADDING_ROUTERS;
+    } else {
+      interactionState = InteractionState.NONE;
+    }
+  });
 
   onMount(() => {
     if (!SVG) return;
@@ -77,10 +99,58 @@
     viewBox.height = SVG.getBoundingClientRect().height * zoomFactor;
   }
 
+  function handleRouterPreviewMove(event: PointerEvent) {
+    previewRouterMouse.x = event.clientX;
+    previewRouterMouse.y = event.clientY;
+  }
+
+  function handleKeyDown(event: KeyboardEvent) {
+    switch (event.code) {
+      case "Escape":
+        $editorState.placing = null;
+        break;
+      case "Space":
+        event.preventDefault();
+        $locked = !$locked;
+        $editorState.placing = null;
+        network.clearPackets();
+        break;
+      case "Digit1":
+        $editorState.placing = "CE";
+        break;
+      case "Digit2":
+        $editorState.placing = "LER";
+        break;
+      case "Digit3":
+        $editorState.placing = "LSR";
+        break;
+    }
+  }
+
   function handlePointerDown(event: PointerEvent) {
     if (!(event.target instanceof Element)) return;
 
     event.preventDefault();
+
+    if (interactionState === InteractionState.ADDING_ROUTERS) {
+      switch ($editorState.placing) {
+        case "CE":
+          network.createCE(scaledX(event.clientX), scaledY(event.clientY));
+          break;
+        case "LER":
+          network.createLER(scaledX(event.clientX), scaledY(event.clientY));
+          break;
+        case "LSR":
+          network.createLSR(scaledX(event.clientX), scaledY(event.clientY));
+          break;
+      }
+
+      if (!event.shiftKey) {
+        $editorState.placing = null;
+      }
+
+      return;
+    }
 
     SVG?.addEventListener("pointermove", handlePointerMove);
     SVG?.setPointerCapture(event.pointerId);
@@ -111,6 +181,7 @@
 
   function handlePointerUp(event: PointerEvent) {
     if (!(event.target instanceof Element)) return;
+    if (interactionState === InteractionState.ADDING_ROUTERS) return;
 
     event.preventDefault();
 
@@ -288,6 +359,7 @@
   bind:this={SVG}
   viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
   on:pointerdown={handlePointerDown}
+  on:pointermove={handleRouterPreviewMove}
   on:pointerup={handlePointerUp}
   on:wheel={handleWheel}
   on:dblclick={handleDoubleClick}
@@ -308,7 +380,25 @@
     />
   {/if}
   <slot />
+  {#if interactionState === InteractionState.ADDING_ROUTERS && $editorState.placing}
+    <circle
+      cx={scaledX(previewRouterMouse.x)}
+      cy={scaledY(previewRouterMouse.y)}
+      r="20"
+      fill={colorMap[$editorState.placing]}
+    />
+    <text
+      x={scaledX(previewRouterMouse.x)}
+      y={scaledY(previewRouterMouse.y)}
+      dominant-baseline="central"
+      font-size="smaller"
+    >
+      {$editorState.placing}
+    </text>
+  {/if}
 </svg>
+
+<svelte:window on:keydown={handleKeyDown} />
 
 <RouterSettings bind:router={selectedRouter} bind:dialog={routerSettingsDialog} />
 <LinkSettings bind:link={selectedLink} bind:dialog={linkSettingsDialog} />
@@ -318,5 +408,9 @@
     width: 100%;
     height: 100%;
     touch-action: none;
+  }
+
+  text {
+    text-anchor: middle;
   }
 </style>
