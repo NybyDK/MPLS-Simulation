@@ -582,7 +582,7 @@ test("Cannot move a router when in edit mode", async ({ page }) => {
 
   const routerIcon = SVG.locator("image");
 
-  const oldPosition = await routerIcon.getAttribute("cx");
+  const oldPosition = await routerIcon.getAttribute("x");
 
   if (!oldPosition) throw new Error("Could not find old position");
 
@@ -591,7 +591,7 @@ test("Cannot move a router when in edit mode", async ({ page }) => {
 
   await routerIcon.dragTo(SVG, { targetPosition: { x: 100, y: 0 } });
 
-  const newPosition = await routerIcon.getAttribute("cx");
+  const newPosition = await routerIcon.getAttribute("x");
 
   if (!newPosition) throw new Error("Could not find new position");
 
