@@ -40,7 +40,7 @@
        x2="299.9375"
        y2="125.12147"
        id="linearGradient3796"
-       xlink:href="#linearGradient3613"
+       href="#linearGradient3613"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(-0.31342216,851.86901)" />
     <linearGradient
@@ -49,7 +49,7 @@
        x2="299.9375"
        y2="125.12147"
        id="linearGradient3821"
-       xlink:href="#linearGradient3613"
+       href="#linearGradient3613"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(-0.31342216,851.86901)" />
     <linearGradient
@@ -58,7 +58,7 @@
        x2="299.9375"
        y2="125.12147"
        id="linearGradient3833"
-       xlink:href="#linearGradient3613"
+       href="#linearGradient3613"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(-0.31342216,851.86901)" />
   </defs>

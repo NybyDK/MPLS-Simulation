@@ -1,19 +1,17 @@
 <script lang="ts">
   import type Router from "$lib/classes/MPLS/Router";
-  import RouterSymbol from "$lib/components/RouterSymbol.svelte";
 
   export let router: Router;
 </script>
 
-<svg
+<image
   id={router.id.toString()}
   x={router.node.x - 20}
   y={router.node.y - 20}
   width="45"
   height="45"
-  href={`/${router.type}Router.svg`}
+  href={`/Router/${router.type}Router.svg`}
 />
-<RouterSymbol routerID={router.id} />
 <text x={router.node.x + 2} y={router.node.y + 10} dominant-baseline="central" font-size="smaller">
   {router.node.label}
 </text>
@@ -25,7 +23,7 @@
     text-anchor: middle;
   }
 
-  svg {
+  image {
     cursor: pointer;
   }
 </style>

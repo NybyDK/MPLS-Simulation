@@ -15,11 +15,11 @@
        id="linearGradient3613">
       <stop
          id="stop3780"
-         style="stop-color:#557b8b;stop-opacity:1"
+         style="stop-color:#ff6392;stop-opacity:1"
          offset="0" />
       <stop
          id="stop3617"
-         style="stop-color:#8aaac0;stop-opacity:1"
+         style="stop-color:#c73661;stop-opacity:1"
          offset="1" />
     </linearGradient>
     <marker
@@ -40,7 +40,7 @@
        x2="299.9375"
        y2="125.12147"
        id="linearGradient3796"
-       xlink:href="#linearGradient3613"
+       href="#linearGradient3613"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(-0.31342216,851.86901)" />
     <linearGradient
@@ -49,7 +49,7 @@
        x2="299.9375"
        y2="125.12147"
        id="linearGradient3821"
-       xlink:href="#linearGradient3613"
+       href="#linearGradient3613"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(-0.31342216,851.86901)" />
     <linearGradient
@@ -58,7 +58,7 @@
        x2="299.9375"
        y2="125.12147"
        id="linearGradient3833"
-       xlink:href="#linearGradient3613"
+       href="#linearGradient3613"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(-0.31342216,851.86901)" />
   </defs>
@@ -78,7 +78,7 @@
            d="m 280.43717,678.68689 a 113.47587,113.47587 0 1 1 -226.951735,0 113.47587,113.47587 0 1 1 226.951735,0 z"
            transform="matrix(1.141816,0.218627,-0.659227,0.378674,406.7696,608.8589)"
            id="path4755"
-           style="fill:#557b8b;fill-opacity:1;stroke:none" />
+           style="fill:#E34D7A;fill-opacity:1;stroke:none" />
         <path
            d="m 229.92724,898.48426 -18.78401,10.78993 66.58103,12.7485 -12.52268,7.1933 -66.58103,-12.7485 -18.78403,10.7899 -12.48521,-21.5727 62.57593,-7.20043 z"
            id="path2775"

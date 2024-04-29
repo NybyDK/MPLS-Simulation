@@ -17,11 +17,11 @@ test.beforeEach(async ({ page }) => {
 test("No router detected on empty canvas", async ({ page }) => {
   const target = page.locator("svg");
 
-  const circle = target.locator("circle");
-  const circleText = target.locator("text");
+  const routerIcon = target.locator("image");
+  const routerIconText = target.locator("text");
 
-  await expect(circle).not.toBeVisible();
-  await expect(circleText).not.toBeVisible();
+  await expect(routerIcon).not.toBeVisible();
+  await expect(routerIconText).not.toBeVisible();
 });
 
 test("Can drag and drop a CE Router", async ({ page }) => {
@@ -30,12 +30,12 @@ test("Can drag and drop a CE Router", async ({ page }) => {
 
   await source.dragTo(target);
 
-  const circle = target.locator("circle");
-  const circleText = target.locator("text");
+  const routerIcon = target.locator("image");
+  const routerIconText = target.locator("text");
 
-  await expect(circle).toBeVisible();
-  await expect(circleText).toBeVisible();
-  await expect(circleText).toContainText("CE");
+  await expect(routerIcon).toBeVisible();
+  await expect(routerIconText).toBeVisible();
+  await expect(routerIconText).toContainText("CE");
 });
 
 test("Can drag and drop a LER Router", async ({ page }) => {
@@ -44,12 +44,12 @@ test("Can drag and drop a LER Router", async ({ page }) => {
 
   await source.dragTo(target);
 
-  const circle = target.locator("circle");
-  const circleText = target.locator("text");
+  const routerIcon = target.locator("image");
+  const routerIconText = target.locator("text");
 
-  await expect(circle).toBeVisible();
-  await expect(circleText).toBeVisible();
-  await expect(circleText).toContainText("LER");
+  await expect(routerIcon).toBeVisible();
+  await expect(routerIconText).toBeVisible();
+  await expect(routerIconText).toContainText("LER");
 });
 
 test("Can drag and drop a LSR Router", async ({ page }) => {
@@ -58,12 +58,12 @@ test("Can drag and drop a LSR Router", async ({ page }) => {
 
   await source.dragTo(target);
 
-  const circle = target.locator("circle");
-  const circleText = target.locator("text");
+  const routerIcon = target.locator("image");
+  const routerIconText = target.locator("text");
 
-  await expect(circle).toBeVisible();
-  await expect(circleText).toBeVisible();
-  await expect(circleText).toContainText("LSR");
+  await expect(routerIcon).toBeVisible();
+  await expect(routerIconText).toBeVisible();
+  await expect(routerIconText).toContainText("LSR");
 });
 
 test("Cannot create a router when in edit mode", async ({ page }) => {
@@ -91,10 +91,10 @@ test("Can establish a link between CE and LER", async ({ page }) => {
   await CustomerButton.dragTo(SVG, { targetPosition: { x: middle.x - 100, y: middle.y } });
   await EdgeButton.dragTo(SVG, { targetPosition: { x: middle.x + 100, y: middle.y } });
 
-  const [CECircle, LERCircle] = await SVG.locator("circle").all();
+  const [CErouterIcon, LERrouterIcon] = await SVG.locator("image").all();
 
   await page.keyboard.down("Shift");
-  await CECircle.dragTo(LERCircle);
+  await CErouterIcon.dragTo(LERrouterIcon);
   await page.keyboard.up("Shift");
 
   const link = SVG.locator("line");
@@ -124,10 +124,10 @@ test("Can establish a link between LER and LSR", async ({ page }) => {
   await EdgeButton.dragTo(SVG, { targetPosition: { x: middle.x - 100, y: middle.y } });
   await SwitchButton.dragTo(SVG, { targetPosition: { x: middle.x + 100, y: middle.y } });
 
-  const [LERCircle, LSRCircle] = await SVG.locator("circle").all();
+  const [LERrouterIcon, LSRrouterIcon] = await SVG.locator("image").all();
 
   await page.keyboard.down("Shift");
-  await LERCircle.dragTo(LSRCircle);
+  await LERrouterIcon.dragTo(LSRrouterIcon);
   await page.keyboard.up("Shift");
 
   const link = SVG.locator("line");
@@ -156,10 +156,10 @@ test("Can establish a link between LSR and LSR", async ({ page }) => {
   await SwitchButton.dragTo(SVG, { targetPosition: { x: middle.x - 100, y: middle.y } });
   await SwitchButton.dragTo(SVG, { targetPosition: { x: middle.x + 100, y: middle.y } });
 
-  const [LSRCircle1, LSRCircle2] = await SVG.locator("circle").all();
+  const [LSRrouterIcon1, LSRrouterIcon2] = await SVG.locator("image").all();
 
   await page.keyboard.down("Shift");
-  await LSRCircle1.dragTo(LSRCircle2);
+  await LSRrouterIcon1.dragTo(LSRrouterIcon2);
   await page.keyboard.up("Shift");
 
   const link = SVG.locator("line");
@@ -188,10 +188,10 @@ test("Cannot establish a link between CE and CE", async ({ page }) => {
   await CustomerButton.dragTo(SVG, { targetPosition: { x: middle.x - 100, y: middle.y } });
   await CustomerButton.dragTo(SVG, { targetPosition: { x: middle.x + 100, y: middle.y } });
 
-  const [CECircle1, CECircle2] = await SVG.locator("circle").all();
+  const [CErouterIcon1, CErouterIcon2] = await SVG.locator("image").all();
 
   await page.keyboard.down("Shift");
-  await CECircle1.dragTo(CECircle2);
+  await CErouterIcon1.dragTo(CErouterIcon2);
   await page.keyboard.up("Shift");
 
   const link = SVG.locator("line");
@@ -218,10 +218,10 @@ test("Cannot establish a link between CE and LSR", async ({ page }) => {
   await CustomerButton.dragTo(SVG, { targetPosition: { x: middle.x - 100, y: middle.y } });
   await SwitchButton.dragTo(SVG, { targetPosition: { x: middle.x + 100, y: middle.y } });
 
-  const [CECircle, LSRCircle] = await SVG.locator("circle").all();
+  const [CErouterIcon, LSRrouterIcon] = await SVG.locator("image").all();
 
   await page.keyboard.down("Shift");
-  await CECircle.dragTo(LSRCircle);
+  await CErouterIcon.dragTo(LSRrouterIcon);
   await page.keyboard.up("Shift");
 
   const link = SVG.locator("line");
@@ -247,10 +247,10 @@ test("Cannot establish a link between LER and LER", async ({ page }) => {
   await EdgeButton.dragTo(SVG, { targetPosition: { x: middle.x - 100, y: middle.y } });
   await EdgeButton.dragTo(SVG, { targetPosition: { x: middle.x + 100, y: middle.y } });
 
-  const [LERCircle1, LERCircle2] = await SVG.locator("circle").all();
+  const [LERrouterIcon1, LERrouterIcon2] = await SVG.locator("image").all();
 
   await page.keyboard.down("Shift");
-  await LERCircle1.dragTo(LERCircle2);
+  await LERrouterIcon1.dragTo(LERrouterIcon2);
   await page.keyboard.up("Shift");
 
   const link = SVG.locator("line");
@@ -277,13 +277,13 @@ test("Cannot create a link when in simulation mode", async ({ page }) => {
   await CustomerButton.dragTo(SVG, { targetPosition: { x: middle.x - 100, y: middle.y } });
   await EdgeButton.dragTo(SVG, { targetPosition: { x: middle.x + 100, y: middle.y } });
 
-  const [CECircle, LERCircle] = await SVG.locator("circle").all();
+  const [CErouterIcon, LERrouterIcon] = await SVG.locator("image").all();
 
   const modeButton = page.getByRole("button", { name: "Simulation" });
   await modeButton.click();
 
   await page.keyboard.down("Shift");
-  await CECircle.dragTo(LERCircle);
+  await CErouterIcon.dragTo(LERrouterIcon);
   await page.keyboard.up("Shift");
 
   const link = SVG.locator("line");
@@ -299,10 +299,10 @@ test("Can change label on a CE router", async ({ page }) => {
 
   await CustomerButton.dragTo(SVG);
 
-  const CECircle = SVG.locator("circle");
-  const CECircleText = SVG.locator("text");
+  const CErouterIcon = SVG.locator("image");
+  const CErouterIconText = SVG.locator("text");
 
-  await CECircle.dblclick();
+  await CErouterIcon.dblclick();
 
   const input = page.getByLabel("Label:");
 
@@ -310,7 +310,7 @@ test("Can change label on a CE router", async ({ page }) => {
 
   await input.fill(newLabel);
   await page.keyboard.press("Escape");
-  await expect(CECircleText).toContainText(newLabel);
+  await expect(CErouterIconText).toContainText(newLabel);
 });
 
 test("Can change label on a LER router", async ({ page }) => {
@@ -319,10 +319,10 @@ test("Can change label on a LER router", async ({ page }) => {
 
   await EdgeButton.dragTo(SVG);
 
-  const CECircle = SVG.locator("circle");
-  const CECircleText = SVG.locator("text");
+  const CErouterIcon = SVG.locator("image");
+  const CErouterIconText = SVG.locator("text");
 
-  await CECircle.dblclick();
+  await CErouterIcon.dblclick();
 
   const input = page.getByLabel("Label:");
 
@@ -330,7 +330,7 @@ test("Can change label on a LER router", async ({ page }) => {
 
   await input.fill(newLabel);
   await page.keyboard.press("Escape");
-  await expect(CECircleText).toContainText(newLabel);
+  await expect(CErouterIconText).toContainText(newLabel);
 });
 
 test("Can change label on a LSR router", async ({ page }) => {
@@ -339,10 +339,10 @@ test("Can change label on a LSR router", async ({ page }) => {
 
   await SwitchButton.dragTo(SVG);
 
-  const CECircle = SVG.locator("circle");
-  const CECircleText = SVG.locator("text");
+  const CErouterIcon = SVG.locator("image");
+  const CErouterIconText = SVG.locator("text");
 
-  await CECircle.dblclick();
+  await CErouterIcon.dblclick();
 
   const input = page.getByLabel("Label:");
 
@@ -350,7 +350,7 @@ test("Can change label on a LSR router", async ({ page }) => {
 
   await input.fill(newLabel);
   await page.keyboard.press("Escape");
-  await expect(CECircleText).toContainText(newLabel);
+  await expect(CErouterIconText).toContainText(newLabel);
 });
 
 test("Can delete a CE router", async ({ page }) => {
@@ -359,16 +359,16 @@ test("Can delete a CE router", async ({ page }) => {
 
   await source.dragTo(target);
 
-  const circle = target.locator("circle");
+  const routerIcon = target.locator("image");
 
-  await circle.dblclick();
+  await routerIcon.dblclick();
 
   const dialog = page.locator("dialog[open]").first();
 
   await dialog.getByRole("button", { name: "Delete Router" }).click();
   await page.keyboard.press("Escape");
 
-  await expect(circle).not.toBeVisible();
+  await expect(routerIcon).not.toBeVisible();
 });
 
 test("Can delete a LER router", async ({ page }) => {
@@ -377,16 +377,16 @@ test("Can delete a LER router", async ({ page }) => {
 
   await source.dragTo(target);
 
-  const circle = target.locator("circle");
+  const routerIcon = target.locator("image");
 
-  await circle.dblclick();
+  await routerIcon.dblclick();
 
   const dialog = page.locator("dialog[open]").first();
 
   await dialog.getByRole("button", { name: "Delete Router" }).click();
   await page.keyboard.press("Escape");
 
-  await expect(circle).not.toBeVisible();
+  await expect(routerIcon).not.toBeVisible();
 });
 
 test("Can delete a LSR router", async ({ page }) => {
@@ -395,16 +395,16 @@ test("Can delete a LSR router", async ({ page }) => {
 
   await source.dragTo(target);
 
-  const circle = target.locator("circle");
+  const routerIcon = target.locator("image");
 
-  await circle.dblclick();
+  await routerIcon.dblclick();
 
   const dialog = page.locator("dialog[open]").first();
 
   await dialog.getByRole("button", { name: "Delete Router" }).click();
   await page.keyboard.press("Escape");
 
-  await expect(circle).not.toBeVisible();
+  await expect(routerIcon).not.toBeVisible();
 });
 
 test("Can delete a link", async ({ page }) => {
@@ -424,10 +424,10 @@ test("Can delete a link", async ({ page }) => {
   await CustomerButton.dragTo(SVG, { targetPosition: { x: middle.x - 100, y: middle.y } });
   await EdgeButton.dragTo(SVG, { targetPosition: { x: middle.x + 100, y: middle.y } });
 
-  const [CECircle, LERCircle] = await SVG.locator("circle").all();
+  const [CErouterIcon, LERrouterIcon] = await SVG.locator("image").all();
 
   await page.keyboard.down("Shift");
-  await CECircle.dragTo(LERCircle);
+  await CErouterIcon.dragTo(LERrouterIcon);
   await page.keyboard.up("Shift");
 
   const link = SVG.locator("line");
@@ -559,15 +559,15 @@ test("Can move a router when in edit mode", async ({ page }) => {
 
   await source.dragTo(SVG);
 
-  const circle = SVG.locator("circle");
+  const routerIcon = SVG.locator("image");
 
-  const oldPosition = await circle.boundingBox();
+  const oldPosition = await routerIcon.boundingBox();
 
   if (!oldPosition) throw new Error("Could not find old position");
 
-  await circle.dragTo(SVG, { targetPosition: { x: 100, y: 100 } });
+  await routerIcon.dragTo(SVG, { targetPosition: { x: 100, y: 100 } });
 
-  const newPosition = await circle.boundingBox();
+  const newPosition = await routerIcon.boundingBox();
 
   if (!newPosition) throw new Error("Could not find new position");
 
@@ -580,18 +580,18 @@ test("Cannot move a router when in edit mode", async ({ page }) => {
 
   await source.dragTo(SVG);
 
-  const circle = SVG.locator("circle");
+  const routerIcon = SVG.locator("image");
 
-  const oldPosition = await circle.getAttribute("cx");
+  const oldPosition = await routerIcon.getAttribute("cx");
 
   if (!oldPosition) throw new Error("Could not find old position");
 
   const modeButton = page.getByRole("button", { name: "Simulation" });
   await modeButton.click();
 
-  await circle.dragTo(SVG, { targetPosition: { x: 100, y: 0 } });
+  await routerIcon.dragTo(SVG, { targetPosition: { x: 100, y: 0 } });
 
-  const newPosition = await circle.getAttribute("cx");
+  const newPosition = await routerIcon.getAttribute("cx");
 
   if (!newPosition) throw new Error("Could not find new position");
 
