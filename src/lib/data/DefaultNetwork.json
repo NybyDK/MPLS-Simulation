@@ -4,40 +4,51 @@
       "id": 1,
       "node": {
         "label": "CE 1",
-        "x": -110,
-        "y": 2
+        "x": -351,
+        "y": -27
       },
       "address": "CE-IP-1",
-      "firstHop": {},
+      "firstHop": {
+        "CE-IP-5": 2,
+        "CE-IP-6": 2
+      },
       "type": "CE"
     },
     {
       "id": 2,
       "node": {
         "label": "LER 2",
-        "x": -47,
-        "y": -47
+        "x": -198,
+        "y": -32
       },
-      "FIB": {},
-      "LFIB": {
-        "145877": {
-          "outgoingLabel": -1,
-          "nextHop": "CE-IP-1"
+      "FIB": {
+        "CE-IP-5": {
+          "label": 306030,
+          "nextHop": "3"
+        },
+        "CE-IP-6": {
+          "label": 61379,
+          "nextHop": "3"
         }
       },
+      "LFIB": {},
       "type": "LER"
     },
     {
       "id": 3,
       "node": {
         "label": "LSR 3",
-        "x": -183,
-        "y": -162
+        "x": -91,
+        "y": -33
       },
       "LFIB": {
-        "697485": {
-          "outgoingLabel": 145877,
-          "nextHop": "2"
+        "61379": {
+          "outgoingLabel": 974214,
+          "nextHop": "4"
+        },
+        "306030": {
+          "outgoingLabel": 349733,
+          "nextHop": "4"
         }
       },
       "type": "LSR"
@@ -45,40 +56,47 @@
     {
       "id": 4,
       "node": {
-        "label": "CE 4",
-        "x": -337,
-        "y": -46
+        "label": "LER 4",
+        "x": 10,
+        "y": -35
       },
-      "address": "CE-IP-4",
-      "firstHop": {
-        "CE-IP-1": 5
+      "FIB": {},
+      "LFIB": {
+        "349733": {
+          "outgoingLabel": -1,
+          "nextHop": "CE-IP-5"
+        },
+        "974214": {
+          "outgoingLabel": -1,
+          "nextHop": "CE-IP-6"
+        }
       },
-      "type": "CE"
+      "type": "LER"
     },
     {
       "id": 5,
       "node": {
-        "label": "LER 5",
-        "x": -270,
-        "y": -131
+        "label": "CE 5",
+        "x": 128,
+        "y": -97
       },
-      "FIB": {
-        "CE-IP-1": {
-          "label": 697485,
-          "nextHop": "3"
-        }
+      "address": "CE-IP-5",
+      "firstHop": {},
+      "type": "CE"
+    },
+    {
+      "id": 6,
+      "node": {
+        "label": "CE 6",
+        "x": 119,
+        "y": 23
       },
-      "LFIB": {},
-      "type": "LER"
+      "address": "CE-IP-6",
+      "firstHop": {},
+      "type": "CE"
     }
   ],
   "links": [
-    {
-      "bandwidth": 0,
-      "id": "3-2",
-      "source": 3,
-      "target": 2
-    },
     {
       "bandwidth": 0,
       "id": "1-2",
@@ -87,15 +105,27 @@
     },
     {
       "bandwidth": 0,
-      "id": "3-5",
+      "id": "2-3",
+      "source": 2,
+      "target": 3
+    },
+    {
+      "bandwidth": 0,
+      "id": "3-4",
       "source": 3,
+      "target": 4
+    },
+    {
+      "bandwidth": 0,
+      "id": "4-5",
+      "source": 4,
       "target": 5
     },
     {
       "bandwidth": 0,
-      "id": "5-4",
-      "source": 5,
-      "target": 4
+      "id": "4-6",
+      "source": 4,
+      "target": 6
     }
   ]
 }

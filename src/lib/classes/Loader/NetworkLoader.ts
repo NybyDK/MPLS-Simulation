@@ -18,6 +18,7 @@ export default function loadDefaultNetwork() {
   }
 
   for (const routerData of validateDefaultNetwork.data.routers) {
+    network.incrementRouterCount();
     switch (routerData.type) {
       case "LER": {
         routerData.LFIB;
