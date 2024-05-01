@@ -5,6 +5,14 @@ import LFIB from "$lib/classes/MPLS/LFIB";
 
 export default class LSR extends Router {
   LFIB = new LFIB();
+  constructor(
+    id: number,
+    node: { label: string; x: number; y: number },
+    _lfib: LFIB | undefined = undefined,
+  ) {
+    super(id, node);
+    this.LFIB = _lfib ? _lfib : new LFIB();
+  }
 
   receivePacket(packet: Packet) {
     if (packet.fallbackRoute) return packet.fallback(this);

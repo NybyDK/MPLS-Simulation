@@ -1,6 +1,12 @@
 export default class LFIB {
   // Maps incoming label to outgoing label and next hop
-  map: Map<number, { outgoingLabel: number; nextHop: string }> = new Map();
+  map: Map<number, { outgoingLabel: number; nextHop: string }>;
+
+  constructor(
+    _map: Map<number, { outgoingLabel: number; nextHop: string }> | undefined = undefined,
+  ) {
+    this.map = _map ? _map : new Map<number, { outgoingLabel: number; nextHop: string }>();
+  }
 
   get(number: number) {
     return this.map.get(number);

@@ -125,7 +125,7 @@ export class NetworkStore implements Writable<NetworkState> {
     this.addRouter(router);
   }
 
-  private addRouter(router: Router) {
+  addRouter(router: Router) {
     this._routers.push(router);
     this.routerMap.set(router.id, router);
     if (router instanceof CE) this.CEMap.set(router.address, router);

@@ -18,9 +18,8 @@
     window.addEventListener("visibilitychanged", () => {
       $config.running = !document.hidden;
     });
-
-    loadDefaultNetwork();
   });
+  loadDefaultNetwork();
 </script>
 
 <div id="mpls">

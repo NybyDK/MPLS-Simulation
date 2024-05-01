@@ -1,5 +1,5 @@
 import { z } from "zod";
-import test from "$lib/data/test.json";
+import defaultNetworkJson from "$lib/data/DefaultNetwork.json";
 
 const NodeSchema = z.object({
   label: z.string(),
@@ -7,43 +7,45 @@ const NodeSchema = z.object({
   y: z.number(),
 });
 
-const LFIBSchema = z.record(
+export const LFIBSchema = z.record(
+  z.coerce.number(),
   z.object({
     outgoingLabel: z.number(),
     nextHop: z.string(),
   }),
 );
 
-const FIBSchema = z.record(
+export const FIBSchema = z.record(
+  z.string(),
   z.object({
     label: z.number(),
     nextHop: z.string(),
   }),
 );
 
-const firstHopSchema = z.record(z.number());
+export const firstHopSchema = z.record(z.number());
 
 const CESchema = z.object({
   address: z.string(),
-  firstHop: firstHopSchema,
+  firstHop: firstHopSchema.or(z.object({})),
+  type: z.literal("CE"),
 });
 
 const LERSchema = z.object({
-  LFIB: LFIBSchema,
-  FIB: FIBSchema,
+  LFIB: LFIBSchema.or(z.object({})),
+  FIB: FIBSchema.or(z.object({})),
+  type: z.literal("LER"),
 });
 
 const LSRSchema = z.object({
-  LFIB: LFIBSchema,
+  LFIB: LFIBSchema.or(z.object({})),
+  type: z.literal("LSR"),
 });
 
 const RouterSchema = z
   .object({
-    type: z.union([z.literal("CE"), z.literal("LER"), z.literal("LSR")]),
     id: z.number(),
     node: NodeSchema,
-    LFIB: z.optional(LFIBSchema),
-    FIB: z.optional(FIBSchema),
   })
   .and(z.union([CESchema, LERSchema, LSRSchema]));
 
@@ -59,4 +61,4 @@ const DefaultNetworkSchema = z.object({
   links: z.array(LinkSchema),
 });
 
-export const validateDefaultNetwork = DefaultNetworkSchema.safeParse(test);
+export const validateDefaultNetwork = DefaultNetworkSchema.safeParse(defaultNetworkJson);

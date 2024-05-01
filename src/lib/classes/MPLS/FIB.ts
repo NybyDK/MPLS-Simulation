@@ -1,6 +1,10 @@
 export default class FIB {
   // Maps Customer Edge address to first label and next hop
-  map: Map<string, { label: number; nextHop: string }> = new Map();
+  map: Map<string, { label: number; nextHop: string }>;
+
+  constructor(_map: Map<string, { label: number; nextHop: string }> | undefined = undefined) {
+    this.map = _map ? _map : new Map<string, { label: number; nextHop: string }>();
+  }
 
   get(address: string) {
     return this.map.get(address);
