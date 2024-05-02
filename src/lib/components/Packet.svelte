@@ -25,15 +25,16 @@
 
     if (!packetElement) return;
 
+    const current = packet.node;
+    const next = packet.nextHop.node;
+
     animation = packetElement.animate(
-      [
-        {
-          transform: `translate(${packet.node.x}px, ${packet.node.y}px)`,
-        },
-        {
-          transform: `translate(${packet.nextHop.node.x}px, ${packet.nextHop.node.y}px)`,
-        },
-      ],
+      {
+        transform: [
+          `translate(${current.x}px, ${current.y}px)`,
+          `translate(${next.x}px, ${next.y}px)`,
+        ],
+      },
       {
         duration: transitionDuration,
         easing: "linear",
@@ -47,14 +48,15 @@
     packet.node = packet.nextHop.node;
 
     const currentRouter = packet.nextHop;
-    if (currentRouter === packet.destination) return currentRouter.receivePacket(packet);
-    packet.nextHop.receivePacket(packet);
-    if (packet.validateNextHop(currentRouter)) return animateToNextHop();
 
-    if (packet.fallbackRoute) return;
+    currentRouter.receivePacket(packet);
 
-    packet.fallback(currentRouter);
-    if (packet.validateNextHop(currentRouter)) animateToNextHop();
+    // Return if packet arrived, or if fallback is required but disabled (currentRouter is the same as nextHop after receivePacket)
+    if (currentRouter === packet.nextHop) return;
+
+    if (!packet.validateNextHop(currentRouter)) return packet.drop("Invalid next hop");
+
+    animateToNextHop();
   }
 
   requestAnimationFrame(animateToNextHop);
