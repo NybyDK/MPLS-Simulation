@@ -53,13 +53,10 @@ export default class Packet {
   }
 
   validateNextHop(currentRouter: Router): boolean {
-    if (
+    return (
       network.doesLinkExist({ source: currentRouter, target: this.nextHop }) ||
       network.doesLinkExist({ source: this.nextHop, target: currentRouter })
-    ) {
-      return true;
-    }
-    return false;
+    );
   }
 
   setFallbackNextHop() {
