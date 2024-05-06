@@ -38,6 +38,8 @@ export class NetworkStore implements Writable<NetworkState> {
     });
   }
 
+  incrementRouterCount = () => this.routerCounter++;
+
   get routers() {
     return this._routers;
   }
@@ -58,7 +60,7 @@ export class NetworkStore implements Writable<NetworkState> {
     };
   }
 
-  addLink(input: { source: Router; target: Router }) {
+  addLink(input: { source: Router; target: Router; bandwidth?: number }) {
     if (input.source === input.target) return;
 
     if (!allowedLinks[input.source.type].includes(input.target.type)) return;
@@ -71,6 +73,10 @@ export class NetworkStore implements Writable<NetworkState> {
     }
 
     const link = new Link(`${input.source.id}-${input.target.id}`, input.source, input.target);
+
+    if (input.bandwidth !== undefined) {
+      link.bandwidth = input.bandwidth;
+    }
 
     this._links.push(link);
     this.notify();
@@ -121,7 +127,7 @@ export class NetworkStore implements Writable<NetworkState> {
     this.addRouter(router);
   }
 
-  private addRouter(router: Router) {
+  addRouter(router: Router) {
     this._routers.push(router);
     this.routerMap.set(router.id, router);
     if (router instanceof CE) this.CEMap.set(router.address, router);

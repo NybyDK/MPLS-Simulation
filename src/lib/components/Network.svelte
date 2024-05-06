@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import loadDefaultNetwork from "$lib/classes/Loader/NetworkLoader";
   import network from "$lib/stores/network";
   import config from "$lib/stores/config";
   import ViewBox from "$lib/components/ViewBox.svelte";
@@ -19,6 +20,7 @@
       $config.running = !document.hidden;
     });
   });
+  loadDefaultNetwork();
 </script>
 
 <div id="mpls">

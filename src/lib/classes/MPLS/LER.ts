@@ -1,12 +1,22 @@
 import network from "$lib/stores/network";
 import Router from "$lib/classes/MPLS/Router";
 import type Packet from "$lib/classes/MPLS/Packet";
-import LFIB from "$lib/classes/MPLS/LFIB";
 import FIB from "$lib/classes/MPLS/FIB";
+import LFIB from "$lib/classes/MPLS/LFIB";
 
 export default class LER extends Router {
-  FIB = new FIB();
-  LFIB = new LFIB();
+  FIB: FIB;
+  LFIB: LFIB;
+  constructor(
+    id: number,
+    node: { label: string; x: number; y: number },
+    _fib: FIB | undefined = undefined,
+    _lfib: LFIB | undefined = undefined,
+  ) {
+    super(id, node);
+    this.FIB = _fib ? _fib : new FIB();
+    this.LFIB = _lfib ? _lfib : new LFIB();
+  }
 
   receivePacket(packet: Packet) {
     if (packet.fallbackRoute) return packet.fallback(this);
