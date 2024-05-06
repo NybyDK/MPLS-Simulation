@@ -21,7 +21,9 @@
   }
 </script>
 
-<p>LFIB:</p>
+<p title="Maps incoming labels to outgoing labels and router IDs">
+  LFIB: <span style:color="grey">(?)</span>
+</p>
 <table>
   <thead>
     <tr>
