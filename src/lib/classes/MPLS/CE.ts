@@ -6,16 +6,6 @@ export default class CE extends Router {
   // Maps address destination to link
   firstHop: Map<string, number> = new Map();
 
-  constructor(
-    id: number,
-    node: { label: string; x: number; y: number },
-    map?: Map<string, number>,
-  ) {
-    super(id, node);
-    this.address = `CE-IP-${this.id}`;
-    this.firstHop = map ? map : new Map<string, number>();
-  }
-
   addEmptyEntry = () => {
     this.firstHop.set("", 0);
   };

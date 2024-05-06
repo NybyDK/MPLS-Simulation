@@ -38,7 +38,7 @@ export class NetworkStore implements Writable<NetworkState> {
     });
   }
 
-  incrementRouterCount = () => this.routerCounter++;
+  setRouterCount = (num: number) => (this.routerCounter = num);
 
   get routers() {
     return this._routers;
