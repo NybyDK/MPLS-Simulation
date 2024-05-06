@@ -375,7 +375,13 @@
   {/if}
   <slot />
   {#if interactionState === InteractionState.ADDING_ROUTERS && $editorState.placing}
-    <image cx={scaledX(previewRouterMouse.x)} cy={scaledY(previewRouterMouse.y)} />
+    <image
+      x={scaledX(previewRouterMouse.x) - 45 / 2}
+      y={scaledY(previewRouterMouse.y) - 45 / 2}
+      width="45"
+      height="45"
+      href={`/Router/${$editorState.placing}Router.svg`}
+    />
     <text
       x={scaledX(previewRouterMouse.x)}
       y={scaledY(previewRouterMouse.y)}

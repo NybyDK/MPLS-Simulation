@@ -6,13 +6,13 @@
 
 <image
   id={router.id.toString()}
-  x={router.node.x - 20}
-  y={router.node.y - 20}
+  x={router.node.x - 45 / 2}
+  y={router.node.y - 45 / 2}
   width="45"
   height="45"
   href={`/Router/${router.type}Router.svg`}
 />
-<text x={router.node.x + 2} y={router.node.y + 10} dominant-baseline="central" font-size="smaller">
+<text x={router.node.x} y={router.node.y + 10} dominant-baseline="central" font-size="smaller">
   {router.node.label}
 </text>
 
