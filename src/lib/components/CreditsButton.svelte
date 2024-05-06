@@ -30,9 +30,14 @@
   <p>with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.</p>
   <p>A copy of the license is included in the section entitled GNU Free Documentation License.</p>
   <br />
-  <p>The Icon used for CE routers is identical to the on on Wikimedia</p>
+  <p>
+    The Icon used for CE routers is almost identical to the on on Wikimedia (aspect ratio changed)
+  </p>
   <br />
-  <p>The Icon used for LSR/LER routers is identical, except with different colors.</p>
+  <p>
+    The Icon used for LSR/LER routers is almost identical, except with different colors. (aspect
+    ratio changed)
+  </p>
   <br />
   <p>Press Esc to close this popup</p>
 </Dialog>
