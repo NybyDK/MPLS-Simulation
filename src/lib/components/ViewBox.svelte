@@ -380,7 +380,7 @@
       y={scaledY(previewRouterMouse.y) - 45 / 2}
       width="45"
       height="45"
-      href={`/Router/${$editorState.placing}Router.svg`}
+      href={`/Router/${$editorState.placing}.svg`}
     />
     <text
       x={scaledX(previewRouterMouse.x)}
