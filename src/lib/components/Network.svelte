@@ -11,6 +11,7 @@
   import Toolbox from "$lib/components/Toolbox.svelte";
   import HelpButton from "$lib/components/HelpButton.svelte";
   import ViewBoxControls from "$lib/components/ViewBoxControls.svelte";
+  import CreditsButton from "$lib/components/CreditsButton.svelte";
 
   let zoom: (zoomFactor: number, mouse: { x: number; y: number }) => void;
 
@@ -40,6 +41,7 @@
     </div>
     <div id="bottom-left-bar" class="absolute-flex">
       <HelpButton />
+      <CreditsButton />
     </div>
     <div id="bottom-right-bar" class="absolute-flex">
       <ViewBoxControls bind:zoom />
