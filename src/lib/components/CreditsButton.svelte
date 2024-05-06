@@ -21,7 +21,7 @@
   <p>https://commons.wikimedia.org/wiki/File:Router.svg#</p>
   <br />
 
-  <p>Share Alike: We hereby grant persmission to</p>
+  <p>Share Alike: We hereby grant permission to</p>
   <p>
     Copy, distribute and/or modify this document under the terms of the GNU Free Documentation
     License.
