@@ -10,7 +10,7 @@
 
   $: buttons = [
     {
-      text: $config.running ? "⏸ Resume" : "⏵ Play",
+      text: $config.running ? "⏸ Pause" : "⏵ Play",
       callback: () => {
         $config.running = !$config.running;
       },
