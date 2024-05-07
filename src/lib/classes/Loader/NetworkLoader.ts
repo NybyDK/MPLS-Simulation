@@ -5,6 +5,8 @@ import LSR from "$lib/classes/MPLS/LSR";
 import CE from "$lib/classes/MPLS/CE";
 
 export default function loadNetwork(unparsedNetwork: unknown): boolean {
+  network.clear();
+
   const Network = NetworkSchema.safeParse(unparsedNetwork);
 
   if (!Network.success) {
