@@ -1,5 +1,4 @@
 import { z } from "zod";
-import defaultNetworkJson from "$lib/data/DefaultNetwork.json";
 
 const NodeSchema = z.object({
   label: z.string(),
@@ -56,9 +55,7 @@ const LinkSchema = z.object({
   bandwidth: z.number(),
 });
 
-const DefaultNetworkSchema = z.object({
+export const NetworkSchema = z.object({
   routers: z.array(RouterSchema),
   links: z.array(LinkSchema),
 });
-
-export const validateDefaultNetwork = DefaultNetworkSchema.safeParse(defaultNetworkJson);

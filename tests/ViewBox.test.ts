@@ -10,8 +10,8 @@ test.beforeEach(async ({ page }) => {
     void dialog.accept();
   });
 
-  const clear = page.getByRole("button", { name: "Clear Network" });
-  await clear.click();
+  const blank = page.getByRole("button", { name: "Blank" });
+  await blank.click();
 });
 
 test("No router detected on empty canvas", async ({ page }) => {

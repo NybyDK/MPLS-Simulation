@@ -31,7 +31,7 @@
   <p>A copy of the license is included in the section entitled GNU Free Documentation License.</p>
   <br />
   <p>
-    The Icon used for CE routers is almost identical to the on on Wikimedia (aspect ratio changed)
+    The Icon used for CE routers is almost identical to the one on Wikimedia (aspect ratio changed)
   </p>
   <br />
   <p>

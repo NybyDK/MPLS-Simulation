@@ -10,7 +10,7 @@
 
   $: buttons = [
     {
-      text: $config.running ? "Pause" : "Resume",
+      text: $config.running ? "⏸ Pause" : "⏵ Play",
       callback: () => {
         $config.running = !$config.running;
       },
@@ -34,7 +34,7 @@
   ];
 
   let resizeBar: HTMLElement;
-  let transition = "width 250ms";
+  let transition = "width 200ms";
 
   $: panelWidth = $locked ? 350 : 0;
 
@@ -67,7 +67,7 @@
 
     resizeBar.releasePointerCapture(event.pointerId);
 
-    transition = "width 250ms";
+    transition = "width 200ms";
   }
 </script>
 

@@ -15,7 +15,7 @@
     min-width: 30px;
     padding: 0 10px;
     user-select: none;
-    transition: background-color 250ms ease;
+    transition: background-color 200ms ease;
   }
 
   button:hover {
