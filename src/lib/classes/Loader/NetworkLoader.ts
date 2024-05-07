@@ -1,17 +1,21 @@
-import { validateDefaultNetwork } from "$lib/classes/Loader/NetworkSchemas";
+import { NetworkSchema } from "$lib/classes/Loader/NetworkSchemas";
 import network from "$lib/stores/network";
 import LER from "$lib/classes/MPLS/LER";
 import LSR from "$lib/classes/MPLS/LSR";
 import CE from "$lib/classes/MPLS/CE";
 
-export default function loadDefaultNetwork() {
-  if (!validateDefaultNetwork.success) {
-    throw validateDefaultNetwork.error;
+export default function loadNetwork(unparsedNetwork: unknown): boolean {
+  const Network = NetworkSchema.safeParse(unparsedNetwork);
+
+  if (!Network.success) {
+    // eslint-disable-next-line no-console
+    console.warn("Failed to load network data", Network.error);
+    return false;
   }
 
   let maxId = 0;
 
-  for (const routerData of validateDefaultNetwork.data.routers) {
+  for (const routerData of Network.data.routers) {
     maxId = Math.max(maxId, routerData.id);
     switch (routerData.type) {
       case "LER": {
@@ -53,7 +57,7 @@ export default function loadDefaultNetwork() {
 
   network.setRouterCount(maxId + 1);
 
-  for (const linkData of validateDefaultNetwork.data.links) {
+  for (const linkData of Network.data.links) {
     const sourceRouter = network.getRouter(linkData.source);
     const targetRouter = network.getRouter(linkData.target);
 
@@ -65,4 +69,6 @@ export default function loadDefaultNetwork() {
       });
     }
   }
+
+  return true;
 }

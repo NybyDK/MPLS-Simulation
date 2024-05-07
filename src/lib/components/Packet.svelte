@@ -8,7 +8,17 @@
   let animation: Animation | undefined;
   let packetElement: SVGElement | undefined;
 
-  $: if (animation) $config.running ? animation.play() : animation.pause();
+  $: {
+    if (animation) {
+      requestAnimationFrame(() => {
+        if ($config.running) {
+          animation.play();
+        } else {
+          animation.pause();
+        }
+      });
+    }
+  }
   $: if (animation) animation.playbackRate = $config.speedMultiplier;
 
   function calculateTransitionDuration() {

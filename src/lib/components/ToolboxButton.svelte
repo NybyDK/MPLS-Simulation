@@ -18,12 +18,19 @@
     margin: 2.5px;
     font-size: 16px;
     user-select: none;
-    transition: background-color 250ms ease;
     min-width: 35px;
+    transition:
+      background-color 200ms,
+      transform 200ms;
   }
 
   button:hover {
     background-color: #888888;
+  }
+
+  button:focus {
+    transform: scale(1.1);
+    background-color: #6495ed;
   }
 
   @media (prefers-color-scheme: dark) {

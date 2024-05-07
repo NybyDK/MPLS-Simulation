@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import loadDefaultNetwork from "$lib/classes/Loader/NetworkLoader";
   import network from "$lib/stores/network";
   import config from "$lib/stores/config";
+  import StartupDialog from "$lib/components/StartupDialog.svelte";
   import ViewBox from "$lib/components/ViewBox.svelte";
   import ControlPanel from "$lib/components/ControlPanel.svelte";
   import Packet from "$lib/components/Packet.svelte";
@@ -20,10 +20,10 @@
       $config.running = !document.hidden;
     });
   });
-  loadDefaultNetwork();
 </script>
 
 <div id="mpls">
+  <StartupDialog />
   <div id="network">
     <ViewBox bind:zoom>
       {#each $network.links as link (link.id)}

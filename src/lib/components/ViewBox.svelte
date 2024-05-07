@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import network from "$lib/stores/network";
+  import config from "$lib/stores/config";
   import editorState from "$lib/stores/editorState";
   import findShortestPath from "$lib/functions/findShortestPath";
   import locked from "$lib/stores/locked";
@@ -103,7 +104,8 @@
       case "Escape":
         $editorState.placing = null;
         break;
-      case "Space":
+      case "Tab":
+        if (routerSettingsDialog.open || linkSettingsDialog.open) return;
         event.preventDefault();
         $locked = !$locked;
         $editorState.placing = null;
@@ -118,6 +120,9 @@
       case "Digit3":
         $editorState.placing = "LSR";
         break;
+      case "Space":
+        event.preventDefault();
+        $config.running = !$config.running;
     }
   }
 

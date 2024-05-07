@@ -27,15 +27,21 @@
     to insert routers.
   </p>
   <br />
-  <p>Hold the shift key and drag routers to make links.</p>
+  <p>Pressing Space will pause/resume the packet animations.</p>
   <br />
-  <p>Hold the ctrl key and drag CE's to add destinations.</p>
+  <p>Pressing Tab will open the packet control panel.</p>
+  <br />
+  <p>Hold Shift and drag routers to make links.</p>
+  <br />
+  <p>Hold Ctrl and drag CE's to add destinations.</p>
   <br />
   <p>Double click a router or link to configure it.</p>
   <br />
   <p>The clear button will delete the entire network.</p>
   <br />
   <p>The export button will download your network as a .json file</p>
+  <br />
+  <p>If you are experiencing packets going offroad, please lower the max packets count.</p>
   <br />
   <p>Press Esc to close this popup.</p>
 </Dialog>
