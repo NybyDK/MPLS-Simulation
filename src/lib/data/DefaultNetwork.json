@@ -1,0 +1,131 @@
+{
+  "routers": [
+    {
+      "id": 1,
+      "node": {
+        "label": "CE 1",
+        "x": -350,
+        "y": -25
+      },
+      "address": "CE-IP-1",
+      "firstHop": {
+        "CE-IP-5": 2,
+        "CE-IP-6": 2
+      },
+      "type": "CE"
+    },
+    {
+      "id": 2,
+      "node": {
+        "label": "LER 2",
+        "x": -200,
+        "y": -25
+      },
+      "FIB": {
+        "CE-IP-5": {
+          "label": 306030,
+          "nextHop": "3"
+        },
+        "CE-IP-6": {
+          "label": 61379,
+          "nextHop": "3"
+        }
+      },
+      "LFIB": {},
+      "type": "LER"
+    },
+    {
+      "id": 3,
+      "node": {
+        "label": "LSR 3",
+        "x": -100,
+        "y": -25
+      },
+      "LFIB": {
+        "61379": {
+          "outgoingLabel": 974214,
+          "nextHop": "4"
+        },
+        "306030": {
+          "outgoingLabel": 349733,
+          "nextHop": "4"
+        }
+      },
+      "type": "LSR"
+    },
+    {
+      "id": 4,
+      "node": {
+        "label": "LER 4",
+        "x": 0,
+        "y": -25
+      },
+      "FIB": {},
+      "LFIB": {
+        "349733": {
+          "outgoingLabel": -1,
+          "nextHop": "CE-IP-5"
+        },
+        "974214": {
+          "outgoingLabel": -1,
+          "nextHop": "CE-IP-6"
+        }
+      },
+      "type": "LER"
+    },
+    {
+      "id": 5,
+      "node": {
+        "label": "CE 5",
+        "x": 125,
+        "y": -100
+      },
+      "address": "CE-IP-5",
+      "firstHop": {},
+      "type": "CE"
+    },
+    {
+      "id": 6,
+      "node": {
+        "label": "CE 6",
+        "x": 125,
+        "y": 50
+      },
+      "address": "CE-IP-6",
+      "firstHop": {},
+      "type": "CE"
+    }
+  ],
+  "links": [
+    {
+      "bandwidth": 0,
+      "id": "1-2",
+      "source": 1,
+      "target": 2
+    },
+    {
+      "bandwidth": 0,
+      "id": "2-3",
+      "source": 2,
+      "target": 3
+    },
+    {
+      "bandwidth": 0,
+      "id": "3-4",
+      "source": 3,
+      "target": 4
+    },
+    {
+      "bandwidth": 0,
+      "id": "4-5",
+      "source": 4,
+      "target": 5
+    },
+    {
+      "bandwidth": 0,
+      "id": "4-6",
+      "source": 4,
+      "target": 6
+    }
+  ]
+}

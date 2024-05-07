@@ -2,22 +2,17 @@
   import type Router from "$lib/classes/MPLS/Router";
 
   export let router: Router;
-
-  const colorMap = {
-    CE: "#7FC8F8",
-    LER: "#FFE45E",
-    LSR: "#FF6392",
-  };
 </script>
 
-<circle
+<image
   id={router.id.toString()}
-  cx={router.node.x}
-  cy={router.node.y}
-  r="20"
-  fill={colorMap[router.type]}
+  x={router.node.x - 45 / 2}
+  y={router.node.y - 45 / 2}
+  width="45"
+  height="45"
+  href={`Router/${router.type}.svg`}
 />
-<text x={router.node.x} y={router.node.y} dominant-baseline="central" font-size="smaller">
+<text x={router.node.x} y={router.node.y + 10} dominant-baseline="central" font-size="smaller">
   {router.node.label}
 </text>
 
@@ -28,7 +23,7 @@
     text-anchor: middle;
   }
 
-  circle {
+  image {
     cursor: pointer;
   }
 </style>

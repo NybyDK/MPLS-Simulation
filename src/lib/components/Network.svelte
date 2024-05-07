@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import loadDefaultNetwork from "$lib/classes/Loader/NetworkLoader";
   import network from "$lib/stores/network";
   import config from "$lib/stores/config";
   import ViewBox from "$lib/components/ViewBox.svelte";
@@ -10,6 +11,7 @@
   import Toolbox from "$lib/components/Toolbox.svelte";
   import HelpButton from "$lib/components/HelpButton.svelte";
   import ViewBoxControls from "$lib/components/ViewBoxControls.svelte";
+  import CreditsButton from "$lib/components/CreditsButton.svelte";
 
   let zoom: (zoomFactor: number, mouse: { x: number; y: number }) => void;
 
@@ -18,6 +20,7 @@
       $config.running = !document.hidden;
     });
   });
+  loadDefaultNetwork();
 </script>
 
 <div id="mpls">
@@ -38,6 +41,7 @@
     </div>
     <div id="bottom-left-bar" class="absolute-flex">
       <HelpButton />
+      <CreditsButton />
     </div>
     <div id="bottom-right-bar" class="absolute-flex">
       <ViewBoxControls bind:zoom />

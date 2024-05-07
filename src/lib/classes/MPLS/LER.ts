@@ -1,8 +1,8 @@
 import network from "$lib/stores/network";
 import Router from "$lib/classes/MPLS/Router";
 import type Packet from "$lib/classes/MPLS/Packet";
-import LFIB from "$lib/classes/MPLS/LFIB";
 import FIB from "$lib/classes/MPLS/FIB";
+import LFIB from "$lib/classes/MPLS/LFIB";
 
 export default class LER extends Router {
   FIB = new FIB();
