@@ -7,17 +7,17 @@ import CE from "$lib/classes/MPLS/CE";
 export default function loadNetwork(unparsedNetwork: unknown): boolean {
   network.clear();
 
-  const Network = NetworkSchema.safeParse(unparsedNetwork);
+  const parsedNetwork = NetworkSchema.safeParse(unparsedNetwork);
 
-  if (!Network.success) {
+  if (!parsedNetwork.success) {
     // eslint-disable-next-line no-console
-    console.warn("Failed to load network data", Network.error);
+    console.warn("Failed to load network data", parsedNetwork.error);
     return false;
   }
 
   let maxId = 0;
 
-  for (const routerData of Network.data.routers) {
+  for (const routerData of parsedNetwork.data.routers) {
     maxId = Math.max(maxId, routerData.id);
     switch (routerData.type) {
       case "LER": {
@@ -59,7 +59,7 @@ export default function loadNetwork(unparsedNetwork: unknown): boolean {
 
   network.setRouterCount(maxId + 1);
 
-  for (const linkData of Network.data.links) {
+  for (const linkData of parsedNetwork.data.links) {
     const sourceRouter = network.getRouter(linkData.source);
     const targetRouter = network.getRouter(linkData.target);
 
