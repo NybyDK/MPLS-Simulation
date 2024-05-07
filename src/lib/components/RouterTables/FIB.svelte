@@ -20,7 +20,7 @@
   }
 </script>
 
-<p>FIB:</p>
+<p title="Maps IP addresses to labels and router IDs">FIB: <span style:color="grey">(?)</span></p>
 <table>
   <thead>
     <tr>

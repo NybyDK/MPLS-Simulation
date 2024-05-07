@@ -65,13 +65,15 @@
   }
 </script>
 
-<p>Destinations:</p>
+<p title="Maps IP addresses to IDs of the first LERs in the LSPs found by Dijkstra's">
+  Destinations: <span style:color="grey">(?)</span>
+</p>
 <table>
   <thead>
     <tr>
       <th>Destination</th>
       <th>First hop</th>
-      <th></th>
+      <th><span style:color="grey" title="Generates shortest path">(?)</span></th>
       <th></th>
     </tr>
   </thead>
@@ -98,7 +100,7 @@
             }}
           />
         </td>
-        <td>
+        <td title="Generates shortest path">
           <SmallButton
             text="LDP"
             callback={() => {
