@@ -27,6 +27,10 @@
     to insert routers.
   </p>
   <br />
+  <p>CEs can only connect to LERs</p>
+  <p>LERs can only connect to CEs and LSRs</p>
+  <p>LSRs can only connect to LERs and other LSRs</p>
+  <br />
   <p>Pressing Space will pause/resume the packet animations.</p>
   <br />
   <p>Pressing Tab will open the packet control panel.</p>
