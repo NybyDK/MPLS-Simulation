@@ -112,18 +112,25 @@
         network.clearPackets();
         break;
       case "Digit1":
-        $editorState.placing = "CE";
+        buttonPreviewRouter("CE");
         break;
       case "Digit2":
-        $editorState.placing = "LER";
+        buttonPreviewRouter("LER");
         break;
       case "Digit3":
-        $editorState.placing = "LSR";
+        buttonPreviewRouter("LSR");
         break;
       case "Space":
         event.preventDefault();
         $config.running = !$config.running;
     }
+  }
+
+  function buttonPreviewRouter(type: "CE" | "LSR" | "LER") {
+    for (const dialog of document.querySelectorAll("dialog")) {
+      if (dialog.hasAttribute("open")) return;
+    }
+    $editorState.placing = type;
   }
 
   function handlePointerDown(event: PointerEvent) {
