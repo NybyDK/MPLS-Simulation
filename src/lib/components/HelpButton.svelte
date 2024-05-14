@@ -33,7 +33,7 @@
   <br />
   <p>Pressing Space will pause/resume the packet animations.</p>
   <br />
-  <p>Pressing Tab will open the packet control panel.</p>
+  <p>Pressing Tab will open the simulation panel.</p>
   <br />
   <p>Hold Shift, then click and drag between routers to create links</p>
   <br />

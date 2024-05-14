@@ -45,7 +45,8 @@
       background-color: #222222;
     }
 
-    :global(p) {
+    :global(p),
+    :global(h1) {
       color: white;
     }
 

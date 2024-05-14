@@ -9,7 +9,7 @@
 <div>
   {#each CERouters as source}
     {#each [...source.firstHop] as [destination]}
-      <LSPElement {source} destination={network.getSureCERouter(destination)} />
+      <LSPElement {source} destination={network.getCERouter(destination)} />
     {/each}
   {/each}
 </div>

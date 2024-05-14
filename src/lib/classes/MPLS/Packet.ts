@@ -59,6 +59,13 @@ export default class Packet {
     );
   }
 
+  validateFirstHop() {
+    return (
+      network.doesLinkExist({ source: this.source, target: this.nextHop }) ||
+      network.doesLinkExist({ source: this.nextHop, target: this.source })
+    );
+  }
+
   setFallbackNextHop() {
     const nextHop = this.fallbackRoute?.shift();
 

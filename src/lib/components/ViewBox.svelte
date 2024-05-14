@@ -100,6 +100,10 @@
   }
 
   function handleKeyDown(event: KeyboardEvent) {
+    for (const dialog of document.querySelectorAll("dialog")) {
+      if (dialog.hasAttribute("open")) return;
+    }
+
     switch (event.code) {
       case "Escape":
         $editorState.placing = null;
@@ -127,9 +131,7 @@
   }
 
   function buttonPreviewRouter(type: "CE" | "LSR" | "LER") {
-    for (const dialog of document.querySelectorAll("dialog")) {
-      if (dialog.hasAttribute("open")) return;
-    }
+    if ($locked) return;
     $editorState.placing = type;
   }
 
@@ -138,7 +140,7 @@
 
     event.preventDefault();
 
-    if (interactionState === InteractionState.ADDING_ROUTERS) {
+    if (interactionState === InteractionState.ADDING_ROUTERS && !$locked) {
       switch ($editorState.placing) {
         case "CE":
           network.createCE(scaledX(event.clientX), scaledY(event.clientY));

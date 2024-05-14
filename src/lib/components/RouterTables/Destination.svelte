@@ -28,6 +28,7 @@
 
     if (!destinationRouter) {
       alert("Destination router not found.");
+      event.target.value = destination;
       return;
     }
 
