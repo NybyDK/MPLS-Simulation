@@ -163,14 +163,6 @@ export class NetworkStore implements Writable<NetworkState> {
     return this.CEMap.get(address);
   }
 
-  getSureCERouter(address: string): CE {
-    const router = this.getCERouter(address);
-
-    if (!router) throw new Error(`Router with address ${address} not found`);
-
-    return router;
-  }
-
   addPacket(source: CE, destination: CE) {
     if (this._packets.length >= this.maxPackets) return;
 

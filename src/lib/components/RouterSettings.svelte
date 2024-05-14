@@ -30,12 +30,6 @@
 <Dialog
   bind:dialog
   on:close={() => {
-    // TODO: Temporary fix to not crash app (ISSUE #125) - remove when fixed - it's because LSPList.svelte using getSureCERouter
-    if (router instanceof CE) {
-      for (const key of router.firstHop.keys()) {
-        if (key === "") router.firstHop.delete(key);
-      }
-    }
     network.notify();
   }}
 >

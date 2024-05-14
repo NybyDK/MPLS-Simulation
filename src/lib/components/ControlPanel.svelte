@@ -26,7 +26,8 @@
       callback: () => {
         for (const source of CERouters) {
           for (const [destination] of source.firstHop) {
-            network.addPacket(source, network.getSureCERouter(destination));
+            const destinationRouter = network.getCERouter(destination);
+            if (destinationRouter) network.addPacket(source, destinationRouter);
           }
         }
       },
@@ -76,6 +77,7 @@
 </div>
 <div id="control-panel" style={`width: ${panelWidth}px; transition: ${transition};`}>
   <div id="control-panel-content">
+    <h1 id="simulation-panel-title">Simulation Panel</h1>
     <p id="packet-controls-title">Packet Controls</p>
     <p id="packet-controls-count">Count: {$network.packets.length}</p>
     <div id="control-panel-buttons">
@@ -114,6 +116,11 @@
 
   #visual-resize-bar {
     background-color: black;
+  }
+
+  #simulation-panel-title {
+    text-align: center;
+    padding-top: 20px;
   }
 
   #control-panel {

@@ -12,9 +12,9 @@
     if (animation) {
       requestAnimationFrame(() => {
         if ($config.running) {
-          animation.play();
+          animation?.play();
         } else {
-          animation.pause();
+          animation?.pause();
         }
       });
     }
@@ -69,7 +69,11 @@
     animateToNextHop();
   }
 
-  requestAnimationFrame(animateToNextHop);
+  if (packet.validateFirstHop()) {
+    requestAnimationFrame(animateToNextHop);
+  } else {
+    packet.drop("Invalid first hop");
+  }
 </script>
 
 <circle class:labeled={packet.label !== -1} bind:this={packetElement} r="5" />

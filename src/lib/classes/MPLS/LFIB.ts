@@ -15,6 +15,8 @@ export default class LFIB {
   };
 
   updateLabel = (oldLabel: number, newLabel: number) => {
+    if (oldLabel === newLabel) return;
+
     const oldValue = this.map.get(oldLabel);
     if (!oldValue) {
       alert(`Unable to update old LFIB label '${oldLabel}' to '${newLabel}'.`);

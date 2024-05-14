@@ -27,9 +27,13 @@
     to insert routers.
   </p>
   <br />
+  <p>CEs can only connect to LERs</p>
+  <p>LERs can only connect to CEs and LSRs</p>
+  <p>LSRs can only connect to LERs and other LSRs</p>
+  <br />
   <p>Pressing Space will pause/resume the packet animations.</p>
   <br />
-  <p>Pressing Tab will open the packet control panel.</p>
+  <p>Pressing Tab will open the simulation panel.</p>
   <br />
   <p>Hold Shift, then click and drag between routers to create links</p>
   <br />
@@ -40,6 +44,11 @@
   <p>The clear button will delete the entire network.</p>
   <br />
   <p>The export button will download your network as a .json file</p>
+  <br />
+  <p>
+    Packets colored <span style:color="#da443f">red</span> do not have a label, and packets colored
+    <span style:color="#6495ed">blue</span> have a label
+  </p>
   <br />
   <p>If you are experiencing packets going offroad, please lower the max packets count.</p>
   <br />
