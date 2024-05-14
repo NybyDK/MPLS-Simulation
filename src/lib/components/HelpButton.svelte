@@ -41,6 +41,11 @@
   <br />
   <p>The export button will download your network as a .json file</p>
   <br />
+  <p>
+    Packets colored <span style:color="#da443f">red</span> do not have a label, and packets colored
+    <span style:color="#6495ed">blue</span> have a label
+  </p>
+  <br />
   <p>If you are experiencing packets going offroad, please lower the max packets count.</p>
   <br />
   <p>Press Esc to close this popup.</p>

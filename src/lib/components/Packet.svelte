@@ -12,9 +12,9 @@
     if (animation) {
       requestAnimationFrame(() => {
         if ($config.running) {
-          animation.play();
+          animation?.play();
         } else {
-          animation.pause();
+          animation?.pause();
         }
       });
     }
