@@ -31,9 +31,9 @@
   <br />
   <p>Pressing Tab will open the packet control panel.</p>
   <br />
-  <p>Hold Shift and drag routers to make links.</p>
+  <p>Hold Shift, then click and drag between routers to create links</p>
   <br />
-  <p>Hold Ctrl and drag CE's to add destinations.</p>
+  <p>Hold Ctrl, then click and drag between CE's to create destinations</p>
   <br />
   <p>Double click a router or link to configure it.</p>
   <br />
