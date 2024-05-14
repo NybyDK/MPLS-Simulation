@@ -8,14 +8,14 @@
     
 		<link href="./_app/immutable/assets/0.CXJPL_OG.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/2.CWYhPr09.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.BOp7UfXb.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/entry.CN_9ciOs.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.C-zSCVqt.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.B0X6q_7Y.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.CY_Sai-S.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.DXlJru-X.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.C0r1-VwH.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.Du6RxjZs.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.B338ho9k.js">
 		<link rel="modulepreload" href="./_app/immutable/nodes/0.aES3s_kf.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/2.DoIKvJSk.js"><title>MPLS Simulation</title><!-- HEAD_svelte-3r1ff8_START --><meta property="og:title" content="MPLS Simulation"><meta property="og:type" content="website"><meta property="og:url" content="https://nybydk.github.io/MPLS-Simulation/"><meta property="og:image" content="https://nybydk.github.io/MPLS-Simulation/favicon.png"><meta property="og:description" content="Intro-level MPLS Simulation Playground"><meta name="theme-color" content="hotpink"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"><!-- HEAD_svelte-3r1ff8_END -->
+		<link rel="modulepreload" href="./_app/immutable/nodes/2.DJ5vY6ZI.js"><title>MPLS Simulation</title><!-- HEAD_svelte-3r1ff8_START --><meta property="og:title" content="MPLS Simulation"><meta property="og:type" content="website"><meta property="og:url" content="https://nybydk.github.io/MPLS-Simulation/"><meta property="og:image" content="https://nybydk.github.io/MPLS-Simulation/favicon.png"><meta property="og:description" content="Intro-level MPLS Simulation Playground"><meta name="theme-color" content="hotpink"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"><!-- HEAD_svelte-3r1ff8_END -->
   </head>
   <body data-sveltekit-preload-data="hover">
     <div style="display: contents">   <div id="mpls" class="svelte-1kpnzxr"><dialog class="svelte-p5wejv"><h1 class="svelte-1os0cpz" data-svelte-h="svelte-4p3d56">Welcome</h1> <p class="svelte-1os0cpz" data-svelte-h="svelte-1helk6g">This tool is designed to mimic the basics of MPLS</p> <p class="svelte-1os0cpz" data-svelte-h="svelte-1vyl31e">Choose a network:</p> <div class="buttons svelte-1os0cpz"><button class="svelte-13ziii4">Blank </button><button class="svelte-13ziii4">Small </button><button class="svelte-13ziii4">Large </button><button class="svelte-13ziii4">Import </button></div> </dialog> <div id="network" class="svelte-1kpnzxr"><p style="font-size: 200px;" data-svelte-h="svelte-qybri">Loading...</p> <svg viewBox="0 0 0 0" role="button" tabindex="-1" class="svelte-huetud" style="cursor: move;">  </svg>  <dialog class="svelte-p5wejv"><p data-svelte-h="svelte-1214eal">You somehow double-clicked on a router that can&#39;t be found?</p> </dialog> <dialog class="svelte-p5wejv"><p data-svelte-h="svelte-1tevm7q">You somehow double-clicked on a link that can&#39;t be found?</p> </dialog> <div id="top-left-bar" class="absolute-flex svelte-1kpnzxr"><button style="width: 100px; background-color: #6495ED;" class="svelte-13ziii4">Simulation </button>  <div draggable="true" role="button" tabindex="-1" style="background-color: #7FC8F8;" class="svelte-dfkep2">+ Customer </div> <div draggable="true" role="button" tabindex="-1" style="background-color: #FFE45E;" class="svelte-dfkep2">+ Edge </div> <div draggable="true" role="button" tabindex="-1" style="background-color: #FF6392;" class="svelte-dfkep2">+ Switch </div> <button class="svelte-13ziii4">Clear Network </button><button class="svelte-13ziii4">Clear Links </button><button class="svelte-13ziii4">Clear Tables </button><button class="svelte-13ziii4">Export </button></div> <div id="bottom-left-bar" class="absolute-flex svelte-1kpnzxr"><div><button class="svelte-13ziii4">Help </button></div> <dialog class="svelte-p5wejv"><p data-svelte-h="svelte-bhocp0">Drag and drop routers to add them to the network.</p> <br> <p data-svelte-h="svelte-12tzi3f">Instead of drag and drop, you can also click and hold shift while continuously clicking to add
@@ -26,7 +26,7 @@
 			
 			<script>
 				{
-					__sveltekit_g1icta = {
+					__sveltekit_1sobjjl = {
 						base: new URL(".", location).pathname.slice(0, -1)
 					};
 
@@ -35,8 +35,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.BOp7UfXb.js"),
-						import("./_app/immutable/entry/app.C0r1-VwH.js")
+						import("./_app/immutable/entry/start.C-zSCVqt.js"),
+						import("./_app/immutable/entry/app.Du6RxjZs.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2],
