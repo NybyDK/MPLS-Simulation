@@ -23,8 +23,8 @@
   </p>
   <br />
   <p>
-    Pressing 1, 2 or 3 will respectively select CE, LER or LSR, this works with the holding of shift
-    to insert routers.
+    Pressing 1, 2 or 3 will respectively select customer edge router (CE), lable edge router (LER)
+    or label switch router (LSR), this works with the holding of shift to insert routers.
   </p>
   <br />
   <p>CEs can only connect to LERs</p>
