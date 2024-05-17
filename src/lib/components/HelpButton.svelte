@@ -37,7 +37,7 @@
   <br />
   <p>Hold Shift, then click and drag between routers to create links</p>
   <br />
-  <p>Hold Ctrl, then click and drag between CE's to create destinations</p>
+  <p>Hold alt, then click and drag between CE's to create destinations</p>
   <br />
   <p>Double click a router or link to configure it.</p>
   <br />
