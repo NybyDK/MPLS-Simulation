@@ -7,10 +7,17 @@
   let transitionDuration: number;
   let animation: Animation | undefined;
   let packetElement: SVGElement | undefined;
+  let textX: number = 0;
+  let textY: number = 0;
 
   $: {
     if (animation) {
       requestAnimationFrame(() => {
+        if (packetElement) {
+          const matrix = new DOMMatrixReadOnly(getComputedStyle(packetElement).transform);
+          textX = matrix.m41;
+          textY = matrix.m42;
+        }
         if ($config.running) {
           animation?.play();
         } else {
@@ -77,13 +84,28 @@
 </script>
 
 <circle class:labeled={packet.label !== -1} bind:this={packetElement} r="5" />
+{#if packetElement}
+  <text x={textX - 50} y={textY - 15}>Label: {packet.label}</text>
+{/if}
 
 <style>
   circle {
+    cursor: default;
     fill: #da443f; /*weird red*/
   }
 
   .labeled {
     fill: #6495ed; /*light blue*/
+  }
+
+  text {
+    font-size: 24px;
+    fill: white;
+    stroke: black;
+    display: none;
+  }
+
+  circle:hover + text {
+    display: block;
   }
 </style>
